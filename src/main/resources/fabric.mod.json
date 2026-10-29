@@ -6,11 +6,12 @@
   "description": "${description}",
   "authors": [
     "${mod_author}",
-    "cassiancc"
+    "Fabric Port: cassiancc"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://modrinth.com/mod/cultural-delights",
+    "sources": "https://github.com/Baisylia/Cultural-Delights-1.19.2",
+    "issues": "https://github.com/Baisylia/Cultural-Delights-1.19.2/issues"
   },
   "license": "${license}",
   "icon": "culturaldelights.png",
@@ -21,6 +22,12 @@
     ],
     "client": [
       "com.baisylia.culturaldelights.refabricated.CulturalDelightsRefabricatedClient"
+    ],
+    "emi": [
+      "com.baisylia.culturaldelights.integration.emi.EMICulturalDelightsPlugin"
+    ],
+    "jei_mod_plugin": [
+      "com.baisylia.culturaldelights.integration.jei.JEICulturalDelightsPlugin"
     ]
   },
   "mixins": [
