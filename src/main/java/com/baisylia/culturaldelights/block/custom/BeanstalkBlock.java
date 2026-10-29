@@ -2,6 +2,7 @@ package com.baisylia.culturaldelights.block.custom;
 
 import com.baisylia.culturaldelights.advancement.ModAdvancements;
 import com.baisylia.culturaldelights.block.ModBlocks;
+import com.baisylia.culturaldelights.refabricated.util.ToolModifiableBlock;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,12 +25,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
 
-public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
+public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock, ToolModifiableBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty SPIRAL = IntegerProperty.create("spiral", 0, 3);
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 1, 5);
@@ -201,14 +201,14 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
     @Nullable
     @Override
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-        if (itemAbility == ItemAbilities.AXE_STRIP) {
+        if (itemAbility == ItemAbility.AXE_STRIP) {
             return ModBlocks.STRIPPED_BEANSTALK.get().defaultBlockState()
                     .setValue(StrippedBeanstalkBlock.FACING, state.getValue(FACING))
                     .setValue(StrippedBeanstalkBlock.FLOWERING, state.getValue(FLOWERING))
                     .setValue(StrippedBeanstalkBlock.ROOTING, state.getValue(ROOTING))
                     .setValue(StrippedBeanstalkBlock.WATERLOGGED, state.getValue(WATERLOGGED));
         }
-        return super.getToolModifiedState(state, context, itemAbility, simulate);
+        return ToolModifiableBlock.super.getToolModifiedState(state, context, itemAbility, simulate);
     }
 
     @Override

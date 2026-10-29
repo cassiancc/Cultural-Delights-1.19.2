@@ -7,12 +7,14 @@ import com.baisylia.culturaldelights.recipes.OvenRecipe;
 import com.baisylia.culturaldelights.recipes.OvenShapedRecipe;
 import com.baisylia.culturaldelights.screens.OvenMenu;
 import com.baisylia.culturaldelights.sound.ModSounds;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -30,16 +32,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 import static com.baisylia.culturaldelights.block.custom.OvenBlock.LIT;
 
-public class OvenBlockEntity extends BlockEntity implements MenuProvider {
+public class OvenBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos> {
 
     protected final ContainerData data;
     private int progress = 0;
@@ -138,8 +140,8 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots().size());
+        for (int i = 0; i < itemHandler.getSlots().size(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
 
@@ -177,8 +179,8 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             return false;
         }
 
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
+        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots().size());
+        for (int i = 0; i < entity.itemHandler.getSlots().size(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
@@ -238,8 +240,8 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
 
     private static void craftItem(OvenBlockEntity entity) {
         Level level = entity.level;
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
+        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots().size());
+        for (int i = 0; i < entity.itemHandler.getSlots().size(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
         Optional<RecipeHolder<OvenRecipe>> recipeMatch = level.getRecipeManager()
@@ -263,12 +265,12 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
 
             for (int i = 0; i < 9; ++i) {
                 ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-                if (slotStack.hasCraftingRemainingItem()) {
+                if (!slotStack.getRecipeRemainder().isEmpty()) {
                     Direction direction = entity.getBlockState().getValue(OvenBlock.FACING).getCounterClockWise();
                     double x = (double)entity.worldPosition.getX() + 0.5 + (double)direction.getStepX() * 0.25;
                     double y = (double)entity.worldPosition.getY() + 0.7;
                     double z = (double)entity.worldPosition.getZ() + 0.5 + (double)direction.getStepZ() * 0.25;
-                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (double)((float)direction.getStepX() * 0.08F), 0.25, (double)((float)direction.getStepZ() * 0.08F));
+                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getRecipeRemainder(), x, y, z, (double)((float)direction.getStepX() * 0.08F), 0.25, (double)((float)direction.getStepZ() * 0.08F));
                 }
             }
 
@@ -326,5 +328,10 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
         double y = (double)this.worldPosition.getY() + (double)0.5F + (double)normal.getY() / (double)2.0F;
         double z = (double)this.worldPosition.getZ() + (double)0.5F + (double)normal.getZ() / (double)2.0F;
         this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+    }
+
+    @Override
+    public BlockPos getScreenOpeningData(ServerPlayer player) {
+        return this.worldPosition;
     }
 }

@@ -13,13 +13,8 @@ public class BucketFoodItem extends Item {
     }
 
     @Override
-    public ItemStack getCraftingRemainingItem(ItemStack stack) {
+    public ItemStack getRecipeRemainder(ItemStack stack) {
         return new ItemStack(Items.BUCKET);
-    }
-
-    @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack) {
-        return true;
     }
 
     @Override

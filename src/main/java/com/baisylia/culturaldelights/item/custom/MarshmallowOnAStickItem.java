@@ -56,7 +56,7 @@ public class MarshmallowOnAStickItem extends Item {
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         if (canCookOrIsCooking(stack)) {
             int fireAspectLevel = ItemUtils.getValidatedEnchantmentLevel(Enchantments.FIRE_ASPECT, entity.level().registryAccess(), stack);
-            int cookingTime = stack.getOrDefault(ModDataComponents.COOK_TIME, COOKING_TIME);
+            int cookingTime = stack.getOrDefault(ModDataComponents.COOK_TIME.get(), COOKING_TIME);
             return SkilletBlock.getSkilletCookingTime(cookingTime, fireAspectLevel);
         } else {
             return super.getUseDuration(stack, entity);
@@ -66,7 +66,7 @@ public class MarshmallowOnAStickItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack cookingStack = player.getItemInHand(hand);
-        boolean cooking = cookingStack.has(ModDataComponents.COOK_TIME);
+        boolean cooking = cookingStack.has(ModDataComponents.COOK_TIME.get());
         if (isPlayerNearHeatSource(player, level)) {
             if (cooking) {
                 player.startUsingItem(hand);
@@ -75,13 +75,13 @@ public class MarshmallowOnAStickItem extends Item {
 
             Optional<ItemStack> recipe = getCookingRecipe(cookingStack);
             if (recipe.isPresent()) {
-                cookingStack.set(ModDataComponents.COOK_TIME, COOKING_TIME);
+                cookingStack.set(ModDataComponents.COOK_TIME.get(), COOKING_TIME);
                 player.startUsingItem(hand);
                 return InteractionResultHolder.consume(cookingStack);
             }
             return InteractionResultHolder.pass(cookingStack);
         } else {
-            cookingStack.remove(ModDataComponents.COOK_TIME);
+            cookingStack.remove(ModDataComponents.COOK_TIME.get());
             return super.use(level, player, hand);
         }
     }
@@ -111,14 +111,14 @@ public class MarshmallowOnAStickItem extends Item {
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         if (entity instanceof Player) {
-            stack.remove(ModDataComponents.COOK_TIME);
+            stack.remove(ModDataComponents.COOK_TIME.get());
         }
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (entity instanceof Player player) {
-            if (stack.has(ModDataComponents.COOK_TIME)) {
+            if (stack.has(ModDataComponents.COOK_TIME.get())) {
                 Optional<ItemStack> cookingRecipe = getCookingRecipe(stack);
                 cookingRecipe.ifPresent(resultStack -> {
                     resultStack.setCount(1);
@@ -144,7 +144,7 @@ public class MarshmallowOnAStickItem extends Item {
                         CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
                     }
                 });
-                stack.remove(ModDataComponents.COOK_TIME);
+                stack.remove(ModDataComponents.COOK_TIME.get());
             } else {
                 return super.finishUsingItem(stack, level, entity);
             }
@@ -178,6 +178,6 @@ public class MarshmallowOnAStickItem extends Item {
         if (stack.is(ModItems.CHARRED_MARSHMALLOW_ON_A_STICK.get())) {
             return false;
         }
-        return stack.has(ModDataComponents.COOK_TIME);
+        return stack.has(ModDataComponents.COOK_TIME.get());
     }
 }

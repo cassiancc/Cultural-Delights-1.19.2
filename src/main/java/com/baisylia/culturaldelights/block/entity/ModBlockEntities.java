@@ -6,8 +6,8 @@ import com.baisylia.culturaldelights.block.entity.custom.OvenBlockEntity;
 import com.baisylia.culturaldelights.block.entity.custom.VatBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
 
 import java.util.function.Supplier;
 

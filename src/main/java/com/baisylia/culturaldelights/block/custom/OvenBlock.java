@@ -92,7 +92,7 @@ public class OvenBlock extends BaseEntityBlock {
         if (!level.isClientSide) {
             BlockEntity tileEntity = level.getBlockEntity(pos);
             if (tileEntity instanceof OvenBlockEntity) {
-                player.openMenu((OvenBlockEntity)tileEntity, pos);
+                player.openMenu((OvenBlockEntity)tileEntity);
             }
             return ItemInteractionResult.SUCCESS;
         }

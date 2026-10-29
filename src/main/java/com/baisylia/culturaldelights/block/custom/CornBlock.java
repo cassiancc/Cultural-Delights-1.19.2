@@ -25,9 +25,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.CommonHooks;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class CornBlock extends CropBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
@@ -141,16 +140,15 @@ public class CornBlock extends CropBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!level.isAreaLoaded(pos, 1)) return;
+        if (!level.hasChunksAt(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) return;
         if (state.getValue(HEIGHT) != 0) return;
 
         if (level.getRawBrightness(pos, 0) >= 9) {
             int age = this.getAge(state);
             if (age < this.getMaxAge()) {
-                float speed = getGrowthSpeed(state, level, pos);
-                if (CommonHooks.canCropGrow(level, pos, state, random.nextInt((int) (25.0F / speed) + 1) == 0)) {
+                float speed = getGrowthSpeed(state.getBlock(), level, pos);
+                if (random.nextInt((int) (25.0F / speed) + 1) == 0) {
                     this.growCropBy(level, pos, state, 1);
-                    CommonHooks.fireCropGrowPost(level, pos, state);
                 }
             }
         }

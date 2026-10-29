@@ -6,9 +6,9 @@ import com.baisylia.culturaldelights.effect.custom.IntoxicationEffect;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredHolder;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
 
 public class ModEffects {
 

@@ -1,11 +1,11 @@
 package com.baisylia.culturaldelights.screens.slot;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
-public class ModResultSlot extends SlotItemHandler {
-    public ModResultSlot(IItemHandler itemHandler, int index, int x, int y) {
+public class ModResultSlot extends ItemHandlerSlot {
+    public ModResultSlot(ItemStackHandler itemHandler, int index, int x, int y) {
         super(itemHandler, index, x, y);
     }
 

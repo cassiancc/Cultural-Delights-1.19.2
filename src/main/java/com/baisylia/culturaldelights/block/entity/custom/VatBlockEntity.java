@@ -4,15 +4,18 @@ import com.baisylia.culturaldelights.block.custom.VatBlock;
 import com.baisylia.culturaldelights.block.entity.ModBlockEntities;
 import com.baisylia.culturaldelights.recipes.ModRecipes;
 import com.baisylia.culturaldelights.recipes.VatRecipe;
+import com.baisylia.culturaldelights.refabricated.RangedWrapper;
 import com.baisylia.culturaldelights.screens.VatMenu;
 import com.baisylia.culturaldelights.util.ModTags;
 import com.baisylia.culturaldelights.util.VatTemperature;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -32,15 +35,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RangedWrapper;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
-public class VatBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class VatBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, WorldlyContainer {
 
     private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6};
     private static final int OUTPUT_SLOT = 7;
@@ -59,8 +60,8 @@ public class VatBlockEntity extends BlockEntity implements MenuProvider, Worldly
             }
         }
     };
-    private final IItemHandler inputHandler = new RangedWrapper(itemHandler, 0, 7);
-    private final IItemHandler outputHandler = new RangedWrapper(itemHandler, 7, 8);
+    private final ItemStackHandler inputHandler = new RangedWrapper(itemHandler, 0, 7);
+    private final ItemStackHandler outputHandler = new RangedWrapper(itemHandler, 7, 8);
 
     public VatBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.VAT_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -264,14 +265,14 @@ public class VatBlockEntity extends BlockEntity implements MenuProvider, Worldly
         // Handle by-products (empty buckets, etc.)
         for (int i = 0; i < 7; ++i) {
             ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-            if (slotStack.hasCraftingRemainingItem()) {
+            if (!slotStack.getRecipeRemainder().isEmpty()) {
                 Direction facing = entity.getBlockState().getValue(VatBlock.FACING);
                 Direction direction = getEjectionDirection(entity.worldPosition, entity.level, facing);
                 double offset = facing.getAxis().isHorizontal() ? 0.25 : 0.6;
                 double x = (double) entity.worldPosition.getX() + 0.5 + (double) direction.getStepX() * offset;
                 double y = (double) entity.worldPosition.getY() + (facing.getAxis().isHorizontal() ? 0.7 : 0.5);
                 double z = (double) entity.worldPosition.getZ() + 0.5 + (double) direction.getStepZ() * offset;
-                spawnItemEntity(entity.level, slotStack.getCraftingRemainingItem(), x, y, z, (float) direction.getStepX() * 0.08F, 0.25, (float) direction.getStepZ() * 0.08F);
+                spawnItemEntity(entity.level, slotStack.getRecipeRemainder(), x, y, z, (float) direction.getStepX() * 0.08F, 0.25, (float) direction.getStepZ() * 0.08F);
             }
         }
 
@@ -306,7 +307,7 @@ public class VatBlockEntity extends BlockEntity implements MenuProvider, Worldly
         return new VatMenu(pContainerId, pInventory, this, this.data);
     }
 
-    public IItemHandler getItemHandler(@Nullable Direction side) {
+    public vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
             return this.itemHandler;
         }
@@ -335,8 +336,8 @@ public class VatBlockEntity extends BlockEntity implements MenuProvider, Worldly
     }
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots().size());
+        for (int i = 0; i < itemHandler.getSlots().size(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
 
@@ -351,12 +352,12 @@ public class VatBlockEntity extends BlockEntity implements MenuProvider, Worldly
 
     @Override
     public int getContainerSize() {
-        return this.itemHandler.getSlots();
+        return this.itemHandler.getSlots().size();
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < this.itemHandler.getSlots(); ++i) {
+        for (int i = 0; i < this.itemHandler.getSlots().size(); ++i) {
             ItemStack itemStack = this.itemHandler.getStackInSlot(i);
             if (!itemStack.isEmpty()) {
                 return false;
@@ -449,5 +450,10 @@ public class VatBlockEntity extends BlockEntity implements MenuProvider, Worldly
         for (int i = 0; i < 8; ++i) {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
+    }
+
+    @Override
+    public BlockPos getScreenOpeningData(ServerPlayer player) {
+        return worldPosition;
     }
 }

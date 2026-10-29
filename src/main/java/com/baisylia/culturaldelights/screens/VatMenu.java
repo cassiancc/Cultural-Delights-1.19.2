@@ -4,6 +4,7 @@ import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.block.entity.custom.VatBlockEntity;
 import com.baisylia.culturaldelights.screens.slot.ModResultSlot;
 import com.baisylia.culturaldelights.util.VatTemperature;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -11,8 +12,8 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import vectorwing.farmersdelight.refabricated.inventory.ItemHandlerSlot;
+import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 
 public class VatMenu extends AbstractContainerMenu {
 
@@ -20,8 +21,8 @@ public class VatMenu extends AbstractContainerMenu {
     private final Level level;
     private final ContainerData data;
 
-    public VatMenu(int pContainerId, Inventory inv, RegistryFriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(3));
+    public VatMenu(int pContainerId, Inventory inv, BlockPos extraData) {
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData), new SimpleContainerData(3));
     }
 
     public VatMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -34,14 +35,14 @@ public class VatMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        IItemHandler handler = this.blockEntity.getItemHandler(null);
-        this.addSlot(new SlotItemHandler(handler, 0, 46, 17));
-        this.addSlot(new SlotItemHandler(handler, 1, 64, 17));
-        this.addSlot(new SlotItemHandler(handler, 2, 46, 35));
-        this.addSlot(new SlotItemHandler(handler, 3, 64, 35));
-        this.addSlot(new SlotItemHandler(handler, 4, 46, 53));
-        this.addSlot(new SlotItemHandler(handler, 5, 64, 53));
-        this.addSlot(new SlotItemHandler(handler, 6, 122, 53));
+        ItemStackHandler handler = this.blockEntity.getItemHandler(null);
+        this.addSlot(new ItemHandlerSlot(handler, 0, 46, 17));
+        this.addSlot(new ItemHandlerSlot(handler, 1, 64, 17));
+        this.addSlot(new ItemHandlerSlot(handler, 2, 46, 35));
+        this.addSlot(new ItemHandlerSlot(handler, 3, 64, 35));
+        this.addSlot(new ItemHandlerSlot(handler, 4, 46, 53));
+        this.addSlot(new ItemHandlerSlot(handler, 5, 64, 53));
+        this.addSlot(new ItemHandlerSlot(handler, 6, 122, 53));
         this.addSlot(new ModResultSlot(handler, 7, 122, 24));
 
         addDataSlots(data);

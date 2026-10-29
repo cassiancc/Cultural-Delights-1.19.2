@@ -6,9 +6,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.EffectCure;
 
-import java.util.Set;
+import static com.baisylia.culturaldelights.refabricated.CulturalDelightsRefabricated.INTOXICATION_STUMBLE_X;
+import static com.baisylia.culturaldelights.refabricated.CulturalDelightsRefabricated.INTOXICATION_STUMBLE_Z;
 
 public class IntoxicationEffect extends MobEffect {
 
@@ -18,7 +18,7 @@ public class IntoxicationEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        var tag = entity.getPersistentData();
+        var tag = entity;
 
         // Slowness
         double speedFactor = 1.0 - 0.05 * amplifier;
@@ -28,16 +28,16 @@ public class IntoxicationEffect extends MobEffect {
 
         // Stumbling
         if (amplifier >= 4) {
-            double stumbleX = tag.getDouble("cd_intox_stumbleX");
-            double stumbleZ = tag.getDouble("cd_intox_stumbleZ");
+            double stumbleX = tag.getAttachedOrCreate(INTOXICATION_STUMBLE_X);
+            double stumbleZ = tag.getAttachedOrCreate(INTOXICATION_STUMBLE_Z);
 
             if (entity.getRandom().nextDouble() < 0.1) {
                 stumbleX = (entity.getRandom().nextDouble() - 0.5) * 0.15;
                 stumbleZ = (entity.getRandom().nextDouble() - 0.5) * 0.15;
             }
 
-            tag.putDouble("cd_intox_stumbleX", stumbleX);
-            tag.putDouble("cd_intox_stumbleZ", stumbleZ);
+            tag.setAttached(INTOXICATION_STUMBLE_X, stumbleX);
+            tag.setAttached(INTOXICATION_STUMBLE_Z, stumbleZ);
 
             movement = movement.add(stumbleX, 0, stumbleZ);
         }
@@ -70,10 +70,5 @@ public class IntoxicationEffect extends MobEffect {
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
-    }
-
-    @Override
-    public void fillEffectCures(Set<EffectCure> cures, MobEffectInstance effectInstance) {
-        // Intoxication can't be cured by milk
     }
 }

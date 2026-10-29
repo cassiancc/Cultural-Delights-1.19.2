@@ -4,9 +4,9 @@ import com.baisylia.culturaldelights.CulturalDelights;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.registries.Registries;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredHolder;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
 
 public class ModAdvancements {
     public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS =

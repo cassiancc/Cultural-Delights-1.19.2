@@ -2,21 +2,17 @@ package com.baisylia.culturaldelights.event;
 
 import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.effect.ModEffects;
+import com.baisylia.culturaldelights.refabricated.event.MobEffectEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 import java.util.Objects;
 
-@EventBusSubscriber(modid = CulturalDelights.MOD_ID)
 public class EventBusEvents {
 
     // Cheesers wow
-    @SubscribeEvent
     public static void onEffectApplicable(MobEffectEvent.Applicable event) {
         if (!event.getEntity().hasEffect(ModEffects.CHEESY))
             return;
@@ -26,7 +22,7 @@ public class EventBusEvents {
         if (effect.is(ModEffects.CHEESY.getKey()) || effect.is(ModEffects.INTOXICATION.getKey()))
             return;
 
-        if (effect.is(Objects.requireNonNull(MobEffects.POISON.getKey())) || effect.is(Objects.requireNonNull(MobEffects.CONFUSION.getKey()))) {
+        if (effect.is(Objects.requireNonNull(MobEffects.POISON.unwrapKey().get())) || effect.is(Objects.requireNonNull(MobEffects.CONFUSION.unwrapKey().get()))) {
             if (event.getEntity().hasEffect(ModEffects.INTOXICATION))
                 return;
         }
@@ -35,7 +31,6 @@ public class EventBusEvents {
     }
 
     // Alcyhols woa
-    @SubscribeEvent
     public static void intoxicationStack(MobEffectEvent.Applicable event) {
         if (!event.getEffectInstance().getEffect().is(ModEffects.INTOXICATION.getKey()))
             return;

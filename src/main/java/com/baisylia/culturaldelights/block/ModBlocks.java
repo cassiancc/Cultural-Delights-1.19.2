@@ -10,7 +10,7 @@ import com.baisylia.culturaldelights.world.feature.tree.LemonTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
+import com.baisylia.culturaldelights.refabricated.patch.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,20 +23,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
+import com.baisylia.culturaldelights.refabricated.loader.ModList;
+import vectorwing.farmersdelight.refabricated.ItemAbility;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredBlock;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredItem;
+import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import com.baisylia.culturaldelights.refabricated.patch.LeavesBlock;
+import com.baisylia.culturaldelights.refabricated.patch.RotatedPillarBlock;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.PieBlock;
 import vectorwing.farmersdelight.common.block.WildCropBlock;
 import static vectorwing.farmersdelight.common.registry.ModBlocks.APPLE_PIE;
 import static vectorwing.farmersdelight.common.registry.ModBlocks.CARROT_CRATE;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -51,12 +52,12 @@ public class ModBlocks {
             () -> new WildCropBlock(MobEffects.CONFUSION, 6,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)), true, 40);
     public static final DeferredBlock<FlowerPotBlock> POTTED_AGAVE = registerBlockWithoutBlockItem("potted_agave",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AGAVE, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
+            () -> new FlowerPotBlock(AGAVE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
     public static final DeferredBlock<Block> MINT = registerBlock("mint",
             () -> new WildCropBlock(MobEffects.DAMAGE_BOOST, 6,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)), true, 40);
     public static final DeferredBlock<FlowerPotBlock> POTTED_MINT = registerBlockWithoutBlockItem("potted_mint",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, MINT, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
+            () -> new FlowerPotBlock(MINT.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
 
     public static final DeferredBlock<Block> WILD_CUCUMBERS = registerBlock("wild_cucumbers",
             () -> new WildCropBlock(MobEffects.FIRE_RESISTANCE, 6,
@@ -128,7 +129,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> AVOCADO_SAPLING = registerBlock("avocado_sapling",
             () -> new SaplingBlock(AvocadoTreeGrower.AVOCADO_TREE_GROWER, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)), true, 100);
     public static final DeferredBlock<FlowerPotBlock> POTTED_AVOCADO_SAPLING = registerBlockWithoutBlockItem("potted_avocado_sapling",
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, AVOCADO_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING)));
+            () -> new FlowerPotBlock(AVOCADO_SAPLING.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING)));
 
     public static final DeferredBlock<Block> AVOCADO_LOG = registerBlock("avocado_log",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_LOG)) {
@@ -149,7 +150,7 @@ public class ModBlocks {
 
                 @Override
                 public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-                    if (itemAbility == ItemAbilities.AXE_STRIP) {
+                    if (itemAbility == ItemAbility.AXE_STRIP) {
                         return Blocks.STRIPPED_JUNGLE_LOG.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
                     }
                     return super.getToolModifiedState(state, context, itemAbility, simulate);
@@ -175,7 +176,7 @@ public class ModBlocks {
 
                 @Override
                 public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-                    if (itemAbility == ItemAbilities.AXE_STRIP) {
+                    if (itemAbility == ItemAbility.AXE_STRIP) {
                         return Blocks.STRIPPED_JUNGLE_WOOD.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
                     }
                     return super.getToolModifiedState(state, context, itemAbility, simulate);
@@ -316,7 +317,7 @@ public class ModBlocks {
 
                 @Override
                 public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-                    if (itemAbility == ItemAbilities.AXE_STRIP) {
+                    if (itemAbility == ItemAbility.AXE_STRIP) {
                         return Blocks.STRIPPED_OAK_LOG.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
                     }
                     return super.getToolModifiedState(state, context, itemAbility, simulate);
@@ -342,7 +343,7 @@ public class ModBlocks {
 
                 @Override
                 public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
-                    if (itemAbility == ItemAbilities.AXE_STRIP) {
+                    if (itemAbility == ItemAbility.AXE_STRIP) {
                         return Blocks.STRIPPED_OAK_WOOD.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
                     }
                     return super.getToolModifiedState(state, context, itemAbility, simulate);

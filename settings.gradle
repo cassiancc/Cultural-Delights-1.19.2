@@ -2,16 +2,9 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = 'Sponge'
-                    url = uri('https://repo.spongepowered.org/repository/maven-public')
-                }
-            }
-            filter {
-                includeGroupAndSubgroups("org.spongepowered")
-            }
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
         }
     }
 }
@@ -20,4 +13,4 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
-rootProject.name = 'Cultural-Delights'
+rootProject.name = 'Cultural-Delights'

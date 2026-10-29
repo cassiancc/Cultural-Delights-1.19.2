@@ -5,6 +5,9 @@ import com.baisylia.culturaldelights.advancement.ModAdvancements;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.block.custom.SaltBlock;
 import com.baisylia.culturaldelights.item.ModItems;
+import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
+import com.baisylia.culturaldelights.refabricated.event.LivingEvent;
+import com.baisylia.culturaldelights.refabricated.event.VillagerTradesEvent;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,11 +22,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import com.baisylia.culturaldelights.block.custom.BeanstalkLeafBlock;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -36,10 +34,8 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = CulturalDelights.MOD_ID)
 public class ModEvents {
 
-    @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
         if (event.getType() == VillagerProfession.FARMER) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
@@ -68,7 +64,6 @@ public class ModEvents {
         }
     }
 
-    @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             BlockPos pos = event.getPos();
@@ -91,7 +86,6 @@ public class ModEvents {
         }
     }
 
-    @SubscribeEvent
     public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
         Level level = entity.level();

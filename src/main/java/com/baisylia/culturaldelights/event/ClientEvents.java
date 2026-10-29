@@ -2,19 +2,15 @@ package com.baisylia.culturaldelights.event;
 
 import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.effect.ModEffects;
+import com.baisylia.culturaldelights.refabricated.event.ViewportEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ViewportEvent;
 
 import java.lang.ref.WeakReference;
 
-@EventBusSubscriber(modid = CulturalDelights.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 
     private static float currentPitch = 0.0F;
@@ -22,7 +18,6 @@ public class ClientEvents {
     private static float currentRoll = 0.0F;
     private static WeakReference<Entity> lastCameraEntity = new WeakReference<>(null);
 
-    @SubscribeEvent
     public static void onComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         Entity cameraEntity = event.getCamera().getEntity();
         if (cameraEntity != lastCameraEntity.get()) {

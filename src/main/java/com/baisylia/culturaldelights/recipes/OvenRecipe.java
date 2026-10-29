@@ -8,14 +8,14 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.RecipeMatcher;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,18 +54,18 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
     }
 
     public boolean matches(RecipeWrapper inv, Level level) {
-        List<ItemStack> inputs = new ArrayList<>();
+        StackedContents inputs = new StackedContents();
         int i = 0;
 
         for (int j = 0; j < 9; ++j) {
             ItemStack itemstack = inv.getItem(j);
             if (!itemstack.isEmpty()) {
                 ++i;
-                inputs.add(itemstack);
+                inputs.accountStack(itemstack, 1);
             }
         }
 
-        return i == this.inputItems.size() && RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+        return i == this.inputItems.size() && inputs.canCraft(this, null);
     }
 
     public boolean canCraftInDimensions(int width, int height) {
@@ -110,10 +110,16 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<OvenRecipe> {
         private static final MapCodec<OvenRecipe> CODEC = RecordCodecBuilder.mapCodec((inst) -> inst.group(
-                Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").forGetter(OvenRecipe::getIngredients),
+                Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(OvenRecipe::getIngredients),
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter((r) -> r.output),
                 Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(OvenRecipe::getCookTime)
-        ).apply(inst, (ingredients, output, cookTime) -> new OvenRecipe(NonNullList.copyOf(ingredients), output, cookTime)));
+        ).apply(inst, (ingredients, output, cookTime) -> new OvenRecipe(copyOf(ingredients), output, cookTime)));
+
+        private static NonNullList<Ingredient> copyOf(List<Ingredient> ingredients) {
+            NonNullList<Ingredient> withCapacity = NonNullList.createWithCapacity(ingredients.size());
+            withCapacity.addAll(List.copyOf(ingredients));
+            return withCapacity;
+        }
 
         public Serializer() {}
 

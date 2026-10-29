@@ -1,10 +1,10 @@
 package com.baisylia.culturaldelights.block.custom;
 
 import com.baisylia.culturaldelights.item.ModItems;
+import com.baisylia.culturaldelights.refabricated.util.Flammable;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -25,13 +25,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.CommonHooks;
 
 import com.baisylia.culturaldelights.sound.ModSounds;
 import net.minecraft.world.item.Item;
 import java.util.function.Supplier;
 
-public class FruitingLeaves extends LeavesBlock implements BonemealableBlock {
+public class FruitingLeaves extends LeavesBlock implements BonemealableBlock, Flammable {
     public static final int MAX_AGE = 4;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
     public static final MapCodec<FruitingLeaves> CODEC = simpleCodec(FruitingLeaves::new);
@@ -72,7 +71,6 @@ public class FruitingLeaves extends LeavesBlock implements BonemealableBlock {
                 BlockState blockstate = state.setValue(AGE, age + 1);
                 world.setBlock(pos, blockstate, 2);
                 world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(blockstate));
-                CommonHooks.fireCropGrowPost(world, pos, state);
             }
         }
     }

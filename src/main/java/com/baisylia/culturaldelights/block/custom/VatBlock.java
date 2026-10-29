@@ -7,6 +7,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,7 +26,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class VatBlock extends BaseEntityBlock {
     public static final MapCodec<VatBlock> CODEC = simpleCodec(VatBlock::new);
@@ -117,8 +119,8 @@ public class VatBlock extends BaseEntityBlock {
                                                Player pPlayer, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if (entity instanceof VatBlockEntity vatBlockEntity) {
-                pPlayer.openMenu(vatBlockEntity, pPos);
+            if (entity instanceof VatBlockEntity vatBlockEntity && pPlayer instanceof ServerPlayer serverPlayer) {
+                serverPlayer.openMenu(vatBlockEntity);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

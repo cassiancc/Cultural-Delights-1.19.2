@@ -8,14 +8,14 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.RecipeMatcher;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,17 +95,17 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
             return false;
         }
 
-        List<ItemStack> inputs = new ArrayList<>();
+        StackedContents inputs = new StackedContents();
         int count = 0;
         for (int j = 0; j < 6; ++j) {
             ItemStack stack = inv.getItem(j);
             if (!stack.isEmpty()) {
                 ++count;
-                inputs.add(stack);
+                inputs.accountStack(stack, 1);
             }
         }
 
-        return count == this.recipeItems.size() && RecipeMatcher.findMatches(inputs, this.recipeItems) != null;
+        return count == this.recipeItems.size() && inputs.canCraft(this, null);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
         );
         private static final MapCodec<VatRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.output),
-                Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").xmap(ingredients -> {
+                Ingredient.CODEC.listOf().fieldOf("ingredients").xmap(ingredients -> {
                     NonNullList<Ingredient> nonNullList = NonNullList.create();
                     nonNullList.addAll(ingredients);
                     return nonNullList;
