@@ -12,8 +12,8 @@
       "item": "culturaldelights:cinnamon"
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "type": "fabric:any",
+      "ingredients": [
         {
           "item": "culturaldelights:cinnamon"
         },

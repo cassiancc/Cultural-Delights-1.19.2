@@ -1,10 +1,12 @@
 {
-  "neoforge:conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "neoforge:not",
+      "condition": "fabric:not",
       "value": {
-        "type": "neoforge:mod_loaded",
-        "modid": "everycomp"
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "everycomp"
+        ]
       }
     }
   ],
@@ -30,7 +32,7 @@
   ],
   "tool": [
     {
-      "type": "farmersdelight:item_ability",
+      "fabric:type": "farmersdelight:item_ability",
       "action": "hoe_dig"
     },
     {

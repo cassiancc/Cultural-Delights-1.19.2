@@ -2,8 +2,8 @@
   "type": "farmersdelight:cooking",
   "ingredients": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "type": "fabric:any",
+      "ingredients": [
         {
           "item": "minecraft:blaze_powder"
         },
