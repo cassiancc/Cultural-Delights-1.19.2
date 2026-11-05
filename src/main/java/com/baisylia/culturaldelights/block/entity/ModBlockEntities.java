@@ -6,8 +6,7 @@ import com.baisylia.culturaldelights.block.entity.custom.OvenBlockEntity;
 import com.baisylia.culturaldelights.block.entity.custom.VatBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 
 import java.util.function.Supplier;
 
@@ -26,7 +25,7 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(OvenBlockEntity::new,
                             ModBlocks.OVEN.get()).build(null));
 
-    public static void register(IEventBus eventBus) {
-        BLOCK_ENTITIES.register(eventBus);
+    public static void register() {
+        BLOCK_ENTITIES.register();
     }
 }

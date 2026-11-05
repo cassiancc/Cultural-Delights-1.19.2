@@ -5,8 +5,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 
 import java.util.function.Supplier;
 
@@ -17,7 +16,7 @@ public class ModDataComponents {
             "cook_time", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT)
     );
 
-    public static void register(IEventBus eventBus) {
-        DATA_COMPONENTS.register(eventBus);
+    public static void register() {
+        DATA_COMPONENTS.register();
     }
 }

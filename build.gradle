@@ -110,6 +110,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
     modImplementation "maven.modrinth:modmenu:11.0.5"
+    modImplementation("cc.cassian.asphodel:asphodel-api-fabric:1.1.1+${minecraft_version}")
+    include("cc.cassian.asphodel:asphodel-api-fabric:1.1.1+${minecraft_version}")
 }
 
 processResources {

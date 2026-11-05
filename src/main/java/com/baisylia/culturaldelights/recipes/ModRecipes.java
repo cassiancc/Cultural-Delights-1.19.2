@@ -5,9 +5,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredHolder;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredHolder;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 
 public class ModRecipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
@@ -52,11 +51,11 @@ public class ModRecipes {
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<OvenShapedRecipe>> CC_BAKING_SHAPED_SERIALIZER =
             CC_SERIALIZERS.register("baking_shaped", OvenShapedRecipe.Serializer::new);
 
-    public static void register(IEventBus eventBus) {
-        RECIPE_TYPES.register(eventBus);
-        SERIALIZERS.register(eventBus);
-        CC_RECIPE_TYPES.register(eventBus);
-        CC_SERIALIZERS.register(eventBus);
+    public static void register() {
+        RECIPE_TYPES.register();
+        SERIALIZERS.register();
+        CC_RECIPE_TYPES.register();
+        CC_SERIALIZERS.register();
     }
 
     private static RecipeType<?> simple(ResourceLocation resourceLocation) {

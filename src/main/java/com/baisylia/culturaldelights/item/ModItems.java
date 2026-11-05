@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SignItem;
 import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredItem;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredItem;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
@@ -339,7 +339,7 @@ public class ModItems {
     public static final DeferredItem<Item> BEANSTALK_CHEST_RAFT = ITEMS.register("beanstalk_chest_raft",
             () -> new BoatItem(true, ModBoatTypes.BEANSTALK.getValue(), new Item.Properties().stacksTo(1)));
 
-    public static void register(IEventBus eventBus) {
-        ITEMS.register(eventBus);
+    public static void register() {
+        ITEMS.register();
     }
 }

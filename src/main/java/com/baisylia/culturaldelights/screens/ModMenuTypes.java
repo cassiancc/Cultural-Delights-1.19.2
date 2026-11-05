@@ -7,8 +7,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredHolder;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredHolder;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 
 public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
@@ -24,7 +24,7 @@ public class ModMenuTypes {
         return MENUS.register(name, () -> factory);
     }
 
-    public static void register(IEventBus eventBus) {
-        MENUS.register(eventBus);
+    public static void register() {
+        MENUS.register();
     }
 }

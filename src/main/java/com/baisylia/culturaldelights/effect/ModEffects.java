@@ -6,9 +6,8 @@ import com.baisylia.culturaldelights.effect.custom.IntoxicationEffect;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredHolder;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredHolder;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 
 public class ModEffects {
 
@@ -21,7 +20,7 @@ public class ModEffects {
     public static final DeferredHolder<MobEffect, IntoxicationEffect> INTOXICATION = MOB_EFFECTS.register("intoxication",
             () -> new IntoxicationEffect(MobEffectCategory.BENEFICIAL, 0xFFFCF2));
 
-    public static void register(IEventBus eventBus) {
-        MOB_EFFECTS.register(eventBus);
+    public static void register() {
+        MOB_EFFECTS.register();
     }
 }

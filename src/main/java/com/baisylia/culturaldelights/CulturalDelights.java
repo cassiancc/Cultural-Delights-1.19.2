@@ -55,15 +55,15 @@ public class CulturalDelights implements ModInitializer {
     @Override
     public void onInitialize() {
         var eventBus = new IEventBus();
-        ModDataComponents.register(eventBus);
-        ModSounds.register(eventBus);
-        ModEffects.register(eventBus);
-        ModBlocks.register(eventBus);
-        ModItems.register(eventBus);
-        ModBlockEntities.register(eventBus);
-        ModMenuTypes.register(eventBus);
-        ModRecipes.register(eventBus);
-        ModAdvancements.register(eventBus);
+        ModDataComponents.register();
+        ModSounds.register();
+        ModEffects.register();
+        ModBlocks.register();
+        ModItems.register();
+        ModBlockEntities.register();
+        ModMenuTypes.register();
+        ModRecipes.register();
+        ModAdvancements.register();
 
         if (ModList.get().isLoaded("moonlight")) {
             MoonlightCompat.registerWoodTypes();

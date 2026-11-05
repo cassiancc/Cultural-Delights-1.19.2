@@ -26,9 +26,9 @@ import net.minecraft.world.level.material.PushReaction;
 import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
 import com.baisylia.culturaldelights.refabricated.loader.ModList;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredBlock;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredItem;
-import com.baisylia.culturaldelights.refabricated.registry.DeferredRegister;
+import cc.cassian.asphodel.util.deferred_registry.DeferredBlock;
+import cc.cassian.asphodel.util.deferred_registry.DeferredItem;
+import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 import com.baisylia.culturaldelights.refabricated.patch.LeavesBlock;
 import com.baisylia.culturaldelights.refabricated.patch.RotatedPillarBlock;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
@@ -433,7 +433,7 @@ public class ModBlocks {
         }
     }
 
-    public static void register(IEventBus eventBus) {
-        BLOCKS.register(eventBus);
+    public static void register() {
+        BLOCKS.register();
     }
 }
