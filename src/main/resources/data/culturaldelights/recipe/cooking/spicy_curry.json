@@ -2,7 +2,7 @@
   "type": "farmersdelight:cooking",
   "ingredients": [
     {
-      "type": "fabric:any",
+      "fabric:type": "fabric:any",
       "ingredients": [
         {
           "item": "minecraft:blaze_powder"

@@ -15,6 +15,7 @@
   },
   "client": [
     "BoatRendererMixin",
-    "CameraMixin"
+    "CameraMixin",
+    "ItemInHandRendererMixin"
   ]
 }

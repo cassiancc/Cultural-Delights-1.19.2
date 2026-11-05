@@ -161,27 +161,18 @@ public class CulturalDelights implements ModInitializer {
 //            event.enqueueWork(() -> Sheets.addWoodType(ModWoodTypes.BEANSTALK));
         }
 
-        public static void registerClientExtensions() {
-            /*FIXME
-            IClientItemExtensions marshmallowArmPose = new IClientItemExtensions() {
-                @Override
-                public boolean applyForgeHandTransform(PoseStack matrixStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTicks, float equipProcess, float swingProcess) {
-                    if (itemInHand.has(ModDataComponents.COOK_TIME.get())) {
-                        int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-                        matrixStack.translate((float) i * 0.56F, -0.52F + equipProcess * -0.6F, -0.72F);
-                        matrixStack.translate(i * -0.5, 0.2, -0.05);
-                        matrixStack.mulPose(Axis.YP.rotationDegrees(2));
-                        matrixStack.mulPose(Axis.XP.rotationDegrees(185));
-                        matrixStack.mulPose(Axis.ZP.rotationDegrees(165));
-                        matrixStack.translate(-0.25, 0, 0);
-                        return true;
-                    }
-                    return false;
-                }
-            };
-            event.registerItem(marshmallowArmPose, ModItems.MARSHMALLOW_ON_A_STICK.get(), ModItems.CARAMELIZED_MARSHMALLOW_ON_A_STICK.get());
-
-             */
+        public static boolean applyForgeHandTransform(PoseStack matrixStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTicks, float equipProcess, float swingProcess) {
+            if (itemInHand.has(ModDataComponents.COOK_TIME.get())) {
+                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                matrixStack.translate((float) i * 0.56F, -0.52F + equipProcess * -0.6F, -0.72F);
+                matrixStack.translate(i * -0.5, 0.2, -0.05);
+                matrixStack.mulPose(Axis.YP.rotationDegrees(2));
+                matrixStack.mulPose(Axis.XP.rotationDegrees(185));
+                matrixStack.mulPose(Axis.ZP.rotationDegrees(165));
+                matrixStack.translate(-0.25, 0, 0);
+                return true;
+            }
+            return false;
         }
     }
 }

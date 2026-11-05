@@ -33,13 +33,8 @@
   "sound": {
     "sound_id": "minecraft:item.axe.strip"
   },
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:item_ability",
-      "action": "axe_strip"
-    },
-    {
-      "tag": "minecraft:axes"
-    }
-  ]
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "axe_strip"
+  }
 }

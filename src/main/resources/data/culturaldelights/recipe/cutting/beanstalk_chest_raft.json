@@ -30,13 +30,8 @@
       }
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:item_ability",
-      "action": "hoe_dig"
-    },
-    {
-      "tag": "minecraft:hoes"
-    }
-  ]
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "hoe_dig"
+  }
 }

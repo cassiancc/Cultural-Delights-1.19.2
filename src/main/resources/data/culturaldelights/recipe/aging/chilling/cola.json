@@ -12,7 +12,7 @@
       "item": "culturaldelights:cinnamon"
     },
     {
-      "type": "fabric:any",
+      "fabric:type": "fabric:any",
       "ingredients": [
         {
           "item": "culturaldelights:cinnamon"

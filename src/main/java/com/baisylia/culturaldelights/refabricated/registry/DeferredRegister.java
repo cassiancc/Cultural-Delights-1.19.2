@@ -64,7 +64,6 @@ public class DeferredRegister<T> {
 		for (DeferredHolder<T, T> entry : entries) {
 			T register = Registry.register(registry, entry.getId(), entry.get());
 			entry.setValue(register);
-			CulturalDelights.LOGGER.info("Registering {} at registry {}", entry.getId(), registry.key().location().getPath());
 		}
 	}
 

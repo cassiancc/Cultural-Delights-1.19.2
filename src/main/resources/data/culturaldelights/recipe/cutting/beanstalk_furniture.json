@@ -13,7 +13,7 @@
   "type": "farmersdelight:cutting",
   "ingredients": [
     {
-      "type": "fabric:any",
+      "fabric:type": "fabric:any",
       "ingredients": [
         {
           "item": "culturaldelights:beanstalk_door"
@@ -57,13 +57,8 @@
       }
     }
   ],
-  "tool": [
-    {
-      "fabric:type": "farmersdelight:item_ability",
-      "action": "axe_dig"
-    },
-    {
-      "tag": "minecraft:axes"
-    }
-  ]
+  "tool": {
+    "fabric:type": "farmersdelight:item_ability",
+    "action": "axe_strip"
+  }
 }
