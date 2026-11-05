@@ -22,9 +22,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
-public class OvenShapedRecipeCategory implements IRecipeCategory<OvenShapedRecipe> {
+public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<OvenShapedRecipe>> {
     public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "baking_shaped");
     public final static ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_jei.png");
@@ -49,10 +50,10 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<OvenShapedRecip
     }
 
     @Override
-    public void draw(OvenShapedRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        IDrawableAnimated arrow = getArrow(recipe);
+    public void draw(RecipeHolder<OvenShapedRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IDrawableAnimated arrow = getArrow(holder.value());
         arrow.draw(guiGraphics, 63, 19);
-        drawCookTime(recipe, guiGraphics, 45);
+        drawCookTime(holder.value(), guiGraphics, 45);
     }
 
     protected void drawCookTime(OvenShapedRecipe recipe, GuiGraphics guiGraphics, int y) {
@@ -76,7 +77,7 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<OvenShapedRecip
     }
 
     @Override
-    public RecipeType<OvenShapedRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<OvenShapedRecipe>> getRecipeType() {
         return JEICulturalDelightsPlugin.BAKING_SHAPED_TYPE;
     }
 
@@ -96,7 +97,8 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<OvenShapedRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, OvenShapedRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<OvenShapedRecipe> holder, IFocusGroup focuses) {
+        OvenShapedRecipe recipe = holder.value();
         int start = 3;
         int index = 0;
 

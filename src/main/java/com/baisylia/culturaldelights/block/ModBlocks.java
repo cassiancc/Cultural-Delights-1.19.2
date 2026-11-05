@@ -268,10 +268,10 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)), false, 0);
 
     public static final DeferredBlock<Block> EXOTIC_ROLL_MEDLEY = registerBlock("exotic_roll_medley",
-            () -> new ExoticRollMedleyBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).noOcclusion()), false, 0);
+            () -> new ExoticRollMedleyBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).noOcclusion()), ModBlocks::feastItem);
 
     public static final DeferredBlock<Block> EGGPLANT_PARMESAN_BLOCK = registerBlock("eggplant_parmesan_block",
-            () -> new EggplantFeastBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).noOcclusion(), ModItems.EGGPLANT_PARMESAN, true), false, 0);
+            () -> new EggplantFeastBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).noOcclusion(), ModItems.EGGPLANT_PARMESAN, true), ModBlocks::feastItem);
 
     public static final DeferredBlock<Block> CHEESE_BLOCK = registerBlock("cheese_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK)), false, 0);
@@ -413,6 +413,10 @@ public class ModBlocks {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> item.apply(toReturn.get()));
         return toReturn;
+    }
+
+    private static Item feastItem(Block block) {
+        return new BlockItem(block, new Item.Properties().stacksTo(1));
     }
 
     private static <T extends Block> DeferredBlock<T> registerBlockWithoutBlockItem(String name, Supplier<T> block) {
