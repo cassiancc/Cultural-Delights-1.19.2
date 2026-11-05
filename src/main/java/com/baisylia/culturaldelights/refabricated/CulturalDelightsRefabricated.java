@@ -13,6 +13,8 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
@@ -25,6 +27,8 @@ import net.minecraft.world.level.block.Block;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 public class CulturalDelightsRefabricated {
+	static ResourceConditionType<FalseResourceCondition> FALSE = ResourceConditionType.create(ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "false"), FalseResourceCondition.CODEC);
+
 	public static final AttachmentType<Double> INTOXICATION_STUMBLE_X = AttachmentRegistry.create(
 			ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "cd_intox_stumble_x"), builder -> {
 				builder.initializer(()->0d).syncWith(ByteBufCodecs.DOUBLE, AttachmentSyncPredicate.targetOnly());
@@ -37,6 +41,7 @@ public class CulturalDelightsRefabricated {
 	);
 
 	public static void init() {
+		ResourceConditions.register(FALSE);
 		for (Block block : BuiltInRegistries.BLOCK) {
 			if (block instanceof Flammable flammable && flammable.isFlammable(null, null, null, null)) {
 				FlammableBlockRegistry.getDefaultInstance().add(block, flammable.getFlammability(null, null, null, null), flammable.getFireSpreadSpeed(null, null, null, null));

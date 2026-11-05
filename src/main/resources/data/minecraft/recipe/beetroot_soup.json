@@ -1,7 +1,7 @@
 {
   "fabric:load_conditions": [
     {
-      "condition": "fabric:false"
+      "condition": "culturaldelights:false"
     }
   ],
   "type": "minecraft:crafting_shapeless",
