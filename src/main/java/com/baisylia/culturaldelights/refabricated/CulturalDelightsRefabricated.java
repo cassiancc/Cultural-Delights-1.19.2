@@ -1,37 +1,64 @@
 package com.baisylia.culturaldelights.refabricated;
 
 import com.baisylia.culturaldelights.CulturalDelights;
+import com.baisylia.culturaldelights.block.ModBlocks;
+import com.baisylia.culturaldelights.block.custom.CornBlock;
 import com.baisylia.culturaldelights.event.ModEvents;
 import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
 import com.baisylia.culturaldelights.refabricated.event.VillagerTradesEvent;
 import com.baisylia.culturaldelights.refabricated.util.Flammable;
 import com.baisylia.culturaldelights.refabricated.util.ToolModifiableBlock;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
+
+import java.util.Map;
 
 public class CulturalDelightsRefabricated {
 	public static final AttachmentType<Double> INTOXICATION_STUMBLE_X = AttachmentRegistry.create(
-			ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "cd_intox_stumble_x"), builder -> {
+			id("cd_intox_stumble_x"), builder -> {
 				builder.initializer(()->0d).syncWith(ByteBufCodecs.DOUBLE, AttachmentSyncPredicate.targetOnly());
 			}
 	);
 	public static final AttachmentType<Double> INTOXICATION_STUMBLE_Z = AttachmentRegistry.create(
-			ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "cd_intox_stumble_z"), builder -> {
+			id("cd_intox_stumble_z"), builder -> {
 				builder.initializer(()->0d).syncWith(ByteBufCodecs.DOUBLE, AttachmentSyncPredicate.targetOnly());
 			}
 	);
@@ -70,5 +97,142 @@ public class CulturalDelightsRefabricated {
 		event.getTrades().forEach((integer, itemListings) -> {
 			TradeOfferHelper.registerVillagerOffers(event.getType(), integer, (list)->list.addAll(itemListings));
 		});
+		LootTableEvents.MODIFY.register((resourceKey, builder, lootTableSource, provider) -> {
+			if (resourceKey.equals(ModBlocks.CORN.get().getLootTable())) {
+				LootItemCondition.Builder grown = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.CORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornBlock.AGE, 7));
+				LootItemCondition.Builder tool = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.Items.STRAW_HARVESTERS));
+
+				builder.withPool(new LootPool.Builder().when(grown).when(tool).add(LootItem.lootTableItem(ModItems.STRAW.get())));
+			}
+		});
+		addCompostables();
+		addFeature("agave_placed", BiomeTags.IS_SAVANNA);
+		addFeature("avocado_placed", BiomeTags.IS_JUNGLE);
+		addFeature("mint_placed", BiomeTags.IS_MOUNTAIN);
+		addFeature("salt_placed", Biomes.DRIPSTONE_CAVES);
+		addFeature("lemon_placed", Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA);
+		addFeature("wild_beans_placed", TagKey.create(Registries.BIOME, id("has_wild_beans")));
+		addFeature("wild_corn_placed", ConventionalBiomeTags.IS_PLAINS);
+		addFeature("wild_cucumbers_placed", ConventionalBiomeTags.IS_SWAMP);
+		addFeature("wild_eggplants_placed", BiomeTags.IS_JUNGLE);
+	}
+
+	private static void addFeature(String path, TagKey<Biome> tag) {
+		BiomeModifications.addFeature(BiomeSelectors.tag(tag), GenerationStep.Decoration.VEGETAL_DECORATION, ResourceKey.create(Registries.PLACED_FEATURE, id(path)));
+	}
+
+	private static void addFeature(String path, ResourceKey<Biome> tag) {
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(tag), GenerationStep.Decoration.VEGETAL_DECORATION, ResourceKey.create(Registries.PLACED_FEATURE, id(path)));
+	}
+
+	@SafeVarargs
+	private static void addFeature(String path, ResourceKey<Biome>... tag) {
+		BiomeModifications.addFeature(BiomeSelectors.includeByKey(tag), GenerationStep.Decoration.VEGETAL_DECORATION, ResourceKey.create(Registries.PLACED_FEATURE, id(path)));
+	}
+
+	private static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, path);
+	}
+
+	private static final String COMPOSTABLES = "{\n" +
+			"  \"values\": {\n" +
+			"    \"culturaldelights:cucumber_seeds\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    },\n" +
+			"    \"culturaldelights:corn_kernels\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    },\n" +
+			"    \"culturaldelights:eggplant_seeds\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    },\n" +
+			"    \"culturaldelights:avocado_pit\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    },\n" +
+			"    \"culturaldelights:cut_cucumber\": {\n" +
+			"      \"chance\": 0.5\n" +
+			"    },\n" +
+			"    \"culturaldelights:cut_avocado\": {\n" +
+			"      \"chance\": 0.5\n" +
+			"    },\n" +
+			"    \"culturaldelights:cut_eggplant\": {\n" +
+			"      \"chance\": 0.5\n" +
+			"    },\n" +
+			"    \"culturaldelights:avocado\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:cucumber\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:corn_cob\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:eggplant\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:white_eggplant\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:bean_pod\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:beans\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:agave\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:mint\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:wild_cucumbers\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:wild_corn\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:wild_eggplants\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:wild_beans\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:avocado_leaves\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:avocado_sapling\": {\n" +
+			"      \"chance\": 0.65\n" +
+			"    },\n" +
+			"    \"culturaldelights:popcorn\": {\n" +
+			"      \"chance\": 0.85\n" +
+			"    },\n" +
+			"    \"culturaldelights:lemon\": {\n" +
+			"      \"chance\": 0.25\n" +
+			"    },\n" +
+			"    \"culturaldelights:fried_potato\": {\n" +
+			"      \"chance\": 0.45\n" +
+			"    },\n" +
+			"    \"culturaldelights:lemon_leaves\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    },\n" +
+			"    \"culturaldelights:fruiting_lemon_leaves\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    },\n" +
+			"    \"culturaldelights:lemon_sapling\": {\n" +
+			"      \"chance\": 0.3\n" +
+			"    }\n" +
+			"  }\n" +
+			"}\n";
+
+	public static void addCompostables() {
+		JsonElement je = (new Gson()).fromJson(COMPOSTABLES, JsonElement.class);
+		if (je != null) {
+			JsonElement j = je.getAsJsonObject().get("values");
+
+			for(Map.Entry<String, JsonElement> v : j.getAsJsonObject().asMap().entrySet()) {
+				Item i = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(v.getKey()));
+				CompostingChanceRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
+			}
+		}
+
 	}
 }

@@ -135,6 +135,7 @@ processResources {
         expand expandProps
     }
     inputs.properties(expandProps)
+    exclude("**/neoforge.mods.toml", "**/accesstransformer.cfg", "**/enumextensions.json", "**/data/neoforge/**", "**/data/culturaldelights/loot_modifiers/**", "**/data/culturaldelights/neoforge/**")
 }
 
 tasks.withType(JavaCompile).configureEach {
