@@ -29,11 +29,16 @@ import java.util.Objects;
 public class JEICulturalDelightsPlugin implements IModPlugin {
     private static RecipeType<RecipeHolder<VatRecipe>> agingType;
 
-    public static final RecipeType<OvenRecipe> BAKING_TYPE =
-            new RecipeType<>(OvenRecipeCategory.UID, OvenRecipe.class);
+    public static final RecipeType<RecipeHolder<OvenRecipe>> BAKING_TYPE =
+            new RecipeType<>(OvenRecipeCategory.UID, holderClass());
 
-    public static final RecipeType<OvenShapedRecipe> BAKING_SHAPED_TYPE =
-            new RecipeType<>(OvenShapedRecipeCategory.UID, OvenShapedRecipe.class);
+    public static final RecipeType<RecipeHolder<OvenShapedRecipe>> BAKING_SHAPED_TYPE =
+            new RecipeType<>(OvenShapedRecipeCategory.UID, holderClass());
+
+    @SuppressWarnings("unchecked")
+    private static <T> Class<T> holderClass() {
+        return (Class<T>) (Class<?>) RecipeHolder.class;
+    }
 
     public static RecipeType<RecipeHolder<VatRecipe>> getAgingType() {
         if (agingType == null) {
@@ -66,8 +71,8 @@ public class JEICulturalDelightsPlugin implements IModPlugin {
                 ModItems.CARAMELIZED_MARSHMALLOW_ON_A_STICK.get().getDefaultInstance()
         ), Component.translatable("emi.culturaldelights.marshmallow_on_a_stick.help"));
 
-        List<OvenRecipe> ovenRecipes = rm.getAllRecipesFor(ModRecipes.BAKING.get()).stream().map(RecipeHolder::value).toList();
-        List<OvenShapedRecipe> ovenShapedRecipes = rm.getAllRecipesFor(ModRecipes.BAKING_SHAPED.get()).stream().map(RecipeHolder::value).toList();
+        List<RecipeHolder<OvenRecipe>> ovenRecipes = rm.getAllRecipesFor(ModRecipes.BAKING.get());
+        List<RecipeHolder<OvenShapedRecipe>> ovenShapedRecipes = rm.getAllRecipesFor(ModRecipes.BAKING_SHAPED.get());
         registration.addRecipes(BAKING_TYPE, ovenRecipes);
         registration.addRecipes(BAKING_SHAPED_TYPE, ovenShapedRecipes);
     }

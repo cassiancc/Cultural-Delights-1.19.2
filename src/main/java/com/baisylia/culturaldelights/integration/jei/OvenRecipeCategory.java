@@ -22,9 +22,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
-public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
+public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenRecipe>> {
     public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "baking");
     public final static ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_jei.png");
@@ -49,10 +50,10 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
     }
 
     @Override
-    public void draw(OvenRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        IDrawableAnimated arrow = getArrow(recipe);
+    public void draw(RecipeHolder<OvenRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IDrawableAnimated arrow = getArrow(holder.value());
         arrow.draw(guiGraphics, 63, 19);
-        drawCookTime(recipe, guiGraphics, 45);
+        drawCookTime(holder.value(), guiGraphics, 45);
     }
 
     protected void drawCookTime(OvenRecipe recipe, GuiGraphics guiGraphics, int y) {
@@ -76,7 +77,7 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
     }
 
     @Override
-    public RecipeType<OvenRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<OvenRecipe>> getRecipeType() {
         return JEICulturalDelightsPlugin.BAKING_TYPE;
     }
 
@@ -96,7 +97,8 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, OvenRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<OvenRecipe> holder, IFocusGroup focuses) {
+        OvenRecipe recipe = holder.value();
         int start = 3;
         int offset = 18;
         int offset2 = offset + offset;
