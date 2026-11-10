@@ -7,16 +7,19 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
+import java.util.List;
 import java.util.Optional;
 
 public class VatRecipe implements Recipe<RecipeWrapper> {
@@ -59,7 +62,7 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public PlacementInfo placementInfo() {
-        return null;
+        return PlacementInfo.create(recipeItems);
     }
 
     @Override
@@ -69,6 +72,10 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
 
     public ItemStack getResultItem() {
         return this.output.create();
+    }
+
+    public ItemStackTemplate getOutput() {
+        return this.output;
     }
 
     public NonNullList<Ingredient> getIngredients() {
@@ -131,10 +138,6 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
     }
 
     public static class Serializer {
-        public static final StreamCodec<RegistryFriendlyByteBuf, VatRecipe> STREAM_CODEC = StreamCodec.of(
-                VatRecipe.Serializer::toNetwork,
-                VatRecipe.Serializer::fromNetwork
-        );
         private static final MapCodec<VatRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.output),
                 Ingredient.CODEC.listOf().fieldOf("ingredients").xmap(ingredients -> {
@@ -147,28 +150,19 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
                 Codec.INT.optionalFieldOf("cooktime", 200).forGetter(VatRecipe::getCookTime)
         ).apply(inst, VatRecipe::new));
 
-        private static VatRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            int i = buffer.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(i, null);
-            inputs.replaceAll(ignored -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-
-            Ingredient container = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            VatTemperature temperature = buffer.readEnum(VatTemperature.class);
-            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
-            int cookTime = buffer.readVarInt();
-            return new VatRecipe(output, inputs, temperature, container, cookTime);
-        }
-
-        private static void toNetwork(RegistryFriendlyByteBuf buffer, VatRecipe recipe) {
-            buffer.writeVarInt(recipe.recipeItems.size());
-            for (Ingredient ingredient : recipe.recipeItems) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
-            }
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.containerItem);
-            buffer.writeEnum(recipe.temperature);
-            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
-            buffer.writeVarInt(recipe.cookTime);
-        }
+        public static final StreamCodec<RegistryFriendlyByteBuf, VatRecipe> STREAM_CODEC = StreamCodec.composite(
+                ItemStackTemplate.STREAM_CODEC,
+                VatRecipe::getOutput,
+                Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.collection(NonNullList::createWithCapacity)),
+                VatRecipe::getIngredients,
+                ByteBufCodecs.fromCodec(VatTemperature.CODEC),
+                VatRecipe::getTemperature,
+                Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC,
+                VatRecipe::getContainer,
+                ByteBufCodecs.INT,
+                VatRecipe::getCookTime,
+                VatRecipe::new
+        );
 
         public static RecipeSerializer<VatRecipe> create() {
             return new RecipeSerializer<>(CODEC, STREAM_CODEC);

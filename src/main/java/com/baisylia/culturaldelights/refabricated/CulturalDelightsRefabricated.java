@@ -1,10 +1,12 @@
 package com.baisylia.culturaldelights.refabricated;
 
+import cc.cassian.rrv.common.recipe.ServerRecipeManager;
 import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.block.custom.CornBlock;
 import com.baisylia.culturaldelights.effect.ModEffects;
 import com.baisylia.culturaldelights.event.ModEvents;
+import com.baisylia.culturaldelights.recipes.ModRecipes;
 import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
 import com.baisylia.culturaldelights.refabricated.util.Flammable;
 import com.baisylia.culturaldelights.refabricated.util.ToolModifiableBlock;
@@ -18,6 +20,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.entity.event.v1.effect.ServerMobEffectEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
@@ -50,6 +53,7 @@ import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
+import java.util.List;
 import java.util.Map;
 
 public class CulturalDelightsRefabricated {
@@ -115,6 +119,11 @@ public class CulturalDelightsRefabricated {
 		addFeature("wild_eggplants_placed", BiomeTags.IS_JUNGLE);
 		ServerMobEffectEvents.ALLOW_EARLY_REMOVE.register((effectInstance, entity, ctx) -> {
 			return ctx.isFromCommand() || !effectInstance.is(ModEffects.INTOXICATION);
+		});
+		ModRecipes.SERIALIZERS.addCallback(()->{
+			List.of(ModRecipes.BAKING_SHAPED_SERIALIZER, ModRecipes.BAKING_SERIALIZER, ModRecipes.AGING_SERIALIZER).forEach(recipe->{
+				RecipeSynchronization.synchronizeRecipeSerializer(recipe.get());
+			});
 		});
 	}
 

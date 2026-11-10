@@ -1,12 +1,14 @@
 package com.baisylia.culturaldelights.recipes;
 
 import com.baisylia.culturaldelights.block.ModBlocks;
+import com.baisylia.culturaldelights.util.VatTemperature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +36,10 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
 
     public ItemStack getResultItem() {
         return this.output.create();
+    }
+
+    public ItemStackTemplate getOutput() {
+        return this.output;
     }
 
     @Override
@@ -90,7 +96,7 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public PlacementInfo placementInfo() {
-        return null;
+        return PlacementInfo.create(inputItems);
     }
 
     @Override
@@ -133,42 +139,24 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
                 Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(OvenRecipe::getCookTime)
         ).apply(inst, (ingredients, output, cookTime) -> new OvenRecipe(copyOf(ingredients), output, cookTime)));
 
+        public static final StreamCodec<RegistryFriendlyByteBuf, OvenRecipe> STREAM_CODEC = StreamCodec.composite(
+                Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.collection(NonNullList::createWithCapacity)),
+                OvenRecipe::getIngredients,
+                ItemStackTemplate.STREAM_CODEC,
+                OvenRecipe::getOutput,
+                ByteBufCodecs.INT,
+                OvenRecipe::getCookTime,
+                OvenRecipe::new
+        );
+
         private static NonNullList<Ingredient> copyOf(List<Ingredient> ingredients) {
             NonNullList<Ingredient> withCapacity = NonNullList.createWithCapacity(ingredients.size());
             withCapacity.addAll(List.copyOf(ingredients));
             return withCapacity;
         }
 
-        public Serializer() {}
-
-        public MapCodec<OvenRecipe> codec() {
-            return CODEC;
-        }
-
-        public static StreamCodec<RegistryFriendlyByteBuf, OvenRecipe> streamCodec() {
-            return StreamCodec.of(OvenRecipe.Serializer::toNetwork, OvenRecipe.Serializer::fromNetwork);
-        }
-
-        private static OvenRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            int i = buffer.readVarInt();
-            NonNullList<Ingredient> inputItemsIn = NonNullList.withSize(i, null);
-            inputItemsIn.replaceAll((ignored) -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-            ItemStackTemplate outputIn = ItemStackTemplate.STREAM_CODEC.decode(buffer);
-            int cookTimeIn = buffer.readVarInt();
-            return new OvenRecipe(inputItemsIn, outputIn, cookTimeIn);
-        }
-
-        private static void toNetwork(RegistryFriendlyByteBuf buffer, OvenRecipe recipe) {
-            buffer.writeVarInt(recipe.inputItems.size());
-            for (Ingredient ingredient : recipe.inputItems) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
-            }
-            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
-            buffer.writeVarInt(recipe.cookTime);
-        }
-
         public static RecipeSerializer<OvenRecipe> create() {
-            return new RecipeSerializer<>(CODEC, streamCodec());
+            return new RecipeSerializer<>(CODEC, STREAM_CODEC);
         }
     }
 }

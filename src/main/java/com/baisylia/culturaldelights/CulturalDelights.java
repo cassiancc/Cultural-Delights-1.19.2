@@ -53,6 +53,7 @@ public class CulturalDelights implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        CulturalDelightsRefabricated.init();
         var eventBus = new IEventBus();
         ModDataComponents.register();
         ModSounds.register();
@@ -74,7 +75,6 @@ public class CulturalDelights implements ModInitializer {
         eventBus.addListener(() -> addBlockEntityValidBlocks(new BlockEntityTypeAddBlocksEvent()));
         eventBus.addListener(() -> CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register((creativeModeTab, fabricItemGroupEntries) -> buildCreativeTab(new BuildCreativeModeTabContentsEvent(creativeModeTab, fabricItemGroupEntries))));
         eventBus.addListener(() -> addPackFinders(new AddPackFindersEvent()));
-        CulturalDelightsRefabricated.init();
     }
 
     public static void registerPottables() {

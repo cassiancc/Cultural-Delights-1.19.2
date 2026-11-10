@@ -25,10 +25,6 @@ public class RRVCulturalDelightsPlugin implements ReliableRecipeViewerPlugin {
 
     @Override
     public void onIntegrationInitialize() {
-        ServerRecipeManager.INSTANCE.synchronizeRecipeType(ModRecipes.AGING_SERIALIZER.get(), ModRecipes.AGING_TYPE.get());
-        ServerRecipeManager.INSTANCE.synchronizeRecipeType(ModRecipes.BAKING_SERIALIZER.get(), ModRecipes.BAKING.get());
-        ServerRecipeManager.INSTANCE.synchronizeRecipeType(ModRecipes.BAKING_SHAPED_SERIALIZER.get(), ModRecipes.BAKING_SHAPED.get());
-
         ItemView.addClientRecipeProvider(list->{
             for (RecipeHolder<VatRecipe> recipe : ClientRecipeManager.INSTANCE.getRecipesForType(ModRecipes.AGING_TYPE.get())) {
                 list.add(new VatClientRecipe(recipe));

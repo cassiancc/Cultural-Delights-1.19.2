@@ -442,14 +442,14 @@ public class ModBlocks {
 
     private static <T extends Block> DeferredItem<Item> registerBlockItem(String name, DeferredBlock<T> block, boolean isFuel, int fuelAmount) {
         if (!isFuel) {
-            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), itemProperties(name)));
+            return ModItems.ITEMS.register(name, (p) -> new BlockItem(block.get(),p), new Item.Properties().useBlockDescriptionPrefix());
         } else {
-            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), itemProperties(name)) {
+            return ModItems.ITEMS.register(name, (p) -> new BlockItem(block.get(),p) {
                 @Override
                 public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
                     return fuelAmount;
                 }
-            });
+            }, new Item.Properties().useBlockDescriptionPrefix());
         }
     }
 

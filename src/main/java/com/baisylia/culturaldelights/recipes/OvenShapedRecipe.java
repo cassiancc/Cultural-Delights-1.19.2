@@ -106,7 +106,7 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
                 ItemStack gridStack = pContainer.getItem(gridX + gridY * 3); // Use a fixed grid size of 3x3
 
                 // Check if the ingredient matches the item in the crafting grid
-                if (!recipeIngredient.test(gridStack)) {
+                if ((recipeIngredient == null) || !recipeIngredient.test(gridStack)) {
                     return false;
                 }
 
@@ -148,7 +148,7 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public PlacementInfo placementInfo() {
-        return null;
+        return PlacementInfo.createFromOptionals(pattern.ingredients());
     }
 
     @Override
