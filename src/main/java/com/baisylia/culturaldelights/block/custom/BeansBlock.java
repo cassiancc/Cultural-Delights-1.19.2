@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -43,18 +42,18 @@ public class BeansBlock extends TomatoBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (ModList.get().isLoaded("supplementaries")) {
             InteractionResult stickResult = SupplementariesCompat.tryUseStick(state, level, pos, player, hand, hit);
             if (stickResult != InteractionResult.PASS) {
-                return stickResult.consumesAction() ? ItemInteractionResult.sidedSuccess(level.isClientSide) : ItemInteractionResult.FAIL;
+                return stickResult.consumesAction() ? InteractionResult.SUCCESS_SERVER : InteractionResult.FAIL;
             }
         }
 
         int age = state.getValue(this.getAgeProperty());
         boolean isMature = age == this.getMaxAge();
         if (!isMature && stack.is(Items.BONE_MEAL)) {
-            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
@@ -64,10 +63,10 @@ public class BeansBlock extends TomatoBlock {
         int age = state.getValue(this.getAgeProperty());
         boolean isMature = age == this.getMaxAge();
         if (isMature) {
-            int quantity = 1 + level.random.nextInt(2);
+            int quantity = 1 + level.getRandom().nextInt(2);
             popResource(level, pos, new ItemStack(ModItems.BEAN_POD.get(), quantity));
 
-            level.playSound(null, pos, ModSounds.BLOCK_TOMATOES_PICK_TOMATOES.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+            level.playSound(null, pos, ModSounds.BLOCK_TOMATOES_PICK_TOMATOES.get(), SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
             level.setBlock(pos, state.setValue(this.getAgeProperty(), 0), 2);
             return InteractionResult.SUCCESS;
         } else {

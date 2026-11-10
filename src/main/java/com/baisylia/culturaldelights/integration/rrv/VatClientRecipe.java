@@ -1,9 +1,8 @@
-package com.baisylia.culturaldelights.integration.emi;
+package com.baisylia.culturaldelights.integration.rrv;
 
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
+import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import com.baisylia.culturaldelights.recipes.VatRecipe;
-import dev.emi.emi.api.recipe.EmiRecipeCategory;
-import dev.emi.emi.api.stack.EmiIngredient;
-import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -12,28 +11,29 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VatEmiRecipe extends AbstractVatRecipe {
+public class VatClientRecipe extends AbstractVatClientRecipe {
 
-    public VatEmiRecipe(RecipeHolder<VatRecipe> holder) {
-        super(holder.id(), getIngredients(holder.value()), EmiIngredient.of(holder.value().getContainer()), holder.value().getResultItem(), holder.value().getCookTime(), holder.value().getTemperature());
+    public VatClientRecipe(RecipeHolder<VatRecipe> holder) {
+        super(holder.id().identifier(), getIngredients(holder.value()), SlotContent.of(holder.value().getContainer().orElse(null)), holder.value().getResultItem(), holder.value().getCookTime(), holder.value().getTemperature());
     }
 
-    private static ArrayList<EmiIngredient> getIngredients(VatRecipe recipe) {
-        ArrayList<EmiIngredient> i = new ArrayList<>();
+    private static ArrayList<SlotContent> getIngredients(VatRecipe recipe) {
+        ArrayList<SlotContent> i = new ArrayList<>();
         for (Ingredient ingredient : recipe.getIngredients()) {
-            i.add(EmiIngredient.of(ingredient));
+            i.add(SlotContent.of(ingredient));
         }
         return i;
     }
 
     @Override
-    public EmiRecipeCategory getCategory() {
-        return EMICulturalDelightsPlugin.AGING;
+    public VatClientRecipeType getType() {
+        return VatClientRecipeType.INSTANCE;
     }
 
     @Override
-    public void addWidgets(WidgetHolder builder) {
-        builder.addTexture(AbstractVatRecipe.TEXTURE, 0, 0, 124, 58, 0, 0);
+    public void bindSlots(RecipeViewMenu.SlotFillContext builder) {
+
+        builder.addTexture(AbstractVatClientRecipe.TEXTURE, 0, 0, 124, 58, 0, 0);
 
         builder.addSlot(ingredients.get(0), 19, 2);
         if (ingredients.size() > 1) {
@@ -60,7 +60,7 @@ public class VatEmiRecipe extends AbstractVatRecipe {
             case NORMAL -> 13;
             case HOT -> 26;
         };
-        builder.addTexture(AbstractVatRecipe.TEXTURE, 5, 6, 12, 46, 126 + xOffset, 20)
+        builder.addTexture(AbstractVatClientRecipe.TEXTURE, 5, 6, 12, 46, 126 + xOffset, 20)
                 .tooltip((mx, my) -> List.of(
                         ClientTooltipComponent.create(Component.translatable("container.culturaldelights.vat."
                                 + temperature.getSerializedName()).getVisualOrderText())

@@ -2,7 +2,7 @@ package com.baisylia.culturaldelights.util;
 
 import com.baisylia.culturaldelights.CulturalDelights;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -19,11 +19,11 @@ public class ModTags {
         public static final TagKey<Block> COUNTERS = tag("counters");
 
         private static TagKey<Block> tag(String name) {
-            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, name));
+            return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, name));
         }
 
         private static TagKey<Block> commonTag(String name) {
-            return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));
+            return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", name));
         }
     }
 
@@ -35,11 +35,11 @@ public class ModTags {
         public static final TagKey<Item> MARSHMALLOWS = tag("marshmallows");
 
         private static TagKey<Item> tag(String name) {
-            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, name));
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, name));
         }
 
         private static TagKey<Item> commonTag(String name) {
-            return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", name));
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name));
         }
     }
 }

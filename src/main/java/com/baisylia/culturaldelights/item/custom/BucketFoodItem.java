@@ -4,8 +4,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.Nullable;
 
 public class BucketFoodItem extends Item {
     public BucketFoodItem(Item.Properties properties) {
@@ -13,8 +15,8 @@ public class BucketFoodItem extends Item {
     }
 
     @Override
-    public ItemStack getRecipeRemainder(ItemStack stack) {
-        return new ItemStack(Items.BUCKET);
+    public @Nullable ItemStackTemplate getCraftingRemainder(ItemStack stack) {
+        return new ItemStackTemplate(Items.BUCKET);
     }
 
     @Override

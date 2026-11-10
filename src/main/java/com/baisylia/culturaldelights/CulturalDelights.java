@@ -23,22 +23,21 @@ import com.baisylia.culturaldelights.sound.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -72,7 +71,7 @@ public class CulturalDelights implements ModInitializer {
         eventBus.addListener(this::setup);
         eventBus.addListener(this::registerCapabilities);
         eventBus.addListener(() -> addBlockEntityValidBlocks(new BlockEntityTypeAddBlocksEvent()));
-        eventBus.addListener(() -> ItemGroupEvents.MODIFY_ENTRIES_ALL.register((creativeModeTab, fabricItemGroupEntries) -> buildCreativeTab(new BuildCreativeModeTabContentsEvent(creativeModeTab, fabricItemGroupEntries))));
+        eventBus.addListener(() -> CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register((creativeModeTab, fabricItemGroupEntries) -> buildCreativeTab(new BuildCreativeModeTabContentsEvent(creativeModeTab, fabricItemGroupEntries))));
         eventBus.addListener(() -> addPackFinders(new AddPackFindersEvent()));
         CulturalDelightsRefabricated.init();
     }
@@ -85,20 +84,19 @@ public class CulturalDelights implements ModInitializer {
     }
 
     public static void registerFlammables() {
-        FireBlock fire = (FireBlock) Blocks.FIRE;
-        fire.setFlammable(ModBlocks.BEANSTALK.get(), 5, 5);
-        fire.setFlammable(ModBlocks.STRIPPED_BEANSTALK.get(), 5, 5);
-        fire.setFlammable(ModBlocks.BEANSTALK_PLANKS.get(), 5, 20);
-        fire.setFlammable(ModBlocks.BEANSTALK_STAIRS.get(), 5, 20);
-        fire.setFlammable(ModBlocks.BEANSTALK_SLAB.get(), 5, 20);
-        fire.setFlammable(ModBlocks.BEANSTALK_FENCE.get(), 5, 20);
-        fire.setFlammable(ModBlocks.BEANSTALK_FENCE_GATE.get(), 5, 20);
+        FlammableBlockRegistry fire = FlammableBlockRegistry.getDefaultInstance();
+        fire.add(ModBlocks.BEANSTALK.get(), 5, 5);
+        fire.add(ModBlocks.STRIPPED_BEANSTALK.get(), 5, 5);
+        fire.add(ModBlocks.BEANSTALK_PLANKS.get(), 5, 20);
+        fire.add(ModBlocks.BEANSTALK_STAIRS.get(), 5, 20);
+        fire.add(ModBlocks.BEANSTALK_SLAB.get(), 5, 20);
+        fire.add(ModBlocks.BEANSTALK_FENCE.get(), 5, 20);
+        fire.add(ModBlocks.BEANSTALK_FENCE_GATE.get(), 5, 20);
     }
 
     public static void registerDispenserBehaviors() {
-        Boat.Type beanstalk = ModBoatTypes.BEANSTALK.getValue();
-        DispenserBlock.registerBehavior(ModItems.BEANSTALK_RAFT.get(), new BoatDispenseItemBehavior(beanstalk));
-        DispenserBlock.registerBehavior(ModItems.BEANSTALK_CHEST_RAFT.get(), new BoatDispenseItemBehavior(beanstalk, true));
+        DispenserBlock.registerBehavior(ModItems.BEANSTALK_RAFT.get(), new BoatDispenseItemBehavior(ModBoatTypes.BEANSTALK));
+        DispenserBlock.registerBehavior(ModItems.BEANSTALK_CHEST_RAFT.get(), new BoatDispenseItemBehavior(ModBoatTypes.BEANSTALK_CHEST_BOAT));
     }
 
     private void setup() {
@@ -118,21 +116,21 @@ public class CulturalDelights implements ModInitializer {
     }
 
     private void buildCreativeTab(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey().location().equals(ResourceLocation.fromNamespaceAndPath("farmersdelight", "farmersdelight"))) {
+        if (event.getTabKey().identifier().equals(Identifier.fromNamespaceAndPath("farmersdelight", "farmersdelight"))) {
             ModItems.ITEMS.getEntries().forEach(item -> event.accept(item.get()));
         }
     }
 
     public void addPackFinders(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MOD_ID, "resourcepacks/pastry_sheet"),
+            event.addPackFinders(Identifier.fromNamespaceAndPath(MOD_ID, "resourcepacks/pastry_sheet"),
                     PackType.CLIENT_RESOURCES, Component.literal("Pastry Sheet"), PackSource.BUILT_IN, false, Pack.Position.TOP);
-            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MOD_ID, "resourcepacks/apple_juice"),
+            event.addPackFinders(Identifier.fromNamespaceAndPath(MOD_ID, "resourcepacks/apple_juice"),
                     PackType.CLIENT_RESOURCES, Component.literal("Apple Juice"), PackSource.BUILT_IN, false, Pack.Position.TOP);
-            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MOD_ID, "resourcepacks/retextured_stove"),
+            event.addPackFinders(Identifier.fromNamespaceAndPath(MOD_ID, "resourcepacks/retextured_stove"),
                     PackType.CLIENT_RESOURCES, Component.literal("Retextured Stove"), PackSource.BUILT_IN, false, Pack.Position.TOP);
             if (ModList.get().isLoaded("supplementaries")) {
-                event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MOD_ID, "resourcepacks/supplementaries"),
+                event.addPackFinders(Identifier.fromNamespaceAndPath(MOD_ID, "resourcepacks/supplementaries"),
                         PackType.CLIENT_RESOURCES, Component.literal("Supplementaries Beans"), PackSource.BUILT_IN, true, Pack.Position.TOP);
             }
         }
@@ -154,11 +152,7 @@ public class CulturalDelights implements ModInitializer {
 
 
         public static void onClientSetup() {
-            BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LEMON_SAPLING.get(), RenderType.cutoutMipped());
-            BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SALT_SPIKE.get(), RenderType.cutout());
-            BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BEANSTALK_LEAF.get(), RenderType.cutout());
-            BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAGIC_BEANS.get(), RenderType.cutout());
-//            event.enqueueWork(() -> Sheets.addWoodType(ModWoodTypes.BEANSTALK));
+
         }
 
         public static boolean applyForgeHandTransform(PoseStack matrixStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTicks, float equipProcess, float swingProcess) {

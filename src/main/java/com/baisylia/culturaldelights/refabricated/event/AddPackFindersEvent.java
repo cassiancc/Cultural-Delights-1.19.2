@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -15,7 +15,7 @@ public class AddPackFindersEvent {
 		return PackType.CLIENT_RESOURCES;
 	}
 
-	public void addPackFinders(ResourceLocation id, PackType packType, MutableComponent name, PackSource builtIn, boolean b, Pack.Position position) {
+	public void addPackFinders(Identifier id, PackType packType, MutableComponent name, PackSource builtIn, boolean b, Pack.Position position) {
 		ResourcePackActivationType resourcePackActivationType = b ? ResourcePackActivationType.DEFAULT_ENABLED : ResourcePackActivationType.NORMAL;
 		ResourceManagerHelper.registerBuiltinResourcePack(id, FabricLoader.getInstance().getModContainer(CulturalDelights.MOD_ID).orElseThrow(), name, resourcePackActivationType);
 	}

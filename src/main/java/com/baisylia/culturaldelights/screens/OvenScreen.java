@@ -1,21 +1,21 @@
 package com.baisylia.culturaldelights.screens;
 
 import com.baisylia.culturaldelights.CulturalDelights;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui.png");
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui.png");
 
     public OvenScreen(OvenMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
+    protected void renderBg(GuiGraphicsExtractor guiGraphics, float v, int i, int i1) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -31,7 +31,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float delta) {
         this.renderBackground(guiGraphics, mouseX, mouseY);
         super.render(guiGraphics, mouseX, mouseY, delta);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
@@ -41,7 +41,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         }
     }
 
-    protected void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         guiGraphics.blit(TEXTURE, (width - imageWidth) / 2, (height - imageHeight) / 2, 0, 0, imageWidth, imageHeight);
 
         if (menu.isCrafting()) {

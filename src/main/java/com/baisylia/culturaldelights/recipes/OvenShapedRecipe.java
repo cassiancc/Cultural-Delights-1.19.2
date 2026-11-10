@@ -4,39 +4,40 @@ import com.baisylia.culturaldelights.block.ModBlocks;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
+import java.util.List;
+import java.util.Optional;
+
 public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
 
-    final ItemStack output;
+    final ItemStackTemplate output;
     private final ShapedRecipePattern pattern;
     private final int cookTime;
 
-    public OvenShapedRecipe(ShapedRecipePattern pattern, ItemStack output, int cookTime) {
+    public OvenShapedRecipe(ShapedRecipePattern pattern, ItemStackTemplate output, int cookTime) {
         this.output = output;
         this.pattern = pattern;
         this.cookTime = cookTime;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<RecipeWrapper>> getSerializer() {
         return ModRecipes.BAKING_SHAPED_SERIALIZER.get();
     }
 
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return output.copy();
+    public ItemStack getResultItem() {
+        return output.create();
     }
 
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public List<Optional<Ingredient>> getIngredients() {
         return pattern.ingredients();
     }
 
@@ -46,7 +47,7 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
 
     public boolean matches(RecipeWrapper inv, Level level) {
         ItemStack outputSlot = inv.getItem(9);
-        if (!outputSlot.isEmpty() && !ItemStack.isSameItem(this.output, outputSlot)) {
+        if (!outputSlot.isEmpty() && !ItemStack.isSameItem(this.output.create(), outputSlot)) {
             return false;
         }
 
@@ -118,8 +119,8 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper inv, HolderLookup.Provider provider) {
-        return output.copy();
+    public ItemStack assemble(RecipeWrapper inv) {
+        return output.create();
     }
 
     public int getWidth() {
@@ -131,12 +132,7 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
-        return true;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
         return ModRecipes.BAKING_SHAPED.get();
     }
 
@@ -146,14 +142,14 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
     }
 
     public boolean isIncomplete() {
-        NonNullList<Ingredient> nonnulllist = this.getIngredients();
-        return nonnulllist.isEmpty() || nonnulllist.stream().filter((ingredient) -> !ingredient.isEmpty()).anyMatch((ingredient) -> true);
+        List<Optional<Ingredient>> nonnulllist = this.getIngredients();
+        return nonnulllist.isEmpty() || nonnulllist.stream().filter(Optional::isPresent).anyMatch((ingredient) -> true);
     }
 
-    public static class Serializer implements RecipeSerializer<OvenShapedRecipe> {
+    public static class Serializer {
         public static final MapCodec<OvenShapedRecipe> CODEC = RecordCodecBuilder.mapCodec((recipe) -> recipe.group(
                 ShapedRecipePattern.MAP_CODEC.forGetter((p_311733_) -> p_311733_.pattern),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter((p_311730_) -> p_311730_.output),
+                ItemStackTemplate.CODEC.fieldOf("result").forGetter((p_311730_) -> p_311730_.output),
                 Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(OvenShapedRecipe::getCookTime)
         ).apply(recipe, OvenShapedRecipe::new));
 
@@ -161,7 +157,7 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
             return CODEC;
         }
 
-        public StreamCodec<RegistryFriendlyByteBuf, OvenShapedRecipe> streamCodec() {
+        public static StreamCodec<RegistryFriendlyByteBuf, OvenShapedRecipe> streamCodec() {
             return StreamCodec.of(OvenShapedRecipe.Serializer::toNetwork, OvenShapedRecipe.Serializer::fromNetwork);
         }
 
@@ -176,6 +172,10 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
             ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern);
             ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
             buffer.writeVarInt(recipe.cookTime);
+        }
+
+        public static RecipeSerializer<OvenShapedRecipe> create() {
+            return new RecipeSerializer<>(CODEC, streamCodec());
         }
     }
 }

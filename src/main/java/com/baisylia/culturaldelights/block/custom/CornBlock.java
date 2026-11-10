@@ -220,7 +220,7 @@ public class CornBlock extends CropBlock {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (player.isCreative()) {
                 BlockPos bottom = getBottom(level, pos);
                 int maxHeight = getExpectedMaxHeight(state.getValue(AGE));

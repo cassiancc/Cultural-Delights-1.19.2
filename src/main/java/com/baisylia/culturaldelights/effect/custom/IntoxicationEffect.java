@@ -1,5 +1,6 @@
 package com.baisylia.culturaldelights.effect.custom;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,7 +18,7 @@ public class IntoxicationEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
         var tag = entity;
 
         // Slowness
@@ -45,9 +46,9 @@ public class IntoxicationEffect extends MobEffect {
         entity.setDeltaMovement(movement);
 
         // Nausea
-        if (!entity.level().isClientSide && amplifier >= 4) {
+        if (!entity.level().isClientSide() && amplifier >= 4) {
             entity.addEffect(new MobEffectInstance(
-                    MobEffects.CONFUSION,
+                    MobEffects.NAUSEA,
                     100 * amplifier,
                     amplifier - 3,
                     false,
@@ -55,7 +56,7 @@ public class IntoxicationEffect extends MobEffect {
             ));
         }
         // Poison
-        if (!entity.level().isClientSide && amplifier >= 6) {
+        if (!entity.level().isClientSide() && amplifier >= 6) {
             entity.addEffect(new MobEffectInstance(
                     MobEffects.POISON,
                     50 * amplifier,

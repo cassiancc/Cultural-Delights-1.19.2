@@ -1,5 +1,5 @@
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version "${fabric_loom_version}"
+	id 'net.fabricmc.fabric-loom' version "${fabric_loom_version}"
     id 'me.modmuss50.mod-publish-plugin' version '2.2.0'
 }
 
@@ -16,8 +16,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 repositories {
@@ -77,41 +77,37 @@ repositories {
 
 dependencies {
     // Farmer's Delight
-    modCompileOnly "maven.modrinth:farmers-delight-refabricated:${farmers_delight_version}"
-    modRuntimeOnly "maven.modrinth:farmers-delight-refabricated:${farmers_delight_version}"
+    compileOnly "maven.modrinth:farmers-delight-refabricated:${farmers_delight_version}"
+    runtimeOnly "maven.modrinth:farmers-delight-refabricated:${farmers_delight_version}"
 
     // Supplementaries
-    modCompileOnly "maven.modrinth:supplementaries:${supplementaries_version}"
-//    modRuntimeOnly "maven.modrinth:supplementaries:${supplementaries_version}"
-    modCompileOnly "maven.modrinth:moonlight:fWlk6YEB"
-//    modRuntimeOnly "maven.modrinth:moonlight:fWlk6YEB"
+    compileOnly "maven.modrinth:supplementaries:${supplementaries_version}"
+//    runtimeOnly "maven.modrinth:supplementaries:${supplementaries_version}"
+    compileOnly "maven.modrinth:moonlight:26.1.2-4.2.2"
+//    runtimeOnly "maven.modrinth:moonlight:26.1.2-4.2.2"
 
     // Every Compat
-//    modRuntimeOnly "maven.modrinth:every-compat:LOJjzOOP"
+//    runtimeOnly "maven.modrinth:every-compat:LOJjzOOP"
 
-    // EMI
-    modCompileOnly "maven.modrinth:emi:${emi_version}+fabric"
-    modRuntimeOnly "maven.modrinth:emi:${emi_version}+fabric"
+    // RRV
+    compileOnly "maven.modrinth:rrv:${rrv_version}-fabric"
+    runtimeOnly "maven.modrinth:rrv:${rrv_version}-fabric"
 
     // JEI
-    modCompileOnly "mezz.jei:jei-1.21.1-fabric-api:${jei_version}"
-    //modRuntimeOnly "mezz.jei:jei-1.21.1-fabric:${jei_version}"
+    compileOnly "mezz.jei:jei-26.1.2-fabric-api:${jei_version}"
+    //runtimeOnly "mezz.jei:jei-26.1.2-fabric:${jei_version}"
     
     // Modest Magic
-    modCompileOnly "maven.modrinth:modest-magic:${modest_magic_version}"
+    compileOnly "maven.modrinth:modest-magic:${modest_magic_version}"
 
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
-    })
-	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+	implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-    modImplementation "maven.modrinth:modmenu:11.0.5"
-    modImplementation("cc.cassian.asphodel:asphodel-api-fabric:1.1.1+${minecraft_version}")
-    include("cc.cassian.asphodel:asphodel-api-fabric:1.1.1+${minecraft_version}")
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    implementation "maven.modrinth:modmenu:11.0.5"
+    implementation("cc.cassian.asphodel:asphodel-api-fabric:1.1.2+${minecraft_version}")
+    include("cc.cassian.asphodel:asphodel-api-fabric:1.1.2+${minecraft_version}")
 }
 
 processResources {
@@ -140,7 +136,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-	it.options.release = 21
+	it.options.release = 25
 }
 
 jar {

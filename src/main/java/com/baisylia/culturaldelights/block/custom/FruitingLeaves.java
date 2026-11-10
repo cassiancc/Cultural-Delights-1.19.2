@@ -1,6 +1,7 @@
 package com.baisylia.culturaldelights.block.custom;
 
 import com.baisylia.culturaldelights.item.ModItems;
+import com.baisylia.culturaldelights.refabricated.patch.LeavesBlock;
 import com.baisylia.culturaldelights.refabricated.util.Flammable;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -9,7 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -76,24 +75,24 @@ public class FruitingLeaves extends LeavesBlock implements BonemealableBlock, Fl
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos pos, BlockState state) {
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(fruit.get());
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         int i = state.getValue(AGE);
         if (i < MAX_AGE && stack.is(Items.BONE_MEAL)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
         if (i == MAX_AGE) {
-            int j = 1 + world.random.nextInt(2);
+            int j = 1 + world.getRandom().nextInt(2);
             popResource(world, pos, new ItemStack(fruit.get(), j + 1));
-            world.playSound(null, pos, ModSounds.LEAVES_PICKED.get(), SoundSource.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
+            world.playSound(null, pos, ModSounds.LEAVES_PICKED.get(), SoundSource.BLOCKS, 1.0F, 0.8F + world.getRandom().nextFloat() * 0.4F);
             BlockState blockstate = state.setValue(AGE, 0);
             world.setBlock(pos, blockstate, 2);
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockstate));
-            return ItemInteractionResult.sidedSuccess(world.isClientSide);
+            return InteractionResult.SUCCESS_SERVER;
         }
         return super.useItemOn(stack, state, world, pos, player, hand, result);
     }
@@ -101,13 +100,13 @@ public class FruitingLeaves extends LeavesBlock implements BonemealableBlock, Fl
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult result) {
         if (state.getValue(AGE) == MAX_AGE) {
-            int j = 1 + world.random.nextInt(2);
+            int j = 1 + world.getRandom().nextInt(2);
             popResource(world, pos, new ItemStack(fruit.get(), j + 1));
-            world.playSound(null, pos, ModSounds.LEAVES_PICKED.get(), SoundSource.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
+            world.playSound(null, pos, ModSounds.LEAVES_PICKED.get(), SoundSource.BLOCKS, 1.0F, 0.8F + world.getRandom().nextFloat() * 0.4F);
             BlockState blockstate = state.setValue(AGE, 0);
             world.setBlock(pos, blockstate, 2);
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockstate));
-            return InteractionResult.sidedSuccess(world.isClientSide);
+            return InteractionResult.SUCCESS_SERVER;
         }
         return super.useWithoutItem(state, world, pos, player, result);
     }

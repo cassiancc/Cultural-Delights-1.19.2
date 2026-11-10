@@ -8,7 +8,7 @@ import com.baisylia.culturaldelights.refabricated.RangedWrapper;
 import com.baisylia.culturaldelights.screens.VatMenu;
 import com.baisylia.culturaldelights.util.ModTags;
 import com.baisylia.culturaldelights.util.VatTemperature;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -20,7 +20,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -41,7 +40,7 @@ import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
-public class VatBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, WorldlyContainer {
+public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<BlockPos>, WorldlyContainer {
 
     private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6};
     private static final int OUTPUT_SLOT = 7;
@@ -260,19 +259,19 @@ public class VatBlockEntity extends BlockEntity implements ExtendedScreenHandler
         }
 
         RecipeWrapper wrapper = new RecipeWrapper(entity.itemHandler);
-        ItemStack resultItem = recipe.assemble(wrapper, entity.level.registryAccess());
+        ItemStack resultItem = recipe.assemble(wrapper);
 
         // Handle by-products (empty buckets, etc.)
         for (int i = 0; i < 7; ++i) {
             ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-            if (!slotStack.getRecipeRemainder().isEmpty()) {
+            if (slotStack.getCraftingRemainder() != null) {
                 Direction facing = entity.getBlockState().getValue(VatBlock.FACING);
                 Direction direction = getEjectionDirection(entity.worldPosition, entity.level, facing);
                 double offset = facing.getAxis().isHorizontal() ? 0.25 : 0.6;
                 double x = (double) entity.worldPosition.getX() + 0.5 + (double) direction.getStepX() * offset;
                 double y = (double) entity.worldPosition.getY() + (facing.getAxis().isHorizontal() ? 0.7 : 0.5);
                 double z = (double) entity.worldPosition.getZ() + 0.5 + (double) direction.getStepZ() * offset;
-                spawnItemEntity(entity.level, slotStack.getRecipeRemainder(), x, y, z, (float) direction.getStepX() * 0.08F, 0.25, (float) direction.getStepZ() * 0.08F);
+                spawnItemEntity(entity.level, slotStack.getCraftingRemainder().create(), x, y, z, (float) direction.getStepX() * 0.08F, 0.25, (float) direction.getStepZ() * 0.08F);
             }
         }
 

@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -38,7 +38,7 @@ import vectorwing.farmersdelight.common.utility.ItemUtils;
 import java.util.function.Supplier;
 
 public class RusticLoafBlock extends Block {
-    public static final DirectionProperty FACING;
+    public static final EnumProperty<Direction> FACING;
     public static final IntegerProperty BITES;
     protected static final VoxelShape SHAPE;
     public final Supplier<Item> pieSlice;
@@ -85,8 +85,8 @@ public class RusticLoafBlock extends Block {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        return heldStack.is(ModTags.Items.KNIVES) ? this.cutSlice(level, pos, state, player) : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    public InteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        return heldStack.is(ModTags.Items.KNIVES) ? this.cutSlice(level, pos, state, player) : InteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override
@@ -132,7 +132,7 @@ public class RusticLoafBlock extends Block {
         }
     }
 
-    protected ItemInteractionResult cutSlice(Level level, BlockPos pos, BlockState state, Player player) {
+    protected InteractionResult cutSlice(Level level, BlockPos pos, BlockState state, Player player) {
         int bites = (Integer)state.getValue(BITES);
         if (bites < this.getMaxBites() - 1) {
             level.setBlock(pos, (BlockState)state.setValue(BITES, bites + 1), 3);
@@ -143,7 +143,7 @@ public class RusticLoafBlock extends Block {
         Direction direction = player.getDirection().getOpposite();
         ItemUtils.spawnItemEntity(level, this.getPieSliceItem(), (double)pos.getX() + (double)0.5F, (double)pos.getY() + 0.3, (double)pos.getZ() + (double)0.5F, (double)direction.getStepX() * 0.15, 0.05, (double)direction.getStepZ() * 0.15);
         level.playSound((Player)null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

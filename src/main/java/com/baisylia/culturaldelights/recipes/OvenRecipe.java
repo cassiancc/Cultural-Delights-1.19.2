@@ -8,8 +8,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -17,15 +18,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OvenRecipe implements Recipe<RecipeWrapper> {
     private final NonNullList<Ingredient> inputItems;
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final int cookTime;
 
-    public OvenRecipe(NonNullList<Ingredient> inputItems, ItemStack output, int cookTime) {
+    public OvenRecipe(NonNullList<Ingredient> inputItems, ItemStackTemplate output, int cookTime) {
         this.inputItems = inputItems;
         this.output = output;
         this.cookTime = cookTime;
@@ -35,12 +35,13 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
         return this.inputItems;
     }
 
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return this.output;
+    public ItemStack getResultItem() {
+        return this.output.create();
     }
 
-    public ItemStack assemble(RecipeWrapper inv, HolderLookup.Provider provider) {
-        return this.output.copy();
+    @Override
+    public ItemStack assemble(RecipeWrapper inv) {
+        return this.output.create();
     }
 
     public int getCookTime() {
@@ -54,7 +55,7 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
     }
 
     public boolean matches(RecipeWrapper inv, Level level) {
-        StackedContents inputs = new StackedContents();
+        StackedItemContents inputs = new StackedItemContents();
         int i = 0;
 
         for (int j = 0; j < 9; ++j) {
@@ -72,11 +73,11 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
         return width * height >= this.inputItems.size();
     }
 
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<RecipeWrapper>> getSerializer() {
         return ModRecipes.BAKING_SERIALIZER.get();
     }
 
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
         return ModRecipes.BAKING.get();
     }
 
@@ -108,10 +109,10 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
         return result;
     }
 
-    public static class Serializer implements RecipeSerializer<OvenRecipe> {
+    public static class Serializer {
         private static final MapCodec<OvenRecipe> CODEC = RecordCodecBuilder.mapCodec((inst) -> inst.group(
-                Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(OvenRecipe::getIngredients),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter((r) -> r.output),
+                Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(OvenRecipe::getIngredients),
+                ItemStackTemplate.CODEC.fieldOf("result").forGetter((r) -> r.output),
                 Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(OvenRecipe::getCookTime)
         ).apply(inst, (ingredients, output, cookTime) -> new OvenRecipe(copyOf(ingredients), output, cookTime)));
 
@@ -127,15 +128,15 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
             return CODEC;
         }
 
-        public StreamCodec<RegistryFriendlyByteBuf, OvenRecipe> streamCodec() {
+        public static StreamCodec<RegistryFriendlyByteBuf, OvenRecipe> streamCodec() {
             return StreamCodec.of(OvenRecipe.Serializer::toNetwork, OvenRecipe.Serializer::fromNetwork);
         }
 
         private static OvenRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             int i = buffer.readVarInt();
-            NonNullList<Ingredient> inputItemsIn = NonNullList.withSize(i, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputItemsIn = NonNullList.withSize(i, null);
             inputItemsIn.replaceAll((ignored) -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-            ItemStack outputIn = ItemStack.STREAM_CODEC.decode(buffer);
+            ItemStackTemplate outputIn = ItemStackTemplate.STREAM_CODEC.decode(buffer);
             int cookTimeIn = buffer.readVarInt();
             return new OvenRecipe(inputItemsIn, outputIn, cookTimeIn);
         }
@@ -145,8 +146,12 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
             for (Ingredient ingredient : recipe.inputItems) {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
             }
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
             buffer.writeVarInt(recipe.cookTime);
+        }
+
+        public static RecipeSerializer<OvenRecipe> create() {
+            return new RecipeSerializer<>(CODEC, streamCodec());
         }
     }
 }

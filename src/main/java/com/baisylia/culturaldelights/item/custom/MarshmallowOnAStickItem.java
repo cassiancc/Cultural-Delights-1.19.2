@@ -11,12 +11,12 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -64,22 +64,22 @@ public class MarshmallowOnAStickItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack cookingStack = player.getItemInHand(hand);
         boolean cooking = cookingStack.has(ModDataComponents.COOK_TIME.get());
         if (isPlayerNearHeatSource(player, level)) {
             if (cooking) {
                 player.startUsingItem(hand);
-                return InteractionResultHolder.pass(cookingStack);
+                return InteractionResult.PASS;
             }
 
             Optional<ItemStack> recipe = getCookingRecipe(cookingStack);
             if (recipe.isPresent()) {
                 cookingStack.set(ModDataComponents.COOK_TIME.get(), COOKING_TIME);
                 player.startUsingItem(hand);
-                return InteractionResultHolder.consume(cookingStack);
+                return InteractionResult.CONSUME;
             }
-            return InteractionResultHolder.pass(cookingStack);
+            return InteractionResult.PASS;
         } else {
             cookingStack.remove(ModDataComponents.COOK_TIME.get());
             return super.use(level, player, hand);
@@ -87,15 +87,15 @@ public class MarshmallowOnAStickItem extends Item {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack itemStack) {
-        if (canCookOrIsCooking(itemStack)) return UseAnim.NONE;
-        if (itemStack.has(DataComponents.FOOD)) return UseAnim.EAT;
-        return UseAnim.NONE;
+    public ItemUseAnimation getUseAnimation(ItemStack itemStack) {
+        if (canCookOrIsCooking(itemStack)) return ItemUseAnimation.NONE;
+        if (itemStack.has(DataComponents.FOOD)) return ItemUseAnimation.EAT;
+        return ItemUseAnimation.NONE;
     }
 
     @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
-        if (entity instanceof Player player && level.random.nextInt(50) == 0) {
+        if (entity instanceof Player player && level.getRandom().nextInt(50) == 0) {
             playLocalSound(level, player, ModSounds.MARSHMALLOW_SIZZLE.get());
         }
     }
@@ -105,14 +105,16 @@ public class MarshmallowOnAStickItem extends Item {
         double x = pos.x() + 0.5D;
         double y = pos.y();
         double z = pos.z() + 0.5D;
-        level.playLocalSound(x, y, z, sound, SoundSource.BLOCKS, 0.4F, level.random.nextFloat() * 0.2F + 0.9F, false);
+        level.playLocalSound(x, y, z, sound, SoundSource.BLOCKS, 0.4F, level.getRandom().nextFloat() * 0.2F + 0.9F, false);
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         if (entity instanceof Player) {
             stack.remove(ModDataComponents.COOK_TIME.get());
+            return true;
         }
+        return false;
     }
 
     @Override

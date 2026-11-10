@@ -17,15 +17,15 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class VatRecipeCategory implements IRecipeCategory<RecipeHolder<VatRecipe>> {
-    public static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/vat_gui_jei.png");
+    public static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/vat_gui_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -52,7 +52,7 @@ public class VatRecipeCategory implements IRecipeCategory<RecipeHolder<VatRecipe
     }
 
     @Override
-    public void draw(RecipeHolder<VatRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<VatRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics, 0, 0);
         IDrawableAnimated arrow = getArrow(holder.value());
         arrow.draw(guiGraphics, 63, 10);

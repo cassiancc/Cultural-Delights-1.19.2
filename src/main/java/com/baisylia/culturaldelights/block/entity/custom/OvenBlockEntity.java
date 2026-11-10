@@ -7,7 +7,7 @@ import com.baisylia.culturaldelights.recipes.OvenRecipe;
 import com.baisylia.culturaldelights.recipes.OvenShapedRecipe;
 import com.baisylia.culturaldelights.screens.OvenMenu;
 import com.baisylia.culturaldelights.sound.ModSounds;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -41,7 +41,7 @@ import java.util.Optional;
 
 import static com.baisylia.culturaldelights.block.custom.OvenBlock.LIT;
 
-public class OvenBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos> {
+public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider<BlockPos> {
 
     protected final ContainerData data;
     private int progress = 0;

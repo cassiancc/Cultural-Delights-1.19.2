@@ -15,13 +15,13 @@ public class CheesyEffect extends MobEffect {
 
     @Override
     public void onEffectStarted(LivingEntity entity, int amplifier) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             entity.getActiveEffects().stream()
                     .map(MobEffectInstance::getEffect)
                     .filter(eff -> {
                         // Preserve Alcoholy Side Effects
                         if (eff.value() == this || eff.is(ModEffects.INTOXICATION.getKey())) return false;
-                        return (!eff.is(MobEffects.CONFUSION) && !eff.is(MobEffects.POISON))
+                        return (!eff.is(MobEffects.NAUSEA) && !eff.is(MobEffects.POISON))
                                 || !entity.hasEffect(ModEffects.INTOXICATION);
                     })
                     .toList()

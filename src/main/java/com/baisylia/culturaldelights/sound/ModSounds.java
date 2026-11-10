@@ -2,7 +2,7 @@ package com.baisylia.culturaldelights.sound;
 
 import com.baisylia.culturaldelights.CulturalDelights;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import cc.cassian.asphodel.util.deferred_registry.DeferredHolder;
 import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
@@ -19,7 +19,7 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> LEAVES_PICKED = register("block.fruiting_leaves.pick_fruit");
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, name)));
     }
 
     public static void register() {

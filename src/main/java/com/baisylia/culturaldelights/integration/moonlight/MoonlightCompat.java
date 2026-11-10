@@ -4,7 +4,7 @@ import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import net.mehvahdjukaar.moonlight.api.client.TextureCache;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodTypeRegistry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 public class MoonlightCompat {
@@ -22,7 +22,7 @@ public class MoonlightCompat {
     }
 
     private static void registerLogTextures(Block block, String name) {
-        TextureCache.registerSpecialTextureForBlock(block, "_side", ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "block/" + name + "_side"));
-        TextureCache.registerSpecialTextureForBlock(block, "_top", ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "block/" + name + "_top"));
+        TextureCache.registerSpecialTextureForBlock(block, "_side", Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "block/" + name + "_side"));
+        TextureCache.registerSpecialTextureForBlock(block, "_top", Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "block/" + name + "_top"));
     }
 }

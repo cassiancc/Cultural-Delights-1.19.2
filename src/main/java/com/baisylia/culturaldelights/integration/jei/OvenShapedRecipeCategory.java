@@ -18,17 +18,17 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
 public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<OvenShapedRecipe>> {
-    public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "baking_shaped");
-    public final static ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_jei.png");
+    public final static Identifier UID = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "baking_shaped");
+    public final static Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -50,13 +50,13 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<Ov
     }
 
     @Override
-    public void draw(RecipeHolder<OvenShapedRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<OvenShapedRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         IDrawableAnimated arrow = getArrow(holder.value());
         arrow.draw(guiGraphics, 63, 19);
         drawCookTime(holder.value(), guiGraphics, 45);
     }
 
-    protected void drawCookTime(OvenShapedRecipe recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawCookTime(OvenShapedRecipe recipe, GuiGraphicsExtractor guiGraphics, int y) {
         int cookTime = recipe.getCookTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;

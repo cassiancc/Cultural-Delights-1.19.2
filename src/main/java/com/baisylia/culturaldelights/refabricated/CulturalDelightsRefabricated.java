@@ -3,6 +3,7 @@ package com.baisylia.culturaldelights.refabricated;
 import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.block.custom.CornBlock;
+import com.baisylia.culturaldelights.effect.ModEffects;
 import com.baisylia.culturaldelights.event.ModEvents;
 import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
 import com.baisylia.culturaldelights.refabricated.event.VillagerTradesEvent;
@@ -15,20 +16,20 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.entity.event.v1.effect.ServerMobEffectEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -47,6 +48,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
+import vectorwing.farmersdelight.refabricated.CompostableHelper;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 
 import java.util.Map;
@@ -69,14 +71,16 @@ public class CulturalDelightsRefabricated {
 				FlammableBlockRegistry.getDefaultInstance().add(block, flammable.getFlammability(null, null, null, null), flammable.getFireSpreadSpeed(null, null, null, null));
 			}
 		}
-		for (Item block : BuiltInRegistries.ITEM) {
-			if (block instanceof Flammable flammable) {
-				int burnTime = flammable.getBurnTime(block.getDefaultInstance(), null);
-				if (burnTime > 0) {
-					FuelRegistry.INSTANCE.add(block, burnTime);
+		FuelValueEvents.BUILD.register((builder, context) -> {
+			for (Item block : BuiltInRegistries.ITEM) {
+				if (block instanceof Flammable flammable) {
+					int burnTime = flammable.getBurnTime(block.getDefaultInstance(), null);
+					if (burnTime > 0) {
+							builder.add(block, burnTime);
+					}
 				}
 			}
-		}
+		});
 		UseBlockCallback.EVENT.register((player, world, hand, blockHitResult) -> {
 			var state = world.getBlockState(blockHitResult.getBlockPos());
 			if (state.getBlock() instanceof ToolModifiableBlock toolModifiableBlock && player.getItemInHand(hand).is(ItemTags.AXES)) {
@@ -100,7 +104,7 @@ public class CulturalDelightsRefabricated {
 		LootTableEvents.MODIFY.register((resourceKey, builder, lootTableSource, provider) -> {
 			if (resourceKey.equals(ModBlocks.CORN.get().getLootTable())) {
 				LootItemCondition.Builder grown = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.CORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornBlock.AGE, 7));
-				LootItemCondition.Builder tool = MatchTool.toolMatches(ItemPredicate.Builder.item().of(ModTags.Items.STRAW_HARVESTERS));
+				LootItemCondition.Builder tool = MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ModTags.Items.STRAW_HARVESTERS));
 
 				builder.withPool(new LootPool.Builder().when(grown).when(tool).add(LootItem.lootTableItem(ModItems.STRAW.get())));
 			}
@@ -115,6 +119,9 @@ public class CulturalDelightsRefabricated {
 		addFeature("wild_corn_placed", ConventionalBiomeTags.IS_PLAINS);
 		addFeature("wild_cucumbers_placed", ConventionalBiomeTags.IS_SWAMP);
 		addFeature("wild_eggplants_placed", BiomeTags.IS_JUNGLE);
+		ServerMobEffectEvents.ALLOW_EARLY_REMOVE.register((effectInstance, entity, ctx) -> {
+			return ctx.isFromCommand() || !effectInstance.is(ModEffects.INTOXICATION);
+		});
 	}
 
 	private static void addFeature(String path, TagKey<Biome> tag) {
@@ -130,8 +137,8 @@ public class CulturalDelightsRefabricated {
 		BiomeModifications.addFeature(BiomeSelectors.includeByKey(tag), GenerationStep.Decoration.VEGETAL_DECORATION, ResourceKey.create(Registries.PLACED_FEATURE, id(path)));
 	}
 
-	private static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(CulturalDelights.MOD_ID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, path);
 	}
 
 	private static final String COMPOSTABLES = "{\n" +
@@ -229,8 +236,8 @@ public class CulturalDelightsRefabricated {
 			JsonElement j = je.getAsJsonObject().get("values");
 
 			for(Map.Entry<String, JsonElement> v : j.getAsJsonObject().asMap().entrySet()) {
-				Item i = BuiltInRegistries.ITEM.get(ResourceLocation.tryParse(v.getKey()));
-				CompostingChanceRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
+				Item i = BuiltInRegistries.ITEM.getValue(Identifier.tryParse(v.getKey()));
+				CompostableRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
 			}
 		}
 

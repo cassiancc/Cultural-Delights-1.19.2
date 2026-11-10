@@ -49,12 +49,12 @@ public class ModBlocks {
                     .strength(5.0f, 6.0f).requiresCorrectToolForDrops().sound(SoundType.METAL)), false, 0);
 
     public static final DeferredBlock<Block> AGAVE = registerBlock("agave",
-            () -> new WildCropBlock(MobEffects.CONFUSION, 6,
+            () -> new WildCropBlock(MobEffects.NAUSEA, 6,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)), true, 40);
     public static final DeferredBlock<FlowerPotBlock> POTTED_AGAVE = registerBlockWithoutBlockItem("potted_agave",
             () -> new FlowerPotBlock(AGAVE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
     public static final DeferredBlock<Block> MINT = registerBlock("mint",
-            () -> new WildCropBlock(MobEffects.DAMAGE_BOOST, 6,
+            () -> new WildCropBlock(MobEffects.STRENGTH, 6,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)), true, 40);
     public static final DeferredBlock<FlowerPotBlock> POTTED_MINT = registerBlockWithoutBlockItem("potted_mint",
             () -> new FlowerPotBlock(MINT.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
@@ -66,7 +66,7 @@ public class ModBlocks {
             () -> new WildCropBlock(MobEffects.HUNGER, 6,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)), false, 0);
     public static final DeferredBlock<Block> WILD_EGGPLANTS = registerBlock("wild_eggplants",
-            () -> new WildCropBlock(MobEffects.DAMAGE_BOOST, 6,
+            () -> new WildCropBlock(MobEffects.STRENGTH, 6,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)), false, 0);
     public static final DeferredBlock<Block> WILD_BEANS = registerBlock("wild_beans",
             () -> new WildCropBlock(MobEffects.ABSORPTION, 6,
@@ -82,7 +82,7 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> MAGIC_BEANS = registerBlock("magic_beans",
             () -> new MagicBeansBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
-                    .noCollission().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)), false, 0);
+                    .noCollision().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)), false, 0);
 
     public static final DeferredBlock<Block> STRIPPED_BEANSTALK = registerBlock("stripped_beanstalk",
             () -> new StrippedBeanstalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
@@ -110,16 +110,16 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> BEANSTALK_SIGN = registerBlockWithoutBlockItem("beanstalk_sign",
             () -> new StandingSignBlock(ModWoodTypes.BEANSTALK, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
-                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava()));
+                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).ignitedByLava()));
     public static final DeferredBlock<Block> BEANSTALK_WALL_SIGN = registerBlockWithoutBlockItem("beanstalk_wall_sign",
             () -> new WallSignBlock(ModWoodTypes.BEANSTALK, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
-                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(BEANSTALK_SIGN.get()).ignitedByLava()));
+                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).overrideLootTable(BEANSTALK_SIGN.get().getLootTable()).ignitedByLava()));
     public static final DeferredBlock<Block> BEANSTALK_HANGING_SIGN = registerBlockWithoutBlockItem("beanstalk_hanging_sign",
             () -> new CeilingHangingSignBlock(ModWoodTypes.BEANSTALK, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
-                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava()));
+                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).ignitedByLava()));
     public static final DeferredBlock<Block> BEANSTALK_WALL_HANGING_SIGN = registerBlockWithoutBlockItem("beanstalk_wall_hanging_sign",
             () -> new WallHangingSignBlock(ModWoodTypes.BEANSTALK, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
-                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).dropsLike(BEANSTALK_HANGING_SIGN.get()).ignitedByLava()));
+                    .forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollision().strength(1.0F).overrideLootTable(BEANSTALK_HANGING_SIGN.get().getLootTable()).ignitedByLava()));
 
     public static final DeferredBlock<Block> BEANSTALK_CABINET = registerBlock("beanstalk_cabinet",
             () -> new CabinetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARREL)), false, 0);
@@ -229,17 +229,17 @@ public class ModBlocks {
             () -> new CornBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).noOcclusion()));
 
     public static final DeferredBlock<Block> BEANS = registerBlockWithoutBlockItem("beans",
-            () -> new BeansBlock(BlockBehaviour.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion()));
+            () -> new BeansBlock(BlockBehaviour.Properties.of().noCollision().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion()));
 
     public static final DeferredBlock<Block> ROPE_BEANS = registerBlockWithoutBlockItem("rope_beans",
             () -> ModList.get().isLoaded("supplementaries")
-                    ? SupplementariesCompat.makeRopeBeans(BlockBehaviour.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion())
-                    : new BeansBlock(BlockBehaviour.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion()));
+                    ? SupplementariesCompat.makeRopeBeans(BlockBehaviour.Properties.of().noCollision().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion())
+                    : new BeansBlock(BlockBehaviour.Properties.of().noCollision().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion()));
 
     public static final DeferredBlock<Block> STICK_BEANS = registerBlockWithoutBlockItem("stick_beans",
             () -> ModList.get().isLoaded("supplementaries")
-                    ? SupplementariesCompat.makeStickBeans(BlockBehaviour.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion())
-                    : new BeansBlock(BlockBehaviour.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion()));
+                    ? SupplementariesCompat.makeStickBeans(BlockBehaviour.Properties.of().noCollision().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion())
+                    : new BeansBlock(BlockBehaviour.Properties.of().noCollision().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion()));
 
     public static final DeferredBlock<Block> BUDDING_BEANS = registerBlockWithoutBlockItem("budding_beans",
             () -> new BuddingBeansBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).noOcclusion()));

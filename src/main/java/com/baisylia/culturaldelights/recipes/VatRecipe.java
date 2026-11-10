@@ -9,26 +9,29 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.Nullable;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 public class VatRecipe implements Recipe<RecipeWrapper> {
 
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final NonNullList<Ingredient> recipeItems;
     private final VatTemperature temperature;
-    private final Ingredient containerItem;
+    private final @Nullable Ingredient containerItem;
     private final int cookTime;
 
-    public VatRecipe(ItemStack output, NonNullList<Ingredient> recipeItems, VatTemperature temperature, Ingredient containerItem, int cookTime) {
+    public VatRecipe(ItemStackTemplate output, NonNullList<Ingredient> recipeItems, VatTemperature temperature, Optional<Ingredient> containerItem, int cookTime) {
+        this(output, recipeItems, temperature, containerItem.orElse(null), cookTime);
+    }
+
+    public VatRecipe(ItemStackTemplate output, NonNullList<Ingredient> recipeItems, VatTemperature temperature, @Nullable Ingredient containerItem, int cookTime) {
         this.output = output;
         this.recipeItems = recipeItems;
         this.temperature = temperature;
@@ -40,30 +43,34 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
         return this.temperature;
     }
 
-    public Ingredient getContainer() {
-        return this.containerItem;
+    public Optional<Ingredient> getContainer() {
+        return Optional.ofNullable(this.containerItem);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<RecipeWrapper>> getSerializer() {
         return ModRecipes.AGING_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
         return ModRecipes.AGING_TYPE.get();
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return this.output;
-    }
-
-    public ItemStack getResultItem() {
-        return this.output.copy();
+    public PlacementInfo placementInfo() {
+        return null;
     }
 
     @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
+    }
+
+    public ItemStack getResultItem() {
+        return this.output.create();
+    }
+
     public NonNullList<Ingredient> getIngredients() {
         return this.recipeItems;
     }
@@ -76,7 +83,7 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
     public boolean matches(RecipeWrapper inv, Level level) {
         // Check if output slot is already occupied with a different item
         ItemStack outputSlot = inv.getItem(7);
-        if (!outputSlot.isEmpty() && !ItemStack.isSameItemSameComponents(this.output, outputSlot)) {
+        if (!outputSlot.isEmpty() && !ItemStack.isSameItemSameComponents(this.output.create(), outputSlot)) {
             return false;
         }
         if (!outputSlot.isEmpty() && outputSlot.getCount() >= outputSlot.getMaxStackSize()) {
@@ -95,7 +102,7 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
             return false;
         }
 
-        StackedContents inputs = new StackedContents();
+        StackedItemContents inputs = new StackedItemContents();
         int count = 0;
         for (int j = 0; j < 6; ++j) {
             ItemStack stack = inv.getItem(j);
@@ -109,40 +116,45 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper inv, HolderLookup.Provider provider) {
-        return this.output.copy();
+    public ItemStack assemble(RecipeWrapper inv) {
+        return this.output.create();
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
-    public static class Serializer implements RecipeSerializer<VatRecipe> {
+    @Override
+    public String group() {
+        return "";
+    }
+
+    public static class Serializer {
         public static final StreamCodec<RegistryFriendlyByteBuf, VatRecipe> STREAM_CODEC = StreamCodec.of(
                 VatRecipe.Serializer::toNetwork,
                 VatRecipe.Serializer::fromNetwork
         );
         private static final MapCodec<VatRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.output),
+                ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.output),
                 Ingredient.CODEC.listOf().fieldOf("ingredients").xmap(ingredients -> {
                     NonNullList<Ingredient> nonNullList = NonNullList.create();
                     nonNullList.addAll(ingredients);
                     return nonNullList;
                 }, ingredients -> ingredients).forGetter(VatRecipe::getIngredients),
                 VatTemperature.CODEC.optionalFieldOf("temperature", VatTemperature.NORMAL).forGetter(VatRecipe::getTemperature),
-                Ingredient.CODEC.optionalFieldOf("container", Ingredient.EMPTY).forGetter(VatRecipe::getContainer),
+                Ingredient.CODEC.optionalFieldOf("container").forGetter(VatRecipe::getContainer),
                 Codec.INT.optionalFieldOf("cooktime", 200).forGetter(VatRecipe::getCookTime)
         ).apply(inst, VatRecipe::new));
 
         private static VatRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             int i = buffer.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(i, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(i, null);
             inputs.replaceAll(ignored -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
 
             Ingredient container = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             VatTemperature temperature = buffer.readEnum(VatTemperature.class);
-            ItemStack output = ItemStack.STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
             int cookTime = buffer.readVarInt();
             return new VatRecipe(output, inputs, temperature, container, cookTime);
         }
@@ -154,18 +166,13 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
             }
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.containerItem);
             buffer.writeEnum(recipe.temperature);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
             buffer.writeVarInt(recipe.cookTime);
         }
 
-        @Override
-        public MapCodec<VatRecipe> codec() {
-            return CODEC;
+        public static RecipeSerializer<VatRecipe> create() {
+            return new RecipeSerializer<>(CODEC, STREAM_CODEC);
         }
 
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, VatRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
     }
 }
