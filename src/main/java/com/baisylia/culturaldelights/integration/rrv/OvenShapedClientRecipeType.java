@@ -1,7 +1,5 @@
 package com.baisylia.culturaldelights.integration.rrv;
 
-import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
-import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.refabricated.CulturalDelightsRefabricated;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;

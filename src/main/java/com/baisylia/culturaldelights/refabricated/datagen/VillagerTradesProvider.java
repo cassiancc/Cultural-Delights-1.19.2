@@ -58,7 +58,7 @@ public class VillagerTradesProvider extends FabricDynamicRegistryProvider {
 	}
 
 	private static ResourceKey<VillagerTrade> key(String path) {
-		return ResourceKey.create(Registries.VILLAGER_TRADE, CulturalDelightsRefabricated.id(path));
+		return ResourceKey.create(Registries.VILLAGER_TRADE, CulturalDelightsRefabricated.id("farmer/1/%s_emerald".formatted(path)));
 	}
 
 	private static VillagerTrade offer(TradeCost itemCost, ItemStackTemplate stack, int maxUses, int xp, float priceMultiplier) {

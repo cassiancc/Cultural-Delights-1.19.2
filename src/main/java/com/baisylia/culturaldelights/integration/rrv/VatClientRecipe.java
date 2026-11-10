@@ -62,7 +62,7 @@ public class VatClientRecipe extends AbstractVatClientRecipe {
             case HOT -> 26;
         };
 
-        context.guiGraphics().blit(RenderPipelines.GUI_TEXTURED, AbstractVatClientRecipe.TEXTURE, 5, 6, 12, 46, 126 + xOffset, 20, 12, 46);
+        context.guiGraphics().blit(RenderPipelines.GUI_TEXTURED, AbstractVatClientRecipe.TEXTURE, 5, 6, 12, 46, 126 + xOffset, 20, 256, 256);
         ClientTooltipComponent.create(Component.translatable("container.culturaldelights.vat."
                 + temperature.getSerializedName()).getVisualOrderText());
     }

@@ -1,23 +1,23 @@
 {
   "values": [
     {
-      "id": "culturaldelights:cucumber",
+      "id": "culturaldelights:farmer/1/cucumber_emerald",
       "required": false
     },
     {
-      "id": "culturaldelights:eggplant",
+      "id": "culturaldelights:farmer/1/eggplant_emerald",
       "required": false
     },
     {
-      "id": "culturaldelights:white_eggplant",
+      "id": "culturaldelights:farmer/1/white_eggplant_emerald",
       "required": false
     },
     {
-      "id": "culturaldelights:corn",
+      "id": "culturaldelights:farmer/1/corn_emerald",
       "required": false
     },
     {
-      "id": "culturaldelights:avocado",
+      "id": "culturaldelights:farmer/1/avocado_emerald",
       "required": false
     }
   ]

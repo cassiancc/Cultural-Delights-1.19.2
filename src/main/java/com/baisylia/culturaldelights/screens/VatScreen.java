@@ -27,17 +27,17 @@ public class VatScreen extends AbstractContainerScreen<VatMenu> {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         if (menu.isCrafting()) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 88, y + 24, 176, 14, menu.getScaledProgress(), 17, 12, 46);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 88, y + 24, 176, 14, menu.getScaledProgress(), 17, 256, 256);
         }
         if (menu.getTemperature() == VatTemperature.COLD) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 176, 32, 12, 46, 12, 46);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 176, 32, 12, 46, 256, 256);
         } else if (menu.getTemperature() == VatTemperature.NORMAL) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 189, 32, 12, 46, 12, 46);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 189, 32, 12, 46, 256, 256);
         } else if (menu.getTemperature() == VatTemperature.HOT) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 202, 32, 12, 46, 12, 46);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 202, 32, 12, 46, 256, 256);
         }
     }
 

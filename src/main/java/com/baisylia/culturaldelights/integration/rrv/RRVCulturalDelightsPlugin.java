@@ -16,12 +16,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class RRVCulturalDelightsPlugin implements ReliableRecipeViewerPlugin {
 
-    static final Identifier VAT_TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/vat_gui_jei.png");
-    static final Identifier OVEN_TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_jei.png");
-
-    private static Renderable simplifiedRenderer(Identifier texture, int u, int v, int width, int height, int texWidth, int texHeight) {
-        return (draw, x, y, delta) -> draw.blit(texture, x, y, u, v, width, height, texWidth, texHeight);
-    }
+    static final Identifier VAT_TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/vat_gui_rrv.png");
+    static final Identifier OVEN_TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_rrv.png");
 
     @Override
     public void onIntegrationInitialize() {
@@ -37,7 +33,6 @@ public class RRVCulturalDelightsPlugin implements ReliableRecipeViewerPlugin {
             }
             list.add(new MarshmallowCookingClientRecipe(100, ModItems.MARSHMALLOW_ON_A_STICK.get(), ModItems.CARAMELIZED_MARSHMALLOW_ON_A_STICK.get()));
             list.add(new MarshmallowCookingClientRecipe(100, ModItems.CARAMELIZED_MARSHMALLOW_ON_A_STICK.get(), ModItems.CHARRED_MARSHMALLOW_ON_A_STICK.get()));
-
         });
 
     }
