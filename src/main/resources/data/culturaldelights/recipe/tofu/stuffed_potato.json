@@ -1,20 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:crops/potato"
-    },
-    {
-      "item": "culturaldelights:tofu"
-    },
-    {
-      "tag": "c:drinks/milk"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:stuffed_potato",
-    "count": 1
-  }
+{
+ "type": "culturaldelights:baking",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:crops/potato",
+  "culturaldelights:tofu",
+  "#c:drinks/milk"
+ ],
+ "result": {
+  "id": "farmersdelight:stuffed_potato",
+  "count": 1
+ }
 }
-

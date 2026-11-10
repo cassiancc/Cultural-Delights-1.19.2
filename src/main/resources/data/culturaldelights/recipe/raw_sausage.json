@@ -1,15 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "culturaldelights:full_meats"
-    },
-    {
-      "tag": "culturaldelights:full_meats"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:raw_sausage",
-    "count": 3
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#culturaldelights:full_meats",
+  "#culturaldelights:full_meats"
+ ],
+ "result": {
+  "id": "culturaldelights:raw_sausage",
+  "count": 3
+ }
 }

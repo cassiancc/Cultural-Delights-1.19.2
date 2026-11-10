@@ -1,37 +1,19 @@
 {
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "tag": "c:crops/cocoa_bean"
-    },
-    {
-      "tag": "c:crops/cocoa_bean"
-    },
-    {
-      "tag": "c:crops/cocoa_bean"
-    },
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "farmersdelight:pie_crust"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:chocolate_pie",
-    "count": 1
-  },
-  "cookingtime": 200
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "#c:crops/cocoa_bean",
+  "#c:crops/cocoa_bean",
+  "#c:crops/cocoa_bean",
+  "#c:drinks/milk",
+  "#c:drinks/milk",
+  "#c:drinks/milk",
+  "minecraft:sugar",
+  "farmersdelight:pie_crust",
+  "minecraft:sugar"
+ ],
+ "result": {
+  "id": "farmersdelight:chocolate_pie",
+  "count": 1
+ },
+ "cookingtime": 200
 }

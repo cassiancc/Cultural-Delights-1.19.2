@@ -1,22 +1,14 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "item": "minecraft:spider_eye"
-    },
-    {
-      "item": "minecraft:spider_eye"
-    },
-    {
-      "item": "minecraft:spider_eye"
-    },
-    {
-      "item": "culturaldelights:vinegar"
-    }
-  ],
-  "result": {
-    "id": "minecraft:fermented_spider_eye",
-    "count": 3
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "minecraft:spider_eye",
+  "minecraft:spider_eye",
+  "minecraft:spider_eye",
+  "culturaldelights:vinegar"
+ ],
+ "result": {
+  "id": "minecraft:fermented_spider_eye",
+  "count": 3
+ }
 }

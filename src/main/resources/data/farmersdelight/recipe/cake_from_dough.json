@@ -1,28 +1,16 @@
 {
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "item": "minecraft:sweet_berries"
-    },
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "c:foods/dough/wheat"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
-  ],
-  "result": {
-    "id": "minecraft:cake",
-    "count": 1
-  },
-  "cookingtime": 200
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "minecraft:sweet_berries",
+  "#c:drinks/milk",
+  "#c:eggs",
+  "minecraft:sugar",
+  "#c:foods/dough/wheat",
+  "minecraft:sugar"
+ ],
+ "result": {
+  "id": "minecraft:cake",
+  "count": 1
+ },
+ "cookingtime": 200
 }

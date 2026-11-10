@@ -1,41 +1,31 @@
 {
-  "type": "farmersdelight:cooking",
-  "ingredients": [
+ "type": "farmersdelight:cooking",
+ "ingredients": [
+  {
+   "fabric:type": "fabric:any",
+   "ingredients": [
     {
-      "fabric:type": "fabric:any",
-      "ingredients": [
-        {
-          "item": "minecraft:blaze_powder"
-        },
-        {
-          "tag": "c:crops/ginger"
-        }
-      ]
+     "item": "minecraft:blaze_powder"
     },
     {
-      "item": "farmersdelight:tomato_sauce"
-    },
-    {
-      "tag": "c:crops/rice"
-    },
-    {
-      "item": "culturaldelights:beans"
-    },
-    {
-      "tag": "c:foods/raw_chicken"
-    },
-    {
-      "tag": "c:drinks/milk"
+     "tag": "c:crops/ginger"
     }
-  ],
-  "result": {
-    "id": "culturaldelights:spicy_curry",
-    "count": 1
+   ]
   },
-  "container": {
-    "id": "minecraft:bowl",
-    "count": 1
-  },
-  "experience": 0.35,
-  "cookingtime": 200
+  "farmersdelight:tomato_sauce",
+  "#c:crops/rice",
+  "culturaldelights:beans",
+  "#c:foods/raw_chicken",
+  "#c:drinks/milk"
+ ],
+ "result": {
+  "id": "culturaldelights:spicy_curry",
+  "count": 1
+ },
+ "container": {
+  "id": "minecraft:bowl",
+  "count": 1
+ },
+ "experience": 0.35,
+ "cookingtime": 200
 }

@@ -1,33 +1,18 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "tag": "culturaldelights:all_eggplants"
-    },
-    {
-      "tag": "c:foods/pasta"
-    },
-    {
-      "item": "farmersdelight:tomato_sauce"
-    },
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "tag": "c:foods/bread"
-    },
-    {
-      "item": "minecraft:bowl"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:eggplant_parmesan",
-    "count": 1
-  }
+{
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "#culturaldelights:all_eggplants",
+  "#c:foods/pasta",
+  "farmersdelight:tomato_sauce",
+  "#c:drinks/milk",
+  "#c:eggs",
+  "#c:foods/bread",
+  "minecraft:bowl"
+ ],
+ "result": {
+  "id": "culturaldelights:eggplant_parmesan",
+  "count": 1
+ }
 }
-

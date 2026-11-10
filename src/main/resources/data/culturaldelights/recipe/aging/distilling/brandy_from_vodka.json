@@ -1,20 +1,16 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "item": "culturaldelights:wine"
-    },
-    {
-      "item": "minecraft:apple"
-    }
-  ],
-  "temperature": "hot",
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:brandy",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "culturaldelights:wine",
+  "minecraft:apple"
+ ],
+ "temperature": "hot",
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:brandy",
+  "count": 1
+ }
 }

@@ -1,15 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "culturaldelights:butter"
-    },
-    {
-      "tag": "c:foods/bread"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:buttered_toast",
-    "count": 4
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "culturaldelights:butter",
+  "#c:foods/bread"
+ ],
+ "result": {
+  "id": "culturaldelights:buttered_toast",
+  "count": 4
+ }
 }

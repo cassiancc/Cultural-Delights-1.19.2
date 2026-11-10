@@ -1,20 +1,14 @@
 {
-  "type": "farmersdelight:cooking",
-  "ingredients": [
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "tag": "c:eggs"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:raw_pasta",
-    "count": 4
-  },
-  "experience": 0.2,
-  "cookingtime": 200
+ "type": "farmersdelight:cooking",
+ "ingredients": [
+  "#c:crops/wheat",
+  "#c:crops/wheat",
+  "#c:eggs"
+ ],
+ "result": {
+  "id": "farmersdelight:raw_pasta",
+  "count": 4
+ },
+ "experience": 0.2,
+ "cookingtime": 200
 }

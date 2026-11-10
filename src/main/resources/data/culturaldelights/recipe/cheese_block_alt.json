@@ -1,15 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "culturaldelights:cheese_wheel"
-    },
-    {
-      "item": "culturaldelights:cheese_wheel"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:cheese_block",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "culturaldelights:cheese_wheel",
+  "culturaldelights:cheese_wheel"
+ ],
+ "result": {
+  "id": "culturaldelights:cheese_block",
+  "count": 1
+ }
 }

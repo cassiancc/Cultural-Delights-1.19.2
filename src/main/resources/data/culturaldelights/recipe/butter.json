@@ -1,15 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "tag": "c:dusts/salt"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:butter",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#c:drinks/milk",
+  "#c:dusts/salt"
+ ],
+ "result": {
+  "id": "culturaldelights:butter",
+  "count": 1
+ }
 }

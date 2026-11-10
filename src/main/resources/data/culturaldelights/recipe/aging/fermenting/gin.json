@@ -1,31 +1,19 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "tag": "c:crops/potato"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:brown_mushroom"
-    },
-    {
-      "item": "minecraft:sweet_berries"
-    },
-    {
-      "item": "minecraft:sweet_berries"
-    }
-  ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:gin",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "#c:crops/potato",
+  "minecraft:sugar",
+  "minecraft:brown_mushroom",
+  "minecraft:sweet_berries",
+  "minecraft:sweet_berries"
+ ],
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:gin",
+  "count": 1
+ }
 }

@@ -1,15 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "item": "culturaldelights:butter"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:pie_crust",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#c:crops/wheat",
+  "culturaldelights:butter"
+ ],
+ "result": {
+  "id": "farmersdelight:pie_crust",
+  "count": 1
+ }
 }

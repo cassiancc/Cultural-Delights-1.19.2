@@ -1,21 +1,14 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "item": "culturaldelights:cinnamon"
-    },
-    {
-      "item": "culturaldelights:cinnamon"
-    },
-    {
-      "tag": "c:foods/dough/wheat"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:cinnamon_cracker",
-    "count": 4
-  }
+{
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "culturaldelights:cinnamon",
+  "culturaldelights:cinnamon",
+  "#c:foods/dough/wheat"
+ ],
+ "result": {
+  "id": "culturaldelights:cinnamon_cracker",
+  "count": 4
+ }
 }
-

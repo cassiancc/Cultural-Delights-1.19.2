@@ -1,20 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "item": "minecraft:cod"
-    },
-    {
-      "item": "minecraft:cod"
-    },
-    {
-      "item": "minecraft:cod"
-    }
-  ],
-  "result": {
-    "id": "minecraft:cooked_cod",
-    "count": 3
-  },
-  "cookingtime": 200
+{
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "minecraft:cod",
+  "minecraft:cod",
+  "minecraft:cod"
+ ],
+ "result": {
+  "id": "minecraft:cooked_cod",
+  "count": 3
+ },
+ "cookingtime": 200
 }
-

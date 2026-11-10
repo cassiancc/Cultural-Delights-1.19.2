@@ -1,14 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "redstone",
-  "group": "wooden_button",
-  "ingredients": [
-    {
-      "item": "culturaldelights:beanstalk_planks"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "culturaldelights:beanstalk_button"
-  }
+ "type": "minecraft:crafting_shapeless",
+ "category": "redstone",
+ "group": "wooden_button",
+ "ingredients": [
+  "culturaldelights:beanstalk_planks"
+ ],
+ "result": {
+  "count": 1,
+  "id": "culturaldelights:beanstalk_button"
+ }
 }

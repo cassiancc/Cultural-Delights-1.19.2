@@ -1,18 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "tag": "culturaldelights:cheese_wedges"
-    },
-    {
-      "tag": "c:foods/dough/wheat"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:cheese_cracker",
-    "count": 4
-  }
+{
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "#culturaldelights:cheese_wedges",
+  "#c:foods/dough/wheat"
+ ],
+ "result": {
+  "id": "culturaldelights:cheese_cracker",
+  "count": 4
+ }
 }
-

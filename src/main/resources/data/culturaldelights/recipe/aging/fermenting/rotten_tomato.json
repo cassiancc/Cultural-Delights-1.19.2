@@ -1,22 +1,14 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/tomato"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:rotten_tomato",
-    "count": 4
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:crops/tomato",
+  "#c:crops/tomato",
+  "#c:crops/tomato",
+  "#c:crops/tomato"
+ ],
+ "result": {
+  "id": "farmersdelight:rotten_tomato",
+  "count": 4
+ }
 }

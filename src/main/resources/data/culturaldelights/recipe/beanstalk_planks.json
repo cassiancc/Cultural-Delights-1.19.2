@@ -1,14 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "building",
-  "group": "planks",
-  "ingredients": [
-    {
-      "tag": "culturaldelights:beanstalks"
-    }
-  ],
-  "result": {
-    "count": 4,
-    "id": "culturaldelights:beanstalk_planks"
-  }
+ "type": "minecraft:crafting_shapeless",
+ "category": "building",
+ "group": "planks",
+ "ingredients": [
+  "#culturaldelights:beanstalks"
+ ],
+ "result": {
+  "count": 4,
+  "id": "culturaldelights:beanstalk_planks"
+ }
 }

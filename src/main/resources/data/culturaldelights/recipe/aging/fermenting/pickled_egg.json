@@ -1,28 +1,16 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "tag": "c:eggs"
-    },
-    {
-      "item": "culturaldelights:vinegar"
-    },
-    {
-      "tag": "c:dusts/salt"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:pickled_egg",
-    "count": 4
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:eggs",
+  "#c:eggs",
+  "#c:eggs",
+  "#c:eggs",
+  "culturaldelights:vinegar",
+  "#c:dusts/salt"
+ ],
+ "result": {
+  "id": "culturaldelights:pickled_egg",
+  "count": 4
+ }
 }

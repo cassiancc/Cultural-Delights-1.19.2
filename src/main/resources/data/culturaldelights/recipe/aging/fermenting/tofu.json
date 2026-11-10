@@ -1,25 +1,15 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "item": "culturaldelights:beans"
-    },
-    {
-      "item": "culturaldelights:beans"
-    },
-    {
-      "item": "culturaldelights:beans"
-    },
-    {
-      "tag": "c:dusts/salt"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:tofu",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "culturaldelights:beans",
+  "culturaldelights:beans",
+  "culturaldelights:beans",
+  "#c:dusts/salt"
+ ],
+ "result": {
+  "id": "culturaldelights:tofu",
+  "count": 1
+ }
 }

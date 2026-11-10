@@ -1,24 +1,16 @@
 {
-  "type": "farmersdelight:cooking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "tag": "c:foods/dough"
-    },
-    {
-      "tag": "c:crops/cabbage"
-    },
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "item": "culturaldelights:tofu"
-    }
-  ],
-  "recipe_book_tab": "misc",
-  "result": {
-    "id": "farmersdelight:dumplings",
-    "count": 2
-  }
+ "type": "farmersdelight:cooking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "#c:foods/dough",
+  "#c:crops/cabbage",
+  "#c:crops/onion",
+  "culturaldelights:tofu"
+ ],
+ "recipe_book_tab": "misc",
+ "result": {
+  "id": "farmersdelight:dumplings",
+  "count": 2
+ }
 }

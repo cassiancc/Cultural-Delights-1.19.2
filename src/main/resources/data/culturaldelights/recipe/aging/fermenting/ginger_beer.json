@@ -1,37 +1,27 @@
 {
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:tags_populated",
-      "registry": "minecraft:item",
-      "values": [
-        "c:crops/ginger"
-      ]
-    }
-  ],
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "tag": "c:crops/ginger"
-    },
-    {
-      "tag": "c:crops/ginger"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:brown_mushroom"
-    }
-  ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:ginger_beer",
-    "count": 1
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:tags_populated",
+   "registry": "minecraft:item",
+   "values": [
+    "c:crops/ginger"
+   ]
   }
+ ],
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "#c:crops/ginger",
+  "#c:crops/ginger",
+  "minecraft:sugar",
+  "minecraft:brown_mushroom"
+ ],
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:ginger_beer",
+  "count": 1
+ }
 }

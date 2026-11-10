@@ -1,11 +1,9 @@
 {
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "culturaldelights:raw_calamari"
-  },
-  "result": {
-    "id": "culturaldelights:cooked_calamari"
-  },
-  "experience": 0.35,
-  "cookingtime": 100
+ "type": "minecraft:smoking",
+ "ingredient": "culturaldelights:raw_calamari",
+ "result": {
+  "id": "culturaldelights:cooked_calamari"
+ },
+ "experience": 0.35,
+ "cookingtime": 100
 }

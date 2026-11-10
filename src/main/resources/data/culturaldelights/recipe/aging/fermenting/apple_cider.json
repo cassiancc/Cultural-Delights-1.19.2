@@ -1,28 +1,18 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "item": "minecraft:apple"
-    },
-    {
-      "item": "minecraft:apple"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:brown_mushroom"
-    }
-  ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:apple_cider",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "minecraft:apple",
+  "minecraft:apple",
+  "minecraft:sugar",
+  "minecraft:brown_mushroom"
+ ],
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:apple_cider",
+  "count": 1
+ }
 }

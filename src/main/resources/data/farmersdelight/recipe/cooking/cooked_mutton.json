@@ -1,20 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "item": "minecraft:mutton"
-    }
-  ],
-  "result": {
-    "id": "minecraft:cooked_mutton",
-    "count": 3
-  },
-  "cookingtime": 200
+{
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "minecraft:mutton",
+  "minecraft:mutton",
+  "minecraft:mutton"
+ ],
+ "result": {
+  "id": "minecraft:cooked_mutton",
+  "count": 3
+ },
+ "cookingtime": 200
 }
-

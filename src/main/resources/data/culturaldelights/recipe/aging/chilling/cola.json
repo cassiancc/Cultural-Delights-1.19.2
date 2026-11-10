@@ -1,40 +1,30 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "minecraft:ice",
+  "culturaldelights:cinnamon",
+  {
+   "fabric:type": "fabric:any",
+   "ingredients": [
     {
-      "tag": "c:buckets/water"
+     "item": "culturaldelights:cinnamon"
     },
     {
-      "item": "minecraft:ice"
-    },
-    {
-      "item": "culturaldelights:cinnamon"
-    },
-    {
-      "fabric:type": "fabric:any",
-      "ingredients": [
-        {
-          "item": "culturaldelights:cinnamon"
-        },
-        {
-          "tag": "c:crops/ginger"
-        }
-      ]
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "c:fruits/lemon"
+     "tag": "c:crops/ginger"
     }
-  ],
-  "temperature": "cold",
-  "container": {
-    "item": "minecraft:glass_bottle"
+   ]
   },
-  "result": {
-    "id": "culturaldelights:cola",
-    "count": 1
-  }
+  "minecraft:sugar",
+  "#c:fruits/lemon"
+ ],
+ "temperature": "cold",
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:cola",
+  "count": 1
+ }
 }

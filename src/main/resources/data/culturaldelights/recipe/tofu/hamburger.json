@@ -1,24 +1,14 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "c:foods/bread"
-    },
-    {
-      "item": "culturaldelights:tofu"
-    },
-    {
-      "tag": "c:foods/leafy_green"
-    },
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/onion"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:hamburger",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#c:foods/bread",
+  "culturaldelights:tofu",
+  "#c:foods/leafy_green",
+  "#c:crops/tomato",
+  "#c:crops/onion"
+ ],
+ "result": {
+  "id": "farmersdelight:hamburger",
+  "count": 1
+ }
 }

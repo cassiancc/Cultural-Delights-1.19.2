@@ -1,32 +1,20 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "item": "culturaldelights:rum"
-    },
-    {
-      "item": "culturaldelights:mint"
-    },
-    {
-      "item": "minecraft:ice"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "c:fruits/lemon"
-    },
-    {
-      "tag": "c:fruits/lemon"
-    }
-  ],
-  "temperature": "cold",
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:mojito",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "culturaldelights:rum",
+  "culturaldelights:mint",
+  "minecraft:ice",
+  "minecraft:sugar",
+  "#c:fruits/lemon",
+  "#c:fruits/lemon"
+ ],
+ "temperature": "cold",
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:mojito",
+  "count": 1
+ }
 }

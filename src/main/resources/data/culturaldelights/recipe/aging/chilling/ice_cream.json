@@ -1,20 +1,16 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:drinks/milk"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
-  ],
-  "temperature": "cold",
-  "container": {
-    "item": "culturaldelights:wafer"
-  },
-  "result": {
-    "id": "culturaldelights:ice_cream",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:drinks/milk",
+  "minecraft:sugar"
+ ],
+ "temperature": "cold",
+ "container": {
+  "item": "culturaldelights:wafer"
+ },
+ "result": {
+  "id": "culturaldelights:ice_cream",
+  "count": 1
+ }
 }

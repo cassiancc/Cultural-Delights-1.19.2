@@ -1,18 +1,12 @@
-﻿{
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "culturaldelights:cooked_sausage"
-    },
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "item": "culturaldelights:rustic_loaf_slice"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:snag",
-    "count": 1
-  }
+{
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "culturaldelights:cooked_sausage",
+  "#c:crops/onion",
+  "culturaldelights:rustic_loaf_slice"
+ ],
+ "result": {
+  "id": "culturaldelights:snag",
+  "count": 1
+ }
 }

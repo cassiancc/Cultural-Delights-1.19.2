@@ -1,13 +1,11 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "item": "culturaldelights:bean_crate"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:bean_pod",
-    "count": 9
-  }
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  "culturaldelights:bean_crate"
+ ],
+ "result": {
+  "id": "culturaldelights:bean_pod",
+  "count": 9
+ }
 }

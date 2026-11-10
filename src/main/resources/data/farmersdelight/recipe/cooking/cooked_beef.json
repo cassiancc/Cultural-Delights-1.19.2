@@ -1,20 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "item": "minecraft:beef"
-    },
-    {
-      "item": "minecraft:beef"
-    },
-    {
-      "item": "minecraft:beef"
-    }
-  ],
-  "result": {
-    "id": "minecraft:cooked_beef",
-    "count": 3
-  },
-  "cookingtime": 200
+{
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "minecraft:beef",
+  "minecraft:beef",
+  "minecraft:beef"
+ ],
+ "result": {
+  "id": "minecraft:cooked_beef",
+  "count": 3
+ },
+ "cookingtime": 200
 }
-

@@ -1,26 +1,16 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "item": "culturaldelights:cinnamon"
-    },
-    {
-      "item": "culturaldelights:cinnamon"
-    },
-    {
-      "item": "culturaldelights:cinnamon"
-    },
-    {
-      "item": "culturaldelights:butter"
-    },
-    {
-      "item": "farmersdelight:pie_crust"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:butterscotch_cinnamon_pie",
-    "count": 1
-  }
+{
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "culturaldelights:cinnamon",
+  "culturaldelights:cinnamon",
+  "culturaldelights:cinnamon",
+  "culturaldelights:butter",
+  "farmersdelight:pie_crust"
+ ],
+ "result": {
+  "id": "culturaldelights:butterscotch_cinnamon_pie",
+  "count": 1
+ }
 }

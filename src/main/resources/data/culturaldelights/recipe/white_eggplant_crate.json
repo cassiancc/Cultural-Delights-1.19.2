@@ -1,17 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###",
-    "###"
-  ],
-  "key": {
-    "#": {
-      "item": "culturaldelights:white_eggplant"
-    }
-  },
-  "result": {
-    "id": "culturaldelights:white_eggplant_crate",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "###",
+  "###",
+  "###"
+ ],
+ "key": {
+  "#": "culturaldelights:white_eggplant"
+ },
+ "result": {
+  "id": "culturaldelights:white_eggplant_crate",
+  "count": 1
+ }
 }

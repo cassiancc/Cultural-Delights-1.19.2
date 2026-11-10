@@ -1,30 +1,17 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "item": "culturaldelights:raw_sausage"
-    },
-    {
-      "item": "culturaldelights:raw_sausage"
-    },
-    {
-      "tag": "c:crops/potato"
-    },
-    {
-      "tag": "c:crops/potato"
-    },
-    {
-      "item": "culturaldelights:bean_pod"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:sausages_and_mash",
-    "count": 1
-  }
+{
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "minecraft:bowl",
+  "culturaldelights:raw_sausage",
+  "culturaldelights:raw_sausage",
+  "#c:crops/potato",
+  "#c:crops/potato",
+  "culturaldelights:bean_pod"
+ ],
+ "result": {
+  "id": "culturaldelights:sausages_and_mash",
+  "count": 1
+ }
 }
-

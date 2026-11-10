@@ -1,29 +1,25 @@
 {
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:all_mods_loaded",
-      "values": [
-        "supplementaries"
-      ]
-    }
-  ],
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "pattern": [
-    "II",
-    "##",
-    "##"
-  ],
-  "key": {
-    "I": {
-      "tag": "c:ingots/iron"
-    },
-    "#": {
-      "item": "supplementaries:ash_brick"
-    }
-  },
-  "result": {
-    "id": "culturaldelights:ash_brick_counter",
-    "count": 4
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:all_mods_loaded",
+   "values": [
+    "supplementaries"
+   ]
   }
+ ],
+ "type": "minecraft:crafting_shaped",
+ "category": "building",
+ "pattern": [
+  "II",
+  "##",
+  "##"
+ ],
+ "key": {
+  "I": "#c:ingots/iron",
+  "#": "supplementaries:ash_brick"
+ },
+ "result": {
+  "id": "culturaldelights:ash_brick_counter",
+  "count": 4
+ }
 }

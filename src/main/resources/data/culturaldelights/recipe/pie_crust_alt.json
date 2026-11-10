@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "tag": "c:dusts/salt"
-    },
-    {
-      "tag": "c:drinks/milk"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:pie_crust",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#c:crops/wheat",
+  "#c:crops/wheat",
+  "#c:dusts/salt",
+  "#c:drinks/milk"
+ ],
+ "result": {
+  "id": "farmersdelight:pie_crust",
+  "count": 1
+ }
 }

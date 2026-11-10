@@ -1,18 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "boat",
-  "key": {
-    "#": {
-      "item": "culturaldelights:beanstalk_planks"
-    }
-  },
-  "pattern": [
-    "# #",
-    "###"
-  ],
-  "result": {
-    "count": 1,
-    "id": "culturaldelights:beanstalk_raft"
-  }
+ "type": "minecraft:crafting_shaped",
+ "category": "misc",
+ "group": "boat",
+ "key": {
+  "#": "culturaldelights:beanstalk_planks"
+ },
+ "pattern": [
+  "# #",
+  "###"
+ ],
+ "result": {
+  "count": 1,
+  "id": "culturaldelights:beanstalk_raft"
+ }
 }

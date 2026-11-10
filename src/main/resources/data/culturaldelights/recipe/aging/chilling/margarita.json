@@ -1,32 +1,20 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "item": "culturaldelights:tequila"
-    },
-    {
-      "item": "culturaldelights:lemon_liqueur"
-    },
-    {
-      "item": "minecraft:ice"
-    },
-    {
-      "tag": "c:dusts/salt"
-    },
-    {
-      "tag": "c:fruits/lemon"
-    },
-    {
-      "tag": "c:fruits/lemon"
-    }
-  ],
-  "temperature": "cold",
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:margarita",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "culturaldelights:tequila",
+  "culturaldelights:lemon_liqueur",
+  "minecraft:ice",
+  "#c:dusts/salt",
+  "#c:fruits/lemon",
+  "#c:fruits/lemon"
+ ],
+ "temperature": "cold",
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:margarita",
+  "count": 1
+ }
 }

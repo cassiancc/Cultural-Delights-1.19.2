@@ -1,24 +1,14 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "culturaldelights:avocados"
-    },
-    {
-      "tag": "c:crops/corn"
-    },
-    {
-      "item": "culturaldelights:bean_pod"
-    },
-    {
-      "item": "minecraft:bowl"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:hearty_salad",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#c:crops/tomato",
+  "#culturaldelights:avocados",
+  "#c:crops/corn",
+  "culturaldelights:bean_pod",
+  "minecraft:bowl"
+ ],
+ "result": {
+  "id": "culturaldelights:hearty_salad",
+  "count": 1
+ }
 }

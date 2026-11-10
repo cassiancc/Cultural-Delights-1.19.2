@@ -1,29 +1,25 @@
 {
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:all_mods_loaded",
-      "values": [
-        "twigs"
-      ]
-    }
-  ],
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "pattern": [
-    "II",
-    "##",
-    "##"
-  ],
-  "key": {
-    "I": {
-      "tag": "c:ingots/iron"
-    },
-    "#": {
-      "item": "twigs:silt_brick"
-    }
-  },
-  "result": {
-    "id": "culturaldelights:silt_brick_counter",
-    "count": 4
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:all_mods_loaded",
+   "values": [
+    "twigs"
+   ]
   }
+ ],
+ "type": "minecraft:crafting_shaped",
+ "category": "building",
+ "pattern": [
+  "II",
+  "##",
+  "##"
+ ],
+ "key": {
+  "I": "#c:ingots/iron",
+  "#": "twigs:silt_brick"
+ },
+ "result": {
+  "id": "culturaldelights:silt_brick_counter",
+  "count": 4
+ }
 }

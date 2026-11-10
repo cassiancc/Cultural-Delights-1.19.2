@@ -1,33 +1,25 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "item": "culturaldelights:beans"
-    },
-    {
-      "item": "minecraft:fermented_spider_eye"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    },
-    {
-      "item": "minecraft:emerald"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "culturaldelights:magic_beans"
-  },
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:not",
-      "value": {
-        "condition": "fabric:all_mods_loaded",
-        "values": [
-          "modestmagic"
-        ]
-      }
-    }
-  ]
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  "culturaldelights:beans",
+  "minecraft:fermented_spider_eye",
+  "minecraft:amethyst_shard",
+  "minecraft:emerald"
+ ],
+ "result": {
+  "count": 1,
+  "id": "culturaldelights:magic_beans"
+ },
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:not",
+   "value": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+     "modestmagic"
+    ]
+   }
+  }
+ ]
 }

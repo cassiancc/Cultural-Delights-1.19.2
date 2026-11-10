@@ -1,18 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "farmersdelight:cooked_rice"
-    },
-    {
-      "item": "minecraft:pufferfish"
-    },
-    {
-      "item": "minecraft:pufferfish"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:pufferfish_roll",
-    "count": 2
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "farmersdelight:cooked_rice",
+  "minecraft:pufferfish",
+  "minecraft:pufferfish"
+ ],
+ "result": {
+  "id": "culturaldelights:pufferfish_roll",
+  "count": 2
+ }
 }

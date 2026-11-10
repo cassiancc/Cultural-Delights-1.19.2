@@ -1,20 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "item": "minecraft:salmon"
-    },
-    {
-      "item": "minecraft:salmon"
-    },
-    {
-      "item": "minecraft:salmon"
-    }
-  ],
-  "result": {
-    "id": "minecraft:cooked_salmon",
-    "count": 3
-  },
-  "cookingtime": 200
+{
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "minecraft:salmon",
+  "minecraft:salmon",
+  "minecraft:salmon"
+ ],
+ "result": {
+  "id": "minecraft:cooked_salmon",
+  "count": 3
+ },
+ "cookingtime": 200
 }
-

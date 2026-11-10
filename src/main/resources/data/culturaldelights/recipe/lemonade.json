@@ -1,22 +1,15 @@
-﻿{
-  "type": "farmersdelight:cooking",
-  "cookingtime": 400,
-  "experience": 2.0,
-  "ingredients": [
-    {
-      "tag": "c:fruits/lemon"
-    },
-    {
-      "tag": "c:fruits/lemon"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
-  ],
-  "recipe_book_tab": "drinks",
-  "result": {
-    "count": 1,
-    "id": "culturaldelights:lemonade"
-  }
+{
+ "type": "farmersdelight:cooking",
+ "cookingtime": 400,
+ "experience": 2,
+ "ingredients": [
+  "#c:fruits/lemon",
+  "#c:fruits/lemon",
+  "minecraft:sugar"
+ ],
+ "recipe_book_tab": "drinks",
+ "result": {
+  "count": 1,
+  "id": "culturaldelights:lemonade"
+ }
 }
-

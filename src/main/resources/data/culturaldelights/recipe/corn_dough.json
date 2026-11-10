@@ -1,21 +1,13 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "tag": "c:crops/corn"
-    },
-    {
-      "tag": "c:crops/corn"
-    },
-    {
-      "tag": "c:crops/corn"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:corn_dough",
-    "count": 3
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "#c:buckets/water",
+  "#c:crops/corn",
+  "#c:crops/corn",
+  "#c:crops/corn"
+ ],
+ "result": {
+  "id": "culturaldelights:corn_dough",
+  "count": 3
+ }
 }

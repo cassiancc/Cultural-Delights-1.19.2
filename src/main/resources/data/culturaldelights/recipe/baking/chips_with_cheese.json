@@ -1,23 +1,15 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "experience": 1.0,
-  "ingredients": [
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "tag": "culturaldelights:cheese_wedges"
-    },
-    {
-      "item": "culturaldelights:tortilla_chips"
-    },
-    {
-      "item": "culturaldelights:tortilla_chips"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:chips_with_cheese",
-    "count": 1
-  }
+{
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "experience": 1,
+ "ingredients": [
+  "minecraft:bowl",
+  "#culturaldelights:cheese_wedges",
+  "culturaldelights:tortilla_chips",
+  "culturaldelights:tortilla_chips"
+ ],
+ "result": {
+  "id": "culturaldelights:chips_with_cheese",
+  "count": 1
+ }
 }

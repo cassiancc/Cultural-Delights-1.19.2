@@ -1,24 +1,14 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "culturaldelights:tortilla"
-    },
-    {
-      "tag": "c:foods/cooked_chicken"
-    },
-    {
-      "item": "farmersdelight:tomato_sauce"
-    },
-    {
-      "item": "culturaldelights:refried_beans"
-    },
-    {
-      "tag": "c:crops/corn"
-    }
-  ],
-  "result": {
-    "id": "culturaldelights:chicken_taco",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "culturaldelights:tortilla",
+  "#c:foods/cooked_chicken",
+  "farmersdelight:tomato_sauce",
+  "culturaldelights:refried_beans",
+  "#c:crops/corn"
+ ],
+ "result": {
+  "id": "culturaldelights:chicken_taco",
+  "count": 1
+ }
 }

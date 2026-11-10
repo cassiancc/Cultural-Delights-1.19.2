@@ -1,25 +1,15 @@
 {
-  "type": "culturaldelights:baking",
-  "cookingtime": 200,
-  "ingredients": [
-    {
-      "tag": "c:crops/tomato"
-    },
-    {
-      "tag": "c:crops/onion"
-    },
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "tag": "c:crops/beetroot"
-    },
-    {
-      "tag": "culturaldelights:all_eggplants"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:ratatouille",
-    "count": 1
-  }
+ "type": "culturaldelights:baking",
+ "cookingtime": 200,
+ "ingredients": [
+  "#c:crops/tomato",
+  "#c:crops/onion",
+  "minecraft:bowl",
+  "#c:crops/beetroot",
+  "#culturaldelights:all_eggplants"
+ ],
+ "result": {
+  "id": "farmersdelight:ratatouille",
+  "count": 1
+ }
 }

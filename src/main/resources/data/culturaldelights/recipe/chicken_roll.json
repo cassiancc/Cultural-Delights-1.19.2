@@ -1,26 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " ! ",
-    "@?@",
-    "###"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:dried_kelp"
-    },
-    "@": {
-      "item": "farmersdelight:cooked_rice"
-    },
-    "?": {
-      "tag": "c:foods/cooked_chicken"
-    },
-    "!": {
-      "tag": "c:crops/beetroot"
-    }
-  },
-  "result": {
-    "id": "culturaldelights:chicken_roll",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  " ! ",
+  "@?@",
+  "###"
+ ],
+ "key": {
+  "#": "minecraft:dried_kelp",
+  "@": "farmersdelight:cooked_rice",
+  "?": "#c:foods/cooked_chicken",
+  "!": "#c:crops/beetroot"
+ },
+ "result": {
+  "id": "culturaldelights:chicken_roll",
+  "count": 1
+ }
 }

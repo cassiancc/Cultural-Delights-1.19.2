@@ -1,22 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "group": "wooden_sign",
-  "key": {
-    "#": {
-      "item": "culturaldelights:beanstalk_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
-  },
-  "pattern": [
-    "###",
-    "###",
-    " X "
-  ],
-  "result": {
-    "count": 3,
-    "id": "culturaldelights:beanstalk_sign"
-  }
+ "type": "minecraft:crafting_shaped",
+ "category": "misc",
+ "group": "wooden_sign",
+ "key": {
+  "#": "culturaldelights:beanstalk_planks",
+  "X": "minecraft:stick"
+ },
+ "pattern": [
+  "###",
+  "###",
+  " X "
+ ],
+ "result": {
+  "count": 3,
+  "id": "culturaldelights:beanstalk_sign"
+ }
 }

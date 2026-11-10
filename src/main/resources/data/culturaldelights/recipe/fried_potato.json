@@ -1,22 +1,15 @@
-﻿{
-  "type": "farmersdelight:cooking",
-  "cookingtime": 400,
-  "experience": 2.0,
-  "ingredients": [
-    {
-      "tag": "c:cooking_oil"
-    },
-    {
-      "tag": "c:crops/potato"
-    },
-    {
-      "tag": "c:dusts/salt"
-    }
-  ],
-  "recipe_book_tab": "meals",
-  "result": {
-    "count": 1,
-    "id": "culturaldelights:fried_potato"
-  }
+{
+ "type": "farmersdelight:cooking",
+ "cookingtime": 400,
+ "experience": 2,
+ "ingredients": [
+  "#c:cooking_oil",
+  "#c:crops/potato",
+  "#c:dusts/salt"
+ ],
+ "recipe_book_tab": "meals",
+ "result": {
+  "count": 1,
+  "id": "culturaldelights:fried_potato"
+ }
 }
-

@@ -1,29 +1,19 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "item": "culturaldelights:agave"
-    },
-    {
-      "item": "culturaldelights:agave"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:brown_mushroom"
-    }
-  ],
-  "temperature": "hot",
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:tequila",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "culturaldelights:agave",
+  "culturaldelights:agave",
+  "minecraft:sugar",
+  "minecraft:brown_mushroom"
+ ],
+ "temperature": "hot",
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:tequila",
+  "count": 1
+ }
 }

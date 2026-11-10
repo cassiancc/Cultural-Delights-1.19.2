@@ -1,25 +1,17 @@
 {
-  "type": "culturaldelights:aging",
-  "cooktime": 200,
-  "ingredients": [
-    {
-      "tag": "c:buckets/water"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "item": "minecraft:blaze_powder"
-    }
-  ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "result": {
-    "id": "culturaldelights:acid",
-    "count": 1
-  }
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "#c:gunpowders",
+  "#c:gunpowders",
+  "minecraft:blaze_powder"
+ ],
+ "container": {
+  "item": "minecraft:glass_bottle"
+ },
+ "result": {
+  "id": "culturaldelights:acid",
+  "count": 1
+ }
 }

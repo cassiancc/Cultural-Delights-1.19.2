@@ -1,20 +1,13 @@
-﻿{
-  "type": "culturaldelights:baking",
-  "ingredients": [
-    {
-      "item": "farmersdelight:bacon"
-    },
-    {
-      "item": "farmersdelight:bacon"
-    },
-    {
-      "item": "farmersdelight:bacon"
-    }
-  ],
-  "result": {
-    "id": "farmersdelight:cooked_bacon",
-    "count": 3
-  },
-  "cookingtime": 200
+{
+ "type": "culturaldelights:baking",
+ "ingredients": [
+  "farmersdelight:bacon",
+  "farmersdelight:bacon",
+  "farmersdelight:bacon"
+ ],
+ "result": {
+  "id": "farmersdelight:cooked_bacon",
+  "count": 3
+ },
+ "cookingtime": 200
 }
-

@@ -1,17 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "key": {
-    "#": {
-      "tag": "c:dusts/salt"
-    }
-  },
-  "pattern": [
-    "##",
-    "##"
-  ],
-  "result": {
-    "count": 1,
-    "id": "culturaldelights:salt_block"
-  }
+ "type": "minecraft:crafting_shaped",
+ "category": "building",
+ "key": {
+  "#": "#c:dusts/salt"
+ },
+ "pattern": [
+  "##",
+  "##"
+ ],
+ "result": {
+  "count": 1,
+  "id": "culturaldelights:salt_block"
+ }
 }
