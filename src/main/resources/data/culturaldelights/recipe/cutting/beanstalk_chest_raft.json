@@ -1,37 +1,35 @@
 {
-  "fabric:load_conditions": [
-    {
-      "condition": "fabric:not",
-      "value": {
-        "condition": "fabric:all_mods_loaded",
-        "values": [
-          "everycomp"
-        ]
-      }
-    }
-  ],
-  "type": "farmersdelight:cutting",
-  "ingredients": [
-    {
-      "item": "culturaldelights:beanstalk_chest_raft"
-    }
-  ],
-  "result": [
-    {
-      "item": {
-        "count": 1,
-        "id": "culturaldelights:beanstalk_raft"
-      }
-    },
-    {
-      "item": {
-        "count": 1,
-        "id": "minecraft:chest"
-      }
-    }
-  ],
-  "tool": {
-    "fabric:type": "farmersdelight:item_ability",
-    "action": "hoe_dig"
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:not",
+   "value": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+     "everycomp"
+    ]
+   }
   }
+ ],
+ "type": "farmersdelight:cutting",
+ "ingredients": [
+  "culturaldelights:beanstalk_chest_raft"
+ ],
+ "result": [
+  {
+   "item": {
+    "count": 1,
+    "id": "culturaldelights:beanstalk_raft"
+   }
+  },
+  {
+   "item": {
+    "count": 1,
+    "id": "minecraft:chest"
+   }
+  }
+ ],
+ "tool": {
+  "fabric:type": "farmersdelight:item_ability",
+  "action": "hoe_dig"
+ }
 }

@@ -1,26 +1,22 @@
 {
-  "type": "farmersdelight:cutting",
-  "ingredients": [
-    {
-      "item": "culturaldelights:wild_beans"
-    }
-  ],
-  "tool": {
-    "tag": "c:tools/knife"
+ "type": "farmersdelight:cutting",
+ "ingredients": [
+  "culturaldelights:wild_beans"
+ ],
+ "tool": "#c:tools/knife",
+ "result": [
+  {
+   "item": {
+    "count": 1,
+    "id": "culturaldelights:beans"
+   }
   },
-  "result": [
-    {
-      "item": {
-        "count": 1,
-        "id": "culturaldelights:beans"
-      }
-    },
-    {
-      "item": {
-        "count": 1,
-        "id": "culturaldelights:beans"
-      },
-      "chance": 0.5
-    }
-  ]
+  {
+   "item": {
+    "count": 1,
+    "id": "culturaldelights:beans"
+   },
+   "chance": 0.5
+  }
+ ]
 }

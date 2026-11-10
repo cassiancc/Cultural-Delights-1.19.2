@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "key": {
-    "#": {
-      "item": "culturaldelights:butterscotch_cinnamon_pie_slice"
-    }
-  },
-  "pattern": [
-    "##",
-    "##"
-  ],
-  "result": {
-    "id": "culturaldelights:butterscotch_cinnamon_pie",
-    "count": 1
-  }
+ "type": "minecraft:crafting_shaped",
+ "key": {
+  "#": "culturaldelights:butterscotch_cinnamon_pie_slice"
+ },
+ "pattern": [
+  "##",
+  "##"
+ ],
+ "result": {
+  "id": "culturaldelights:butterscotch_cinnamon_pie",
+  "count": 1
+ }
 }

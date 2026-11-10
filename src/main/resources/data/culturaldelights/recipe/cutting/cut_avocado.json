@@ -1,25 +1,21 @@
 {
-  "type": "farmersdelight:cutting",
-  "ingredients": [
-    {
-      "item": "culturaldelights:avocado"
-    }
-  ],
-  "tool": {
-    "tag": "c:tools/knife"
+ "type": "farmersdelight:cutting",
+ "ingredients": [
+  "culturaldelights:avocado"
+ ],
+ "tool": "#c:tools/knife",
+ "result": [
+  {
+   "item": {
+    "count": 2,
+    "id": "culturaldelights:cut_avocado"
+   }
   },
-  "result": [
-    {
-      "item": {
-        "count": 2,
-        "id": "culturaldelights:cut_avocado"
-      }
-    },
-    {
-      "item": {
-        "count": 1,
-        "id": "culturaldelights:avocado_pit"
-      }
-    }
-  ]
+  {
+   "item": {
+    "count": 1,
+    "id": "culturaldelights:avocado_pit"
+   }
+  }
+ ]
 }

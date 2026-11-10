@@ -1,19 +1,15 @@
 {
-  "type": "farmersdelight:cutting",
-  "ingredients": [
-    {
-      "item": "culturaldelights:butterscotch_cinnamon_pie"
-    }
-  ],
-  "result": [
-    {
-      "item": {
-        "count": 4,
-        "id": "culturaldelights:butterscotch_cinnamon_pie_slice"
-      }
-    }
-  ],
-  "tool": {
-    "tag": "c:tools/knife"
+ "type": "farmersdelight:cutting",
+ "ingredients": [
+  "culturaldelights:butterscotch_cinnamon_pie"
+ ],
+ "result": [
+  {
+   "item": {
+    "count": 4,
+    "id": "culturaldelights:butterscotch_cinnamon_pie_slice"
+   }
   }
+ ],
+ "tool": "#c:tools/knife"
 }
