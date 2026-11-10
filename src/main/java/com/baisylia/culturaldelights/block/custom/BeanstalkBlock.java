@@ -17,6 +17,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -156,7 +157,7 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
         level.playSound(null, tip.pos(), SoundEvents.BONE_MEAL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
         level.playSound(null, tip.pos(), SoundEvents.CHORUS_FLOWER_GROW, SoundSource.BLOCKS, 1.0F, 1.2F);
 
-        if (dir == Direction.UP && tip.pos().getY() >= level.getMaxBuildHeight() - 1) {
+        if (dir == Direction.UP && tip.pos().getY() >= level.getMaxY() - 1) {
             for (ServerPlayer player : level.players()) {
                 double dx = player.getX() - (tip.pos().getX() + 0.5);
                 double dz = player.getZ() - (tip.pos().getZ() + 0.5);
@@ -184,13 +185,11 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos)
-                .setValue(FLOWERING, !hasNext(level, pos, state))
-                .setValue(ROOTING, !hasPrevious(level, pos, state));
+        return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
 
     @Override

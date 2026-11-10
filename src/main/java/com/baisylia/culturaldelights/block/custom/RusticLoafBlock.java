@@ -6,6 +6,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResult;
@@ -13,12 +14,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -110,13 +109,12 @@ public class RusticLoafBlock extends Block {
         } else {
             ItemStack sliceStack = this.getPieSliceItem();
             FoodProperties sliceFood = sliceStack.get(DataComponents.FOOD);
-            if (sliceFood != null) {
+            Consumable sliceConsumable = sliceStack.get(DataComponents.CONSUMABLE);
+            if (sliceFood != null && sliceConsumable != null) {
                 playerIn.getFoodData().eat(sliceFood);
 
-                for(FoodProperties.PossibleEffect effect : sliceFood.effects()) {
-                    if (!level.isClientSide() && effect != null && level.getRandom().nextFloat() < effect.probability()) {
-                        playerIn.addEffect(effect.effect());
-                    }
+                for(ConsumeEffect effect : sliceConsumable.onConsumeEffects()) {
+                    effect.apply(level, sliceStack, playerIn);
                 }
             }
 
@@ -127,7 +125,7 @@ public class RusticLoafBlock extends Block {
                 level.removeBlock(pos, false);
             }
 
-            level.playSound((Player)null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
+            level.playSound((Player)null, pos, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }
     }
@@ -147,8 +145,8 @@ public class RusticLoafBlock extends Block {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        return facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader level, ScheduledTickAccess ticks, BlockPos currentPos, Direction facing, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+        return facing == Direction.DOWN && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, level, ticks, currentPos, facing, neighbourPos, neighbourState, random);
     }
 
     @Override
@@ -162,7 +160,7 @@ public class RusticLoafBlock extends Block {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos, Direction direction) {
         return this.getMaxBites() - (Integer)blockState.getValue(BITES);
     }
 

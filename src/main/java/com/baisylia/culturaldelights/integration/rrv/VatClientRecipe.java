@@ -1,9 +1,13 @@
 package com.baisylia.culturaldelights.integration.rrv;
 
+import cc.cassian.rrv.api.client.RecipeScreenContext;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
 import com.baisylia.culturaldelights.recipes.VatRecipe;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -33,37 +37,33 @@ public class VatClientRecipe extends AbstractVatClientRecipe {
     @Override
     public void bindSlots(RecipeViewMenu.SlotFillContext builder) {
 
-        builder.addTexture(AbstractVatClientRecipe.TEXTURE, 0, 0, 124, 58, 0, 0);
-
-        builder.addSlot(ingredients.get(0), 19, 2);
-        if (ingredients.size() > 1) {
-            builder.addSlot(ingredients.get(1), 37, 2);
-            if (ingredients.size() > 2) {
-                builder.addSlot(ingredients.get(2), 19, 20);
-                if (ingredients.size() > 3) {
-                    builder.addSlot(ingredients.get(3), 37, 20);
-                    if (ingredients.size() > 4) {
-                        builder.addSlot(ingredients.get(4), 19, 38);
-                        if (ingredients.size() > 5) {
-                            builder.addSlot(ingredients.get(5), 37, 38);
-                        }
-                    }
-                }
-            }
+        for (int i = 0; i < ingredients.size(); i++) {
+            builder.bindSlot(i, ingredients.get(i));
         }
-        builder.addSlot(container, 95, 38);
-        drawCookTime(cookTime, builder, 50, getDisplayWidth());
-        builder.addSlot(result, 95, 9).recipeContext(this).drawBack(false);
+
+        builder.bindSlot(6, container);
+        builder.bindSlot(7, result);
+
+
+    }
+
+    @Override
+    public void addRecipeWidgets(RecipeScreenContext context) {
+        drawCookTime(cookTime, context.widgets(), 50, getType().getDisplayWidth());
+
+    }
+
+    @Override
+    public void renderRecipe(RecipeScreenContext context) {
 
         int xOffset = switch (temperature) {
             case COLD -> 0;
             case NORMAL -> 13;
             case HOT -> 26;
         };
-        builder.addTexture(AbstractVatClientRecipe.TEXTURE, 5, 6, 12, 46, 126 + xOffset, 20)
-                .tooltip((mx, my) -> List.of(
-                        ClientTooltipComponent.create(Component.translatable("container.culturaldelights.vat."
-                                + temperature.getSerializedName()).getVisualOrderText())
-                ));
+
+        context.guiGraphics().blit(RenderPipelines.GUI_TEXTURED, AbstractVatClientRecipe.TEXTURE, 5, 6, 12, 46, 126 + xOffset, 20, 12, 46);
+        ClientTooltipComponent.create(Component.translatable("container.culturaldelights.vat."
+                + temperature.getSerializedName()).getVisualOrderText());
     }
 }

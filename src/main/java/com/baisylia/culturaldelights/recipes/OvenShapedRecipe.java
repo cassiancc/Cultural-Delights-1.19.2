@@ -123,6 +123,16 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
         return output.create();
     }
 
+    @Override
+    public boolean showNotification() {
+        return false;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
     public int getWidth() {
         return this.pattern.width();
     }
@@ -137,6 +147,15 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
+    public PlacementInfo placementInfo() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
+    }
+
     public ItemStack getToastSymbol() {
         return new ItemStack(ModBlocks.OVEN.get());
     }
@@ -163,14 +182,14 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
 
         public static OvenShapedRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             ShapedRecipePattern shapedrecipepattern = ShapedRecipePattern.STREAM_CODEC.decode(buffer);
-            ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
+            ItemStackTemplate itemstack = ItemStackTemplate.STREAM_CODEC.decode(buffer);
             int cookTimeIn = buffer.readVarInt();
             return new OvenShapedRecipe(shapedrecipepattern, itemstack, cookTimeIn);
         }
 
         public static void toNetwork(RegistryFriendlyByteBuf buffer, OvenShapedRecipe recipe) {
             ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
             buffer.writeVarInt(recipe.cookTime);
         }
 

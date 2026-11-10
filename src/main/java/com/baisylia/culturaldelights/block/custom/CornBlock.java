@@ -9,11 +9,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -195,22 +191,22 @@ public class CornBlock extends CropBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
         int height = state.getValue(HEIGHT);
         int age = state.getValue(AGE);
         int maxHeight = getExpectedMaxHeight(age);
 
-        if (facing == Direction.DOWN && !state.canSurvive(level, currentPos)) {
+        if (directionToNeighbour == Direction.DOWN && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
 
-        if (facing == Direction.UP && height < maxHeight) {
-            if (!facingState.is(this) || facingState.getValue(HEIGHT) != height + 1) {
+        if (directionToNeighbour == Direction.UP && height < maxHeight) {
+            if (!state.is(this) || state.getValue(HEIGHT) != height + 1) {
                 return Blocks.AIR.defaultBlockState();
             }
         }
 
-        return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+        return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
 
     @Override

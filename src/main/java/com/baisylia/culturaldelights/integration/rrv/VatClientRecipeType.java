@@ -20,8 +20,15 @@ public class VatClientRecipeType extends AbstractVatClientRecipeType {
 	}
 
 	@Override
-	public void placeSlots(RecipeViewMenu.SlotDefinition slotDefinition) {
-
+	public void placeSlots(RecipeViewMenu.SlotDefinition builder) {
+		builder.addItemSlot(0, 19, 2);
+		builder.addItemSlot(1, 37, 2);
+		builder.addItemSlot(2, 19, 20);
+		builder.addItemSlot(3, 37, 20);
+		builder.addItemSlot(4, 19, 38);
+		builder.addItemSlot(5, 37, 38);
+		builder.addItemSlot(6, 95, 38);
+		builder.addItemSlot(7, 95, 9);
 	}
 
 	@Override

@@ -14,7 +14,6 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
@@ -24,7 +23,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import vectorwing.farmersdelight.common.utility.RecipeUtils;
 
 public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<OvenShapedRecipe>> {
     public final static Identifier UID = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "baking_shaped");
@@ -52,6 +50,7 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<Ov
 
     @Override
     public void draw(RecipeHolder<OvenShapedRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
+        this.background.draw(guiGraphics, 0, 0);
         IDrawableAnimated arrow = getArrow(holder.value());
         arrow.draw(guiGraphics, 63, 19);
         drawCookTime(holder.value(), guiGraphics, 45);
@@ -88,8 +87,13 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<Ov
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
+    public int getWidth() {
+        return 124;
+    }
+
+    @Override
+    public int getHeight() {
+        return 58;
     }
 
     @Override

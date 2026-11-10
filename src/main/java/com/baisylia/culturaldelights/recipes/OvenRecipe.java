@@ -11,10 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
@@ -42,6 +39,16 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
     @Override
     public ItemStack assemble(RecipeWrapper inv) {
         return this.output.create();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return false;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     public int getCookTime() {
@@ -79,6 +86,16 @@ public class OvenRecipe implements Recipe<RecipeWrapper> {
 
     public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
         return ModRecipes.BAKING.get();
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
     }
 
     public ItemStack getToastSymbol() {

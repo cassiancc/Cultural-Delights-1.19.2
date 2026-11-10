@@ -30,7 +30,7 @@ public class VatScreen extends AbstractContainerScreen<VatMenu> {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
 
         if (menu.isCrafting()) {
-            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 88, y + 24, 176, 14, menu.getScaledProgress(), 17);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 88, y + 24, 176, 14, menu.getScaledProgress(), 17, 12, 46);
         }
         if (menu.getTemperature() == VatTemperature.COLD) {
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x + 31, y + 20, 176, 32, 12, 46, 12, 46);

@@ -45,7 +45,7 @@ public abstract class AbstractOvenRecipe implements ReliableClientRecipe {
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("emi.cooking.time", cookTimeSeconds);
-            builder.addFillingArrow(63, 20, cookTime * 100).tooltipText(Collections.singletonList(timeString));
+//            builder.addFillingArrow(63, 20, cookTime * 100).tooltipText(Collections.singletonList(timeString));
         }
     }
 }

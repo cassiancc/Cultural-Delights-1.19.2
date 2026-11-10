@@ -106,7 +106,7 @@ public class SaltBlock extends Block {
     private static boolean canDripThrough(BlockGetter level, BlockPos pos, BlockState state) {
         if (state.isAir()) {
             return true;
-        } else if (state.isSolidRender(level, pos)) {
+        } else if (state.isSolidRender()) {
             return false;
         } else if (!state.getFluidState().isEmpty()) {
             return false;

@@ -36,7 +36,7 @@ public abstract class AbstractVatClientRecipe implements ReliableClientRecipe {
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("emi.cooking.time", cookTimeSeconds);
-            builder.addFillingArrow(62, 10, cookTime * 100).tooltipText(Collections.singletonList(timeString));
+//            builder.addFillingArrow(62, 10, cookTime * 100).tooltipText(Collections.singletonList(timeString));
         }
     }
 

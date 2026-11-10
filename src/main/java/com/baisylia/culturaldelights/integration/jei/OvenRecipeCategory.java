@@ -14,8 +14,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -51,6 +51,7 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
 
     @Override
     public void draw(RecipeHolder<OvenRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
+        this.background.draw(guiGraphics, 0, 0);
         IDrawableAnimated arrow = getArrow(holder.value());
         arrow.draw(guiGraphics, 63, 19);
         drawCookTime(holder.value(), guiGraphics, 45);
@@ -77,7 +78,7 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
     }
 
     @Override
-    public RecipeType<RecipeHolder<OvenRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<OvenRecipe>> getRecipeType() {
         return JEICulturalDelightsPlugin.BAKING_TYPE;
     }
 
@@ -87,8 +88,13 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
     }
 
     @Override
-    public IDrawable getBackground() {
-        return this.background;
+    public int getWidth() {
+        return 124;
+    }
+
+    @Override
+    public int getHeight() {
+        return 58;
     }
 
     @Override
@@ -102,23 +108,23 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
         int start = 3;
         int offset = 18;
         int offset2 = offset + offset;
-        builder.addSlot(RecipeIngredientRole.INPUT, start, start).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, start, start).add(recipe.getIngredients().get(0));
         if (recipe.getIngredients().size() > 1) {
-            builder.addSlot(RecipeIngredientRole.INPUT, start + offset, start).addIngredients(recipe.getIngredients().get(1));
+            builder.addSlot(RecipeIngredientRole.INPUT, start + offset, start).add(recipe.getIngredients().get(1));
             if (recipe.getIngredients().size() > 2) {
-                builder.addSlot(RecipeIngredientRole.INPUT, start + offset2, start).addIngredients(recipe.getIngredients().get(2));
+                builder.addSlot(RecipeIngredientRole.INPUT, start + offset2, start).add(recipe.getIngredients().get(2));
                 if (recipe.getIngredients().size() > 3) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, start, start + offset).addIngredients(recipe.getIngredients().get(3));
+                    builder.addSlot(RecipeIngredientRole.INPUT, start, start + offset).add(recipe.getIngredients().get(3));
                     if (recipe.getIngredients().size() > 4) {
-                        builder.addSlot(RecipeIngredientRole.INPUT, start + offset, start + offset).addIngredients(recipe.getIngredients().get(4));
+                        builder.addSlot(RecipeIngredientRole.INPUT, start + offset, start + offset).add(recipe.getIngredients().get(4));
                         if (recipe.getIngredients().size() > 5) {
-                            builder.addSlot(RecipeIngredientRole.INPUT, start + offset2, start + offset).addIngredients(recipe.getIngredients().get(5));
+                            builder.addSlot(RecipeIngredientRole.INPUT, start + offset2, start + offset).add(recipe.getIngredients().get(5));
                             if (recipe.getIngredients().size() > 6) {
-                                builder.addSlot(RecipeIngredientRole.INPUT, start, start + offset2).addIngredients(recipe.getIngredients().get(6));
+                                builder.addSlot(RecipeIngredientRole.INPUT, start, start + offset2).add(recipe.getIngredients().get(6));
                                 if (recipe.getIngredients().size() > 7) {
-                                    builder.addSlot(RecipeIngredientRole.INPUT, start + offset, start + offset2).addIngredients(recipe.getIngredients().get(7));
+                                    builder.addSlot(RecipeIngredientRole.INPUT, start + offset, start + offset2).add(recipe.getIngredients().get(7));
                                     if (recipe.getIngredients().size() > 8) {
-                                        builder.addSlot(RecipeIngredientRole.INPUT, start + offset2, start + offset2).addIngredients(recipe.getIngredients().get(8));
+                                        builder.addSlot(RecipeIngredientRole.INPUT, start + offset2, start + offset2).add(recipe.getIngredients().get(8));
                                     }
                                 }
                             }
@@ -127,6 +133,6 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
                 }
             }
         }
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 21).addItemStack(RecipeUtils.getResultItem(recipe));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 21).add(recipe.getResultItem());
     }
 }

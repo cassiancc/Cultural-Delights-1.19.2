@@ -6,7 +6,6 @@ import com.baisylia.culturaldelights.block.custom.CornBlock;
 import com.baisylia.culturaldelights.effect.ModEffects;
 import com.baisylia.culturaldelights.event.ModEvents;
 import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
-import com.baisylia.culturaldelights.refabricated.event.VillagerTradesEvent;
 import com.baisylia.culturaldelights.refabricated.util.Flammable;
 import com.baisylia.culturaldelights.refabricated.util.ToolModifiableBlock;
 import com.google.gson.Gson;
@@ -96,13 +95,8 @@ public class CulturalDelightsRefabricated {
 			}
 			return InteractionResult.PASS;
 		});
-		var event = new VillagerTradesEvent();
-		ModEvents.addCustomTrades(event);
-		event.getTrades().forEach((integer, itemListings) -> {
-			TradeOfferHelper.registerVillagerOffers(event.getType(), integer, (list)->list.addAll(itemListings));
-		});
 		LootTableEvents.MODIFY.register((resourceKey, builder, lootTableSource, provider) -> {
-			if (resourceKey.equals(ModBlocks.CORN.get().getLootTable())) {
+			if (resourceKey.equals(ModBlocks.CORN.get().getLootTable().orElse(null))) {
 				LootItemCondition.Builder grown = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.CORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornBlock.AGE, 7));
 				LootItemCondition.Builder tool = MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ModTags.Items.STRAW_HARVESTERS));
 

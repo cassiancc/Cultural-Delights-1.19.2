@@ -82,11 +82,11 @@ public class JEICulturalDelightsPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         var vatStack = ModBlocks.VAT.get().asItem().getDefaultInstance();
-        registration.addRecipeCatalyst(vatStack, getAgingType());
+        registration.addCraftingStation(getAgingType(), vatStack);
 
         var ovenStack = ModBlocks.OVEN.get().asItem().getDefaultInstance();
-        registration.addRecipeCatalyst(ovenStack, BAKING_TYPE);
-        registration.addRecipeCatalyst(ovenStack, BAKING_SHAPED_TYPE);
+        registration.addCraftingStation(BAKING_TYPE, ovenStack);
+        registration.addCraftingStation(BAKING_SHAPED_TYPE, ovenStack);
     }
 
     @Override

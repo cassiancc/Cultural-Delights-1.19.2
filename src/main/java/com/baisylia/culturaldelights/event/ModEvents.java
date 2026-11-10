@@ -1,23 +1,13 @@
 package com.baisylia.culturaldelights.event;
 
-import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.advancement.ModAdvancements;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.block.custom.SaltBlock;
-import com.baisylia.culturaldelights.item.ModItems;
 import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
 import com.baisylia.culturaldelights.refabricated.event.LivingEvent;
-import com.baisylia.culturaldelights.refabricated.event.VillagerTradesEvent;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PointedDripstoneBlock;
@@ -32,37 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.properties.Tilt;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
-
 public class ModEvents {
-
-    public static void addCustomTrades(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.FARMER) {
-            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-            ItemStack stack = new ItemStack(Items.EMERALD, 1);
-            int villagerLevel = 1;
-
-            trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
-                    new ItemCost(ModItems.CUCUMBER.get(), 22),
-                    stack, 10, 2, 0.02F));
-
-            trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
-                    new ItemCost(ModItems.EGGPLANT.get(), 15),
-                    stack, 10, 2, 0.02F));
-
-            trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
-                    new ItemCost(ModItems.WHITE_EGGPLANT.get(), 20),
-                    stack, 10, 2, 0.02F));
-
-            trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
-                    new ItemCost(ModItems.CORN_COB.get(), 15),
-                    stack, 10, 2, 0.02F));
-
-            trades.get(villagerLevel).add((trader, rand) -> new MerchantOffer(
-                    new ItemCost(ModItems.AVOCADO.get(), 20),
-                    stack, 10, 2, 0.02F));
-        }
-    }
 
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
@@ -114,9 +74,9 @@ public class ModEvents {
 
             Vec3 motion = entity.getDeltaMovement();
             entity.setDeltaMovement(motion.x, motion.y + boost, motion.z);
-            entity.hasImpulse = true;
+            entity.hurtMarked = true;
 
-            if (!level.isClientSide && tilt != Tilt.NONE) {
+            if (!level.isClientSide() && tilt != Tilt.NONE) {
                 BeanstalkLeafBlock.resetTilt(state, level, pos);
                 level.playSound(null, pos, SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 1.0F, 1.4F);
                 if (level instanceof ServerLevel serverLevel) {
