@@ -7,9 +7,7 @@
   "#c:gunpowders",
   "minecraft:blaze_powder"
  ],
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:acid",
   "count": 1

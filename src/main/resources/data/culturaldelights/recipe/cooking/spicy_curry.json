@@ -4,12 +4,8 @@
   {
    "fabric:type": "fabric:any",
    "ingredients": [
-    {
-     "item": "minecraft:blaze_powder"
-    },
-    {
-     "tag": "c:crops/ginger"
-    }
+    "minecraft:blaze_powder",
+    "#c:crops/ginger"
    ]
   },
   "farmersdelight:tomato_sauce",

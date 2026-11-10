@@ -8,21 +8,15 @@
   {
    "fabric:type": "fabric:any",
    "ingredients": [
-    {
-     "item": "culturaldelights:cinnamon"
-    },
-    {
-     "tag": "c:crops/ginger"
-    }
+    "culturaldelights:cinnamon",
+    "#c:crops/ginger"
    ]
   },
   "minecraft:sugar",
   "#c:fruits/lemon"
  ],
  "temperature": "cold",
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:cola",
   "count": 1

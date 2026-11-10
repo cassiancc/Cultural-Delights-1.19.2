@@ -9,9 +9,7 @@
   "#c:fruits/lemon",
   "#c:fruits/lemon"
  ],
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:lemon_liqueur",
   "count": 1

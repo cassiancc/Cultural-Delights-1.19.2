@@ -6,9 +6,7 @@
   "#c:fruits/lemon"
  ],
  "temperature": "hot",
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:lemon_liqueur",
   "count": 1

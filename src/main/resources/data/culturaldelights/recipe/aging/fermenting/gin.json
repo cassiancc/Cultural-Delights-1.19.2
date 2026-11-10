@@ -9,9 +9,7 @@
   "minecraft:sweet_berries",
   "minecraft:sweet_berries"
  ],
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:gin",
   "count": 1

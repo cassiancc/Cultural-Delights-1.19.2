@@ -6,9 +6,7 @@
   "minecraft:sugar"
  ],
  "temperature": "cold",
- "container": {
-  "item": "culturaldelights:wafer"
- },
+ "container": "culturaldelights:wafer",
  "result": {
   "id": "culturaldelights:ice_cream",
   "count": 1

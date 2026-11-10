@@ -6,9 +6,7 @@
   "minecraft:honey_bottle",
   "minecraft:brown_mushroom"
  ],
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:mead",
   "count": 1

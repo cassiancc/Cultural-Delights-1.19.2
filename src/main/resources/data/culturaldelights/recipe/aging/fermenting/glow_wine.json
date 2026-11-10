@@ -8,9 +8,7 @@
   "minecraft:sugar",
   "minecraft:glow_lichen"
  ],
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:glow_wine",
   "count": 1

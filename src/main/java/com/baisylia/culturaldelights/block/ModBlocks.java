@@ -4,7 +4,6 @@ import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.block.custom.*;
 import com.baisylia.culturaldelights.integration.supplementaries.SupplementariesCompat;
 import com.baisylia.culturaldelights.item.ModItems;
-import com.baisylia.culturaldelights.refabricated.CulturalDelightsRefabricated;
 import com.baisylia.culturaldelights.world.feature.tree.AvocadoPitGrower;
 import com.baisylia.culturaldelights.world.feature.tree.AvocadoTreeGrower;
 import com.baisylia.culturaldelights.world.feature.tree.LemonTreeGrower;
@@ -26,9 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
 import com.baisylia.culturaldelights.refabricated.loader.ModList;
-import org.jspecify.annotations.NonNull;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
 import cc.cassian.asphodel.util.deferred_registry.DeferredBlock;
 import cc.cassian.asphodel.util.deferred_registry.DeferredItem;
@@ -43,7 +40,6 @@ import static vectorwing.farmersdelight.common.registry.ModBlocks.CARROT_CRATE;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CulturalDelights.MOD_ID);
@@ -430,10 +426,6 @@ public class ModBlocks {
 
     private static Item.Properties itemProperties(Block name) {
         return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, name.properties().blockId().identifier()));
-    }
-
-    private static Item.Properties itemProperties(String name) {
-        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, CulturalDelightsRefabricated.id(name)));
     }
 
     private static <T extends Block> DeferredBlock<T> registerBlockWithoutBlockItem(String name, Function<BlockBehaviour.Properties, T> block, BlockBehaviour.Properties properties) {

@@ -15,36 +15,16 @@
     {
       "fabric:type": "fabric:any",
       "ingredients": [
-        {
-          "item": "culturaldelights:beanstalk_door"
-        },
-        {
-          "item": "culturaldelights:beanstalk_trapdoor"
-        },
-        {
-          "item": "culturaldelights:beanstalk_sign"
-        },
-        {
-          "item": "culturaldelights:beanstalk_hanging_sign"
-        },
-        {
-          "item": "culturaldelights:beanstalk_fence"
-        },
-        {
-          "item": "culturaldelights:beanstalk_fence_gate"
-        },
-        {
-          "item": "culturaldelights:beanstalk_pressure_plate"
-        },
-        {
-          "item": "culturaldelights:beanstalk_button"
-        },
-        {
-          "item": "culturaldelights:beanstalk_raft"
-        },
-        {
-          "item": "culturaldelights:beanstalk_cabinet"
-        }
+        "culturaldelights:beanstalk_door",
+        "culturaldelights:beanstalk_trapdoor",
+        "culturaldelights:beanstalk_sign",
+        "culturaldelights:beanstalk_hanging_sign",
+        "culturaldelights:beanstalk_fence",
+        "culturaldelights:beanstalk_fence_gate",
+        "culturaldelights:beanstalk_pressure_plate",
+        "culturaldelights:beanstalk_button",
+        "culturaldelights:beanstalk_raft",
+        "culturaldelights:beanstalk_cabinet"
       ]
     }
   ],

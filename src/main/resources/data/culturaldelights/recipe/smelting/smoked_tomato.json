@@ -1,5 +1,6 @@
 {
  "type": "minecraft:smoking",
+ "ingredient": "farmersdelight:tomato",
  "result": {
   "id": "culturaldelights:smoked_tomato"
  },

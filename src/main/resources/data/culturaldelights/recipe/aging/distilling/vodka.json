@@ -8,9 +8,7 @@
   "minecraft:brown_mushroom"
  ],
  "temperature": "hot",
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:vodka",
   "count": 1

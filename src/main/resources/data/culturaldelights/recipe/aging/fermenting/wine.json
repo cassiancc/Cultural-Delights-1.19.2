@@ -8,9 +8,7 @@
   "minecraft:sugar",
   "minecraft:brown_mushroom"
  ],
- "container": {
-  "item": "minecraft:glass_bottle"
- },
+ "container": "minecraft:glass_bottle",
  "result": {
   "id": "culturaldelights:wine",
   "count": 1
