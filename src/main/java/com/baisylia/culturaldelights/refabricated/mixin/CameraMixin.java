@@ -17,12 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Camera.class)
 public class CameraMixin {
-	@Shadow
-	private float partialTickTime;
 
-	@WrapOperation(method = "setup", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;setRotation(FF)V", ordinal = 0))
-	private void init(Camera instance, float yRot, float xRot, Operation<Void> original) {
-		var event = new ViewportEvent.ComputeCameraAngles(instance, partialTickTime, yRot, xRot);
+	@WrapOperation(method = "alignWithEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;setRotation(FF)V", ordinal = 0))
+	private void init(Camera instance, float yRot, float xRot, Operation<Void> original, final float partialTicks) {
+		var event = new ViewportEvent.ComputeCameraAngles(instance, partialTicks, yRot, xRot);
 		ClientEvents.onComputeCameraAngles(event);
 		original.call(instance, event.getYaw(), event.getPitch());
 		//FIXME apply roll

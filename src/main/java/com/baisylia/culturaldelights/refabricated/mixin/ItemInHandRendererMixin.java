@@ -18,9 +18,9 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ItemInHandRenderer.class)
 public class ItemInHandRendererMixin {
 	@WrapOperation(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;applyItemArmTransform(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V", ordinal = 2))
-	private static void culturalDelights$setupHandCookedFirstPersonAnim(ItemInHandRenderer instance, PoseStack poseStack, HumanoidArm hand, float equippedProg, Operation<Void> original, AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand hand2, float swingProgress, ItemStack stack, float equippedProgress, PoseStack poseStack2, MultiBufferSource buffer, int combinedLight, @Local HumanoidArm arm) {
-		if (!(stack.is(ModItems.MARSHMALLOW_ON_A_STICK.get())) || !CulturalDelights.ClientModEvents.applyForgeHandTransform(poseStack, null, arm, stack, partialTicks, equippedProgress, swingProgress)) {
-			original.call(instance, poseStack, hand, equippedProg);
+	private static void culturalDelights$setupHandCookedFirstPersonAnim(ItemInHandRenderer instance, PoseStack poseStack, HumanoidArm arm, float inverseArmHeight, Operation<Void> original, @Local ItemStack stack) {
+		if (!(stack.is(ModItems.MARSHMALLOW_ON_A_STICK.get())) || !CulturalDelights.ClientModEvents.applyForgeHandTransform(poseStack, null, arm, stack, 0, inverseArmHeight, 0)) {
+			original.call(instance, poseStack, arm, inverseArmHeight);
 		}
 	}
 }

@@ -131,7 +131,7 @@ public class ModItems {
             ConsumableItem::new, new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.SAUSAGES_AND_MASH, ModConsumables.SAUSAGES_AND_MASH));
 
     public static final DeferredItem<Item> POPCORN_BUCKET = ITEMS.register("popcorn_bucket",
-            () -> new BucketFoodItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(16).food(ModFoods.POPCORN_BUCKET, ModConsumables.POPCORN_BUCKET)));
+			BucketFoodItem::new, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(16).food(ModFoods.POPCORN_BUCKET, ModConsumables.POPCORN_BUCKET));
 
 
     public static final DeferredItem<Item> BEER = ITEMS.register("beer",

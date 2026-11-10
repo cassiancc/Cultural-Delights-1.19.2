@@ -39,4 +39,8 @@ public class ModBoatTypes {
     private static EntityType.EntityFactory<ChestRaft> chestRaftFactory(final Supplier<Item> dropItem) {
         return (entityType, level) -> new ChestRaft(entityType, level, dropItem);
     }
+
+	public static void register() {
+
+	}
 }

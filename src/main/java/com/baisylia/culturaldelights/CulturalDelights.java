@@ -63,6 +63,7 @@ public class CulturalDelights implements ModInitializer {
         ModMenuTypes.register();
         ModRecipes.register();
         ModAdvancements.register();
+        ModBoatTypes.register();
 
         if (ModList.get().isLoaded("moonlight")) {
             MoonlightCompat.registerWoodTypes();
