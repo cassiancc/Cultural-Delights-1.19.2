@@ -12,7 +12,7 @@ import static com.baisylia.culturaldelights.effect.ModEffects.INTOXICATION;
 public class ModFoods {
 
     //INGREDIENTS
-    public static final FoodProperties BEANS = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.2F).fast().build();
+    public static final FoodProperties BEANS = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.2F).build();
     public static final FoodProperties REFRIED_BEANS = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).build();
     public static final FoodProperties TOFU = (new FoodProperties.Builder()).nutrition(8).saturationModifier(0.6F).build();
     public static final FoodProperties AVOCADO = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.6F).build();
@@ -28,23 +28,23 @@ public class ModFoods {
     public static final FoodProperties GINGER = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.5F).build();
     public static final FoodProperties SQUID = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.2F).build();
     public static final FoodProperties COOKED_SQUID = (new FoodProperties.Builder()).nutrition(6).saturationModifier(0.8F).build();
-    public static final FoodProperties GLOW_SQUID = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.2F).fast().build();
+    public static final FoodProperties GLOW_SQUID = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.2F).build();
     public static final FoodProperties RAW_CALAMARI = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.2F).build();
     public static final FoodProperties COOKED_CALAMARI = (new FoodProperties.Builder()).nutrition(3).saturationModifier(0.5F).build();
 
-    public static final FoodProperties CUT_AVOCADO = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.3F).fast().build();
-    public static final FoodProperties CUT_CUCUMBER = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.3F).fast().build();
-    public static final FoodProperties CUT_PICKLE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.5F).fast().build();
-    public static final FoodProperties CUT_EGGPLANT = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).fast().build();
-    public static final FoodProperties SMOKED_CUT_EGGPLANT = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).fast().build();
+    public static final FoodProperties CUT_AVOCADO = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.3F).build();
+    public static final FoodProperties CUT_CUCUMBER = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.3F).build();
+    public static final FoodProperties CUT_PICKLE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.5F).build();
+    public static final FoodProperties CUT_EGGPLANT = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).build();
+    public static final FoodProperties SMOKED_CUT_EGGPLANT = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).build();
 
     public static final FoodProperties CORN_DOG = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.5F).build();
     public static final FoodProperties HOT_DOG = (new FoodProperties.Builder()).nutrition(10).saturationModifier(0.6F).build();
     public static final FoodProperties CHEESY_CHIP_WRAP = (new FoodProperties.Builder()).nutrition(8).saturationModifier(0.6F).build();
-    public static final FoodProperties CHEESE_CRACKER = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).fast().build();
+    public static final FoodProperties CHEESE_CRACKER = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).build();
     public static final FoodProperties CHIPS_WITH_CHEESE = (new FoodProperties.Builder()).nutrition(6).saturationModifier(0.6F).build();
     public static final FoodProperties CINNAMON_MINT_CURRY = (new FoodProperties.Builder()).nutrition(14).saturationModifier(0.8F).build();
-    public static final FoodProperties CINNAMON_CRACKER = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).fast().build();
+    public static final FoodProperties CINNAMON_CRACKER = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).build();
     public static final FoodProperties MARSHMALLOW = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.2F).build();
     public static final FoodProperties MARSHMALLOW_ON_A_STICK = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.2F).alwaysEdible().build();
     public static final FoodProperties CARAMELIZED_MARSHMALLOW_ON_A_STICK = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).alwaysEdible().build();
@@ -80,25 +80,25 @@ public class ModFoods {
     public static final FoodProperties ACID = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0.8F).alwaysEdible().build();
     public static final FoodProperties VINEGAR = (new FoodProperties.Builder()).nutrition(0).saturationModifier(0.8F).alwaysEdible().build();
     public static final FoodProperties PICKLED_EGG = (new FoodProperties.Builder()).nutrition(3).saturationModifier(0.5F).build();
-    public static final FoodProperties CHEESE_WHEEL = (new FoodProperties.Builder()).nutrition(8).saturationModifier(0.12F).fast().build();
-    public static final FoodProperties CHEESE_WEDGE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.3F).fast().build();
+    public static final FoodProperties CHEESE_WHEEL = (new FoodProperties.Builder()).nutrition(8).saturationModifier(0.12F).build();
+    public static final FoodProperties CHEESE_WEDGE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.3F).build();
 
     //SUSHI
     public static final FoodProperties MIDORI_ROLL = (new FoodProperties.Builder()).nutrition(14).saturationModifier(0.7F).build();
-    public static final FoodProperties MIDORI_ROLL_SLICE = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.4F).fast().build();
-    public static final FoodProperties EGG_ROLL = (new FoodProperties.Builder()).nutrition(5).saturationModifier(0.5F).fast().build();
+    public static final FoodProperties MIDORI_ROLL_SLICE = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.4F).build();
+    public static final FoodProperties EGG_ROLL = (new FoodProperties.Builder()).nutrition(5).saturationModifier(0.5F).build();
     public static final FoodProperties CHICKEN_ROLL = (new FoodProperties.Builder()).nutrition(16).saturationModifier(0.8F).build();
-    public static final FoodProperties CHICKEN_ROLL_SLICE = (new FoodProperties.Builder()).nutrition(8).saturationModifier(0.6F).fast().build();
-    public static final FoodProperties PUFFERFISH_ROLL = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.6F).fast().build();
-    public static final FoodProperties TROPICAL_ROLL = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.6F).fast().build();
-    public static final FoodProperties RICE_BALL = (new FoodProperties.Builder()).nutrition(3).saturationModifier(0.5F).fast().build();
-    public static final FoodProperties CALAMARI_ROLL = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.6F).fast().build();
+    public static final FoodProperties CHICKEN_ROLL_SLICE = (new FoodProperties.Builder()).nutrition(8).saturationModifier(0.6F).build();
+    public static final FoodProperties PUFFERFISH_ROLL = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.6F).build();
+    public static final FoodProperties TROPICAL_ROLL = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.6F).build();
+    public static final FoodProperties RICE_BALL = (new FoodProperties.Builder()).nutrition(3).saturationModifier(0.5F).build();
+    public static final FoodProperties CALAMARI_ROLL = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.6F).build();
 
     //MEALS
     public static final FoodProperties CORN_DOUGH = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).build();
     public static final FoodProperties TORTILLA = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.6F).build();
-    public static final FoodProperties POPCORN = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.2F).fast().build();
-    public static final FoodProperties TORTILLA_CHIPS = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.3F).fast().build();
+    public static final FoodProperties POPCORN = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.2F).build();
+    public static final FoodProperties TORTILLA_CHIPS = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.3F).build();
     public static final FoodProperties ELOTE = (new FoodProperties.Builder()).nutrition(7).saturationModifier(0.7F).build();
     public static final FoodProperties EMPANADA = (new FoodProperties.Builder()).nutrition(6).saturationModifier(0.6F).build();
     public static final FoodProperties BEEF_BURRITO = (new FoodProperties.Builder()).nutrition(14).saturationModifier(0.9F).build();

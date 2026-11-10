@@ -11,12 +11,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.component.Consumable;
 import com.baisylia.culturaldelights.refabricated.loader.IEventBus;
 import cc.cassian.asphodel.util.deferred_registry.DeferredItem;
 import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
 import vectorwing.farmersdelight.common.FoodValues;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
-import vectorwing.farmersdelight.common.item.DrinkableItem;
+import vectorwing.farmersdelight.common.item.Item;
 
 import com.baisylia.culturaldelights.item.custom.OilItem;
 import net.minecraft.world.food.FoodProperties;
@@ -25,8 +26,8 @@ public class ModItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.Items.createItems(CulturalDelights.MOD_ID);
 
-    public static Item.Properties bowlFoodItem(FoodProperties food) {
-        return (new Item.Properties()).food(food).craftRemainder(Items.BOWL).stacksTo(16);
+    public static Item.Properties bowlFoodItem(FoodProperties food, Consumable consumable) {
+        return (new Item.Properties()).food(food, consumable).craftRemainder(Items.BOWL).stacksTo(16);
     }
 
     public static Item.Properties drinkItem() {
@@ -53,11 +54,11 @@ public class ModItems {
 
     //Ingredients
     public static final DeferredItem<Item> BEAN_POD = ITEMS.register("bean_pod",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.BEAN_POD));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.BEAN_POD, ModConsumables.BEAN_POD));
     public static final DeferredItem<Item> TOFU = ITEMS.register("tofu",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.TOFU));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.TOFU, ModConsumables.TOFU));
     public static final DeferredItem<Item> REFRIED_BEANS = ITEMS.register("refried_beans",
-            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.REFRIED_BEANS));
+            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.REFRIED_BEANS, ModConsumables.REFRIED_BEANS));
 
     public static final DeferredItem<Item> AVOCADO = ITEMS.register("avocado",
             (p) -> new Item(p), new Item.Properties().food(ModFoods.AVOCADO, ModConsumables.AVOCADO));
@@ -95,240 +96,240 @@ public class ModItems {
     public static final DeferredItem<Item> SMOKED_WHITE_EGGPLANT = ITEMS.register("smoked_white_eggplant",
             (p) -> new Item(p), new Item.Properties().food(ModFoods.SMOKED_WHITE_EGGPLANT, ModConsumables.SMOKED_WHITE_EGGPLANT));
     public static final DeferredItem<Item> WHITE_EGGPLANT = ITEMS.register("white_eggplant",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.WHITE_EGGPLANT));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.WHITE_EGGPLANT, ModConsumables.WHITE_EGGPLANT));
     public static final DeferredItem<Item> CORN_COB = ITEMS.register("corn_cob",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CORN_COB));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CORN_COB, ModConsumables.CORN_COB));
 
     public static final DeferredItem<Item> SQUID = ITEMS.register("squid",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.SQUID));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.SQUID, ModConsumables.SQUID));
 
     public static final DeferredItem<Item> COOKED_SQUID = ITEMS.register("cooked_squid",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.COOKED_SQUID));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.COOKED_SQUID, ModConsumables.COOKED_SQUID));
 
     public static final DeferredItem<Item> GLOW_SQUID = ITEMS.register("glow_squid",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.GLOW_SQUID));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.GLOW_SQUID, ModConsumables.GLOW_SQUID));
 
     public static final DeferredItem<Item> RAW_CALAMARI = ITEMS.register("raw_calamari",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.RAW_CALAMARI));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.RAW_CALAMARI, ModConsumables.RAW_CALAMARI));
 
     public static final DeferredItem<Item> COOKED_CALAMARI = ITEMS.register("cooked_calamari",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.COOKED_CALAMARI));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.COOKED_CALAMARI, ModConsumables.COOKED_CALAMARI));
 
 
     public static final DeferredItem<Item> BUTTER = ITEMS.register("butter",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.BUTTER));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.BUTTER, ModConsumables.BUTTER));
 
     public static final DeferredItem<Item> BUTTERED_TOAST = ITEMS.register("buttered_toast",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.BUTTERED_TOAST));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.BUTTERED_TOAST, ModConsumables.BUTTERED_TOAST));
 
     public static final DeferredItem<Item> RAW_SAUSAGE = ITEMS.register("raw_sausage",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.RAW_SAUSAGE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.RAW_SAUSAGE, ModConsumables.RAW_SAUSAGE));
 
     public static final DeferredItem<Item> COOKED_SAUSAGE = ITEMS.register("cooked_sausage",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.COOKED_SAUSAGE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.COOKED_SAUSAGE, ModConsumables.COOKED_SAUSAGE));
 
     public static final DeferredItem<Item> SNAG = ITEMS.register("snag",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.SNAG));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.SNAG, ModConsumables.SNAG));
 
     public static final DeferredItem<Item> SAUSAGES_AND_MASH = ITEMS.register("sausages_and_mash",
-            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.SAUSAGES_AND_MASH));
+            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.SAUSAGES_AND_MASH, ModConsumables.SAUSAGES_AND_MASH));
 
     public static final DeferredItem<Item> POPCORN_BUCKET = ITEMS.register("popcorn_bucket",
-            () -> new BucketFoodItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(16).food(ModFoods.POPCORN_BUCKET)));
+            () -> new BucketFoodItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(16).food(ModFoods.POPCORN_BUCKET, ModConsumables.POPCORN_BUCKET)));
 
 
     public static final DeferredItem<Item> BEER = ITEMS.register("beer",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.BEER).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.BEER, ModConsumables.BEER).stacksTo(16));
     public static final DeferredItem<Item> WINE = ITEMS.register("wine",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.WINE).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.WINE, ModConsumables.WINE).stacksTo(16));
     public static final DeferredItem<Item> GLOW_WINE = ITEMS.register("glow_wine",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.GLOW_WINE).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.GLOW_WINE, ModConsumables.GLOW_WINE).stacksTo(16));
     public static final DeferredItem<Item> GINGER_BEER = ITEMS.register("ginger_beer",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.GINGER_BEER).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.GINGER_BEER, ModConsumables.GINGER_BEER).stacksTo(16));
     public static final DeferredItem<Item> MEAD = ITEMS.register("mead",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.MEAD).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.MEAD, ModConsumables.MEAD).stacksTo(16));
     public static final DeferredItem<Item> APPLE_CIDER = ITEMS.register("apple_cider",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.APPLE_CIDER).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.APPLE_CIDER, ModConsumables.APPLE_CIDER).stacksTo(16));
     public static final DeferredItem<Item> MOJITO = ITEMS.register("mojito",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.MOJITO).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.MOJITO, ModConsumables.MOJITO).stacksTo(16));
     public static final DeferredItem<Item> MARGARITA = ITEMS.register("margarita",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.MARGARITA).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.MARGARITA, ModConsumables.MARGARITA).stacksTo(16));
     public static final DeferredItem<Item> BLOODY_MARY = ITEMS.register("bloody_mary",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.BLOODY_MARY).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.BLOODY_MARY, ModConsumables.BLOODY_MARY).stacksTo(16));
     public static final DeferredItem<Item> LEMON_LIQUEUR = ITEMS.register("lemon_liqueur",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.LEMON_LIQUEUR).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.LEMON_LIQUEUR, ModConsumables.LEMON_LIQUEUR).stacksTo(16));
     public static final DeferredItem<Item> BUTTERBEER = ITEMS.register("butterbeer",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.BUTTERBEER).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.BUTTERBEER, ModConsumables.BUTTERBEER).stacksTo(16));
     public static final DeferredItem<Item> COLA = ITEMS.register("cola",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.COLA).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.COLA, ModConsumables.COLA).stacksTo(16));
     public static final DeferredItem<Item> TEQUILA = ITEMS.register("tequila",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.TEQUILA).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.TEQUILA, ModConsumables.TEQUILA).stacksTo(16));
     public static final DeferredItem<Item> GIN = ITEMS.register("gin",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.GIN).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.GIN, ModConsumables.GIN).stacksTo(16));
     public static final DeferredItem<Item> BRANDY = ITEMS.register("brandy",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.BRANDY).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.BRANDY, ModConsumables.BRANDY).stacksTo(16));
     public static final DeferredItem<Item> VODKA = ITEMS.register("vodka",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.VODKA).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.VODKA, ModConsumables.VODKA).stacksTo(16));
     public static final DeferredItem<Item> WHISKEY = ITEMS.register("whiskey",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.WHISKEY).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.WHISKEY, ModConsumables.WHISKEY).stacksTo(16));
     public static final DeferredItem<Item> RUM = ITEMS.register("rum",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.RUM).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.RUM, ModConsumables.RUM).stacksTo(16));
 
     public static final DeferredItem<Item> ACID = ITEMS.register("acid",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.ACID).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.ACID, ModConsumables.ACID).stacksTo(16));
     public static final DeferredItem<Item> VINEGAR = ITEMS.register("vinegar",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.VINEGAR).stacksTo(16));
+            (p) -> new Item(p), drinkItem().food(ModFoods.VINEGAR, ModConsumables.VINEGAR).stacksTo(16));
     public static final DeferredItem<Item> PICKLED_EGG = ITEMS.register("pickled_egg",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.PICKLED_EGG));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.PICKLED_EGG, ModConsumables.PICKLED_EGG));
     public static final DeferredItem<Item> CHEESE_WEDGE = ITEMS.register("cheese_wedge",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHEESE_WEDGE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHEESE_WEDGE, ModConsumables.CHEESE_WEDGE));
 
     public static final DeferredItem<Item> CORN_DOG = ITEMS.register("corn_dog",
-            (p) -> new Item(p), new Item.Properties().craftRemainder(Items.STICK).food(ModFoods.CORN_DOG));
+            (p) -> new Item(p), new Item.Properties().craftRemainder(Items.STICK).food(ModFoods.CORN_DOG, ModConsumables.CORN_DOG));
     public static final DeferredItem<Item> HOT_DOG = ITEMS.register("hot_dog",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.HOT_DOG));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.HOT_DOG, ModConsumables.HOT_DOG));
     public static final DeferredItem<Item> CHEESY_CHIP_WRAP = ITEMS.register("cheesy_chip_wrap",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHEESY_CHIP_WRAP));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHEESY_CHIP_WRAP, ModConsumables.CHEESY_CHIP_WRAP));
     public static final DeferredItem<Item> CHEESE_CRACKER = ITEMS.register("cheese_cracker",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHEESE_CRACKER));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHEESE_CRACKER, ModConsumables.CHEESE_CRACKER));
     public static final DeferredItem<Item> CHIPS_WITH_CHEESE = ITEMS.register("chips_with_cheese",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHIPS_WITH_CHEESE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHIPS_WITH_CHEESE, ModConsumables.CHIPS_WITH_CHEESE));
     public static final DeferredItem<Item> CINNAMON = ITEMS.register("cinnamon",
             (p) -> new Item(p), new Item.Properties());
     public static final DeferredItem<Item> CINNAMON_MINT_CURRY = ITEMS.register("cinnamon_mint_curry",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CINNAMON_MINT_CURRY));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CINNAMON_MINT_CURRY, ModConsumables.CINNAMON_MINT_CURRY));
     public static final DeferredItem<Item> CINNAMON_CRACKER = ITEMS.register("cinnamon_cracker",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CINNAMON_CRACKER));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CINNAMON_CRACKER, ModConsumables.CINNAMON_CRACKER));
     public static final DeferredItem<Item> BUTTERSCOTCH_CINNAMON_PIE_SLICE = ITEMS.register("butterscotch_cinnamon_pie_slice",
             (p) -> new Item(p), new Item.Properties().food(FoodValues.PIE_SLICE));
 
 
     //Meals
     public static final DeferredItem<Item> POPCORN = ITEMS.register("popcorn",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.POPCORN));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.POPCORN, ModConsumables.POPCORN));
 
     public static final DeferredItem<Item> CORN_DOUGH = ITEMS.register("corn_dough",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CORN_DOUGH));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CORN_DOUGH, ModConsumables.CORN_DOUGH));
 
     public static final DeferredItem<Item> TORTILLA = ITEMS.register("tortilla",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.TORTILLA));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.TORTILLA, ModConsumables.TORTILLA));
 
     public static final DeferredItem<Item> TORTILLA_CHIPS = ITEMS.register("tortilla_chips",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.TORTILLA_CHIPS));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.TORTILLA_CHIPS, ModConsumables.TORTILLA_CHIPS));
 
     public static final DeferredItem<Item> ELOTE = ITEMS.register("elote",
-            (p) -> new Item(p), new Item.Properties().craftRemainder(Items.STICK).food(ModFoods.ELOTE));
+            (p) -> new Item(p), new Item.Properties().craftRemainder(Items.STICK).food(ModFoods.ELOTE, ModConsumables.ELOTE));
 
     public static final DeferredItem<Item> EMPANADA = ITEMS.register("empanada",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.EMPANADA));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.EMPANADA, ModConsumables.EMPANADA));
 
     public static final DeferredItem<Item> HEARTY_SALAD = ITEMS.register("hearty_salad",
-            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.HEARTY_SALAD));
+            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.HEARTY_SALAD, ModConsumables.HEARTY_SALAD));
 
     public static final DeferredItem<Item> BEEF_BURRITO = ITEMS.register("beef_burrito",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.BEEF_BURRITO));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.BEEF_BURRITO, ModConsumables.BEEF_BURRITO));
 
     public static final DeferredItem<Item> MUTTON_SANDWICH = ITEMS.register("mutton_sandwich",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.MUTTON_SANDWICH));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.MUTTON_SANDWICH, ModConsumables.MUTTON_SANDWICH));
 
     public static final DeferredItem<Item> EGGPLANT_PARMESAN = ITEMS.register("eggplant_parmesan",
-            (p) -> new ConsumableItem(p), new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16).food(ModFoods.EGGPLANT_PARMESAN));
+            (p) -> new ConsumableItem(p), new Item.Properties().craftRemainder(Items.BOWL).stacksTo(16).food(ModFoods.EGGPLANT_PARMESAN, ModConsumables.EGGPLANT_PARMESAN));
 
     public static final DeferredItem<Item> POACHED_EGGPLANTS = ITEMS.register("poached_eggplants",
-            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.POACHED_EGGPLANTS));
+            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.POACHED_EGGPLANTS, ModConsumables.POACHED_EGGPLANTS));
 
     public static final DeferredItem<Item> EGGPLANT_BURGER = ITEMS.register("eggplant_burger",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.EGGPLANT_BURGER));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.EGGPLANT_BURGER, ModConsumables.EGGPLANT_BURGER));
 
     public static final DeferredItem<Item> AVOCADO_TOAST = ITEMS.register("avocado_toast",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.AVOCADO_TOAST));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.AVOCADO_TOAST, ModConsumables.AVOCADO_TOAST));
 
     public static final DeferredItem<Item> CREAMED_CORN = ITEMS.register("creamed_corn",
-            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.CREAMED_CORN));
+            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.CREAMED_CORN, ModConsumables.CREAMED_CORN));
 
     public static final DeferredItem<Item> CHICKEN_TACO = ITEMS.register("chicken_taco",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHICKEN_TACO));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHICKEN_TACO, ModConsumables.CHICKEN_TACO));
 
     public static final DeferredItem<Item> SPICY_CURRY = ITEMS.register("spicy_curry",
-            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.SPICY_CURRY));
+            (p) -> new ConsumableItem(p), new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL).food(ModFoods.SPICY_CURRY, ModConsumables.SPICY_CURRY));
 
     public static final DeferredItem<Item> PORK_WRAP = ITEMS.register("pork_wrap",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.PORK_WRAP));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.PORK_WRAP, ModConsumables.PORK_WRAP));
 
     public static final DeferredItem<Item> FISH_TACO = ITEMS.register("fish_taco",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.FISH_TACO));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.FISH_TACO, ModConsumables.FISH_TACO));
 
     public static final DeferredItem<Item> MIDORI_ROLL = ITEMS.register("midori_roll",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.MIDORI_ROLL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.MIDORI_ROLL, ModConsumables.MIDORI_ROLL));
 
     public static final DeferredItem<Item> MIDORI_ROLL_SLICE = ITEMS.register("midori_roll_slice",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.MIDORI_ROLL_SLICE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.MIDORI_ROLL_SLICE, ModConsumables.MIDORI_ROLL_SLICE));
 
     public static final DeferredItem<Item> EGG_ROLL = ITEMS.register("egg_roll",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.EGG_ROLL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.EGG_ROLL, ModConsumables.EGG_ROLL));
 
     public static final DeferredItem<Item> CHICKEN_ROLL = ITEMS.register("chicken_roll",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHICKEN_ROLL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHICKEN_ROLL, ModConsumables.CHICKEN_ROLL));
 
     public static final DeferredItem<Item> CHICKEN_ROLL_SLICE = ITEMS.register("chicken_roll_slice",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHICKEN_ROLL_SLICE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHICKEN_ROLL_SLICE, ModConsumables.CHICKEN_ROLL_SLICE));
 
     public static final DeferredItem<Item> PUFFERFISH_ROLL = ITEMS.register("pufferfish_roll",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.PUFFERFISH_ROLL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.PUFFERFISH_ROLL, ModConsumables.PUFFERFISH_ROLL));
 
     public static final DeferredItem<Item> TROPICAL_ROLL = ITEMS.register("tropical_roll",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.TROPICAL_ROLL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.TROPICAL_ROLL, ModConsumables.TROPICAL_ROLL));
 
     public static final DeferredItem<Item> RICE_BALL = ITEMS.register("rice_ball",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.RICE_BALL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.RICE_BALL, ModConsumables.RICE_BALL));
 
     public static final DeferredItem<Item> CALAMARI_ROLL = ITEMS.register("calamari_roll",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CALAMARI_ROLL));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CALAMARI_ROLL, ModConsumables.CALAMARI_ROLL));
 
     public static final DeferredItem<Item> MARSHMALLOW = ITEMS.register("marshmallow",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.MARSHMALLOW));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.MARSHMALLOW, ModConsumables.MARSHMALLOW));
 
     public static final DeferredItem<Item> MARSHMALLOW_ON_A_STICK = ITEMS.register("marshmallow_on_a_stick",
-            (p) -> new MarshmallowOnAStickItem(p), new Item.Properties().food(ModFoods.MARSHMALLOW_ON_A_STICK));
+            (p) -> new MarshmallowOnAStickItem(p), new Item.Properties().food(ModFoods.MARSHMALLOW_ON_A_STICK, ModConsumables.MARSHMALLOW_ON_A_STICK));
 
     public static final DeferredItem<Item> CARAMELIZED_MARSHMALLOW_ON_A_STICK = ITEMS.register("caramelized_marshmallow_on_a_stick",
-            (p) -> new MarshmallowOnAStickItem(p), new Item.Properties().food(ModFoods.CARAMELIZED_MARSHMALLOW_ON_A_STICK));
+            (p) -> new MarshmallowOnAStickItem(p), new Item.Properties().food(ModFoods.CARAMELIZED_MARSHMALLOW_ON_A_STICK, ModConsumables.CARAMELIZED_MARSHMALLOW_ON_A_STICK));
 
     public static final DeferredItem<Item> CHARRED_MARSHMALLOW_ON_A_STICK = ITEMS.register("charred_marshmallow_on_a_stick",
-            (p) -> new MarshmallowOnAStickItem(p), new Item.Properties().food(ModFoods.CHARRED_MARSHMALLOW_ON_A_STICK));
+            (p) -> new MarshmallowOnAStickItem(p), new Item.Properties().food(ModFoods.CHARRED_MARSHMALLOW_ON_A_STICK, ModConsumables.CHARRED_MARSHMALLOW_ON_A_STICK));
 
     public static final DeferredItem<Item> LEMON = ITEMS.register("lemon",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.LEMON));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.LEMON, ModConsumables.LEMON));
 
     public static final DeferredItem<Item> SALT = ITEMS.register("salt",
             (p) -> new Item(p), new Item.Properties());
 
     public static final DeferredItem<Item> COOKING_OIL = ITEMS.register("cooking_oil",
-            (p) -> new OilItem(p), drinkItem().food(ModFoods.COOKING_OIL));
+            (p) -> new OilItem(p), drinkItem().food(ModFoods.COOKING_OIL, ModConsumables.COOKING_OIL));
 
     public static final DeferredItem<Item> CHOCOLATE_MUFFIN = ITEMS.register("chocolate_muffin",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHOCOLATE_MUFFIN));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.CHOCOLATE_MUFFIN, ModConsumables.CHOCOLATE_MUFFIN));
 
     public static final DeferredItem<Item> LEMON_MUFFIN = ITEMS.register("lemon_muffin",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.LEMON_MUFFIN));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.LEMON_MUFFIN, ModConsumables.LEMON_MUFFIN));
 
     public static final DeferredItem<Item> WAFER = ITEMS.register("wafer",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.WAFER));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.WAFER, ModConsumables.WAFER));
 
     public static final DeferredItem<Item> ICE_CREAM = ITEMS.register("ice_cream",
-            (p) -> new Item(p), new Item.Properties().stacksTo(16).food(ModFoods.ICE_CREAM));
+            (p) -> new Item(p), new Item.Properties().stacksTo(16).food(ModFoods.ICE_CREAM, ModConsumables.ICE_CREAM));
 
     public static final DeferredItem<Item> FRIED_POTATO = ITEMS.register("fried_potato",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.FRIED_POTATO));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.FRIED_POTATO, ModConsumables.FRIED_POTATO));
 
     public static final DeferredItem<Item> LEMONADE = ITEMS.register("lemonade",
-            (p) -> new DrinkableItem(p), drinkItem().food(ModFoods.LEMONADE));
+            (p) -> new Item(p), drinkItem().food(ModFoods.LEMONADE, ModConsumables.LEMONADE));
 
     public static final DeferredItem<Item> RUSTIC_LOAF_SLICE = ITEMS.register("rustic_loaf_slice",
-            (p) -> new Item(p), new Item.Properties().food(ModFoods.RUSTIC_LOAF_SLICE));
+            (p) -> new Item(p), new Item.Properties().food(ModFoods.RUSTIC_LOAF_SLICE, ModConsumables.RUSTIC_LOAF_SLICE));
 
     public static final DeferredItem<Item> FISH_AND_CHIPS = ITEMS.register("fish_and_chips",
-            (p) -> new ConsumableItem(p, true), bowlFoodItem(ModFoods.FISH_AND_CHIPS));
+            (p) -> new ConsumableItem(p, true), bowlFoodItem(ModFoods.FISH_AND_CHIPS, ModConsumables.FISH_AND_CHIPS));
 
     public static final DeferredItem<Item> BEANSTALK_SIGN = ITEMS.register("beanstalk_sign",
             (p -> new SignItem(ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get(), p)), new Item.Properties().stacksTo(16));
