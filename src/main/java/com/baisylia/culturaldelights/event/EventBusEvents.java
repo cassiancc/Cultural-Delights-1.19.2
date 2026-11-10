@@ -22,7 +22,7 @@ public class EventBusEvents {
         if (effect.is(ModEffects.CHEESY.getKey()) || effect.is(ModEffects.INTOXICATION.getKey()))
             return;
 
-        if (effect.is(Objects.requireNonNull(MobEffects.POISON.unwrapKey().get())) || effect.is(Objects.requireNonNull(MobEffects.CONFUSION.unwrapKey().get()))) {
+        if (effect.is(Objects.requireNonNull(MobEffects.POISON.unwrapKey().get())) || effect.is(Objects.requireNonNull(MobEffects.NAUSEA.unwrapKey().get()))) {
             if (event.getEntity().hasEffect(ModEffects.INTOXICATION))
                 return;
         }

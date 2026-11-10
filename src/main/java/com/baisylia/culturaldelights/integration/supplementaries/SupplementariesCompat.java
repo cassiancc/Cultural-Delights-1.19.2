@@ -75,6 +75,6 @@ public class SupplementariesCompat {
         if (!player.getAbilities().instabuild) {
             stack.shrink(1);
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS_SERVER;
     }
 }

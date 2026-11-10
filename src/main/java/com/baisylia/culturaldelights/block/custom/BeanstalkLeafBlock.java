@@ -125,10 +125,10 @@ public class BeanstalkLeafBlock extends HorizontalDirectionalBlock implements Si
     }
 
     @Override
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         entity.causeFallDamage(fallDistance, 0.0F, level.damageSources().fall());
         entity.resetFallDistance();
-        if (!level.isClientSide && fallDistance > 0.5F) {
+        if (!level.isClientSide() && fallDistance > 0.5F) {
             Tilt target = fallDistance > 2.5F ? Tilt.FULL : Tilt.PARTIAL;
             if (state.getValue(TILT) == Tilt.NONE) {
                 level.setBlock(pos, state.setValue(TILT, target), 3);
@@ -140,7 +140,7 @@ public class BeanstalkLeafBlock extends HorizontalDirectionalBlock implements Si
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (state.getValue(TILT) == Tilt.NONE && canEntityTilt(pos, entity)) {
                 setTiltAndScheduleTick(state, level, pos, Tilt.UNSTABLE, null, 8);
             }

@@ -86,12 +86,12 @@ public class RusticLoafBlock extends Block {
 
     @Override
     public InteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        return heldStack.is(ModTags.Items.KNIVES) ? this.cutSlice(level, pos, state, player) : InteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return heldStack.is(ModTags.Items.KNIVES) ? this.cutSlice(level, pos, state, player) : InteractionResult.PASS;
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             if (this.consumeBite(level, pos, state, player).consumesAction()) {
                 return InteractionResult.SUCCESS;
             }
@@ -114,7 +114,7 @@ public class RusticLoafBlock extends Block {
                 playerIn.getFoodData().eat(sliceFood);
 
                 for(FoodProperties.PossibleEffect effect : sliceFood.effects()) {
-                    if (!level.isClientSide && effect != null && level.random.nextFloat() < effect.probability()) {
+                    if (!level.isClientSide() && effect != null && level.getRandom().nextFloat() < effect.probability()) {
                         playerIn.addEffect(effect.effect());
                     }
                 }

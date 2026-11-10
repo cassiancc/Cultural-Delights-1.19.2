@@ -19,7 +19,7 @@ public class ClientEvents {
     private static WeakReference<Entity> lastCameraEntity = new WeakReference<>(null);
 
     public static void onComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
-        Entity cameraEntity = event.getCamera().getEntity();
+        Entity cameraEntity = event.getCamera().entity();
         if (cameraEntity != lastCameraEntity.get()) {
             currentPitch = 0.0F;
             currentYaw = 0.0F;
@@ -65,7 +65,7 @@ public class ClientEvents {
         }
 
         // Interpolate towards target
-        float deltaTicks = Minecraft.getInstance().getTimer().getRealtimeDeltaTicks();
+        float deltaTicks = Minecraft.getInstance().getDeltaTracker().getRealtimeDeltaTicks();
         float factor = Math.min(1.0F, deltaTicks * 0.15F);
         currentPitch = Mth.lerp(factor, currentPitch, targetPitch);
         currentYaw = Mth.lerp(factor, currentYaw, targetYaw);

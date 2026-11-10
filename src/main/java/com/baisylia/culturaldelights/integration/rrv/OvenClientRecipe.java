@@ -1,5 +1,6 @@
 package com.baisylia.culturaldelights.integration.rrv;
 
+import cc.cassian.rrv.api.client.RecipeScreenContext;
 import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
@@ -24,8 +25,8 @@ public class OvenClientRecipe extends AbstractOvenRecipe {
     }
 
     @Override
-    public ReliableClientRecipeType getCategory() {
-        return RRVCulturalDelightsPlugin.SHAPELESS_BAKING;
+    public ReliableClientRecipeType getType() {
+        return OvenClientRecipeType.INSTANCE;
     }
 
     @Override
@@ -34,7 +35,11 @@ public class OvenClientRecipe extends AbstractOvenRecipe {
             builder.bindSlot(i, getIngredients().get(i));
         }
 
-        drawCookTime(cookTime, builder, 50, getType().getDisplayWidth());
         builder.bindSlot(9, result);
+    }
+
+    @Override
+    public void addRecipeWidgets(RecipeScreenContext context) {
+        drawCookTime(cookTime, context.widgets(), 50, getType().getDisplayWidth());
     }
 }

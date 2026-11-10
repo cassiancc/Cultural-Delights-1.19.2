@@ -15,7 +15,9 @@ import com.baisylia.culturaldelights.screens.VatScreen;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.*;
+import net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -27,22 +29,22 @@ import java.util.Objects;
 
 @JeiPlugin
 public class JEICulturalDelightsPlugin implements IModPlugin {
-    private static RecipeType<RecipeHolder<VatRecipe>> agingType;
+    private static IRecipeType<RecipeHolder<VatRecipe>> agingType;
 
-    public static final RecipeType<RecipeHolder<OvenRecipe>> BAKING_TYPE =
-            new RecipeType<>(OvenRecipeCategory.UID, holderClass());
+    public static final IRecipeType<RecipeHolder<OvenRecipe>> BAKING_TYPE =
+            IRecipeType.create(OvenRecipeCategory.UID, holderClass());
 
-    public static final RecipeType<RecipeHolder<OvenShapedRecipe>> BAKING_SHAPED_TYPE =
-            new RecipeType<>(OvenShapedRecipeCategory.UID, holderClass());
+    public static final IRecipeType<RecipeHolder<OvenShapedRecipe>> BAKING_SHAPED_TYPE =
+            IRecipeType.create(OvenShapedRecipeCategory.UID, holderClass());
 
     @SuppressWarnings("unchecked")
     private static <T> Class<T> holderClass() {
         return (Class<T>) (Class<?>) RecipeHolder.class;
     }
 
-    public static RecipeType<RecipeHolder<VatRecipe>> getAgingType() {
+    public static IRecipeType<RecipeHolder<VatRecipe>> getAgingType() {
         if (agingType == null) {
-            agingType = RecipeType.createFromVanilla(ModRecipes.AGING_TYPE.get());
+            agingType = IRecipeType.create(ModRecipes.AGING_TYPE.get());
         }
         return agingType;
     }
@@ -63,16 +65,16 @@ public class JEICulturalDelightsPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<RecipeHolder<VatRecipe>> recipes = rm.getAllRecipesFor(ModRecipes.AGING_TYPE.get());
+        SynchronizedRecipes rm = Objects.requireNonNull(Minecraft.getInstance().level).recipeAccess().getSynchronizedRecipes();
+        List<RecipeHolder<VatRecipe>> recipes = List.copyOf(rm.getAllOfType(ModRecipes.AGING_TYPE.get()));
         registration.addRecipes(getAgingType(), recipes);
         registration.addItemStackInfo(List.of(
                 ModItems.MARSHMALLOW_ON_A_STICK.get().getDefaultInstance(),
                 ModItems.CARAMELIZED_MARSHMALLOW_ON_A_STICK.get().getDefaultInstance()
         ), Component.translatable("emi.culturaldelights.marshmallow_on_a_stick.help"));
 
-        List<RecipeHolder<OvenRecipe>> ovenRecipes = rm.getAllRecipesFor(ModRecipes.BAKING.get());
-        List<RecipeHolder<OvenShapedRecipe>> ovenShapedRecipes = rm.getAllRecipesFor(ModRecipes.BAKING_SHAPED.get());
+        List<RecipeHolder<OvenRecipe>> ovenRecipes = List.copyOf(rm.getAllOfType(ModRecipes.BAKING.get()));
+        List<RecipeHolder<OvenShapedRecipe>> ovenShapedRecipes = List.copyOf(rm.getAllOfType(ModRecipes.BAKING_SHAPED.get()));
         registration.addRecipes(BAKING_TYPE, ovenRecipes);
         registration.addRecipes(BAKING_SHAPED_TYPE, ovenShapedRecipes);
     }

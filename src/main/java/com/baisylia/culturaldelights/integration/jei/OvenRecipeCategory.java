@@ -64,7 +64,7 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            guiGraphics.drawString(fontRenderer, timeString, getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(fontRenderer, timeString, getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 

@@ -102,7 +102,7 @@ public class OvenShapedRecipe implements Recipe<RecipeWrapper> {
                     return false;
                 }
 
-                Ingredient recipeIngredient = this.pattern.ingredients().get(i + j * this.getWidth());
+                Ingredient recipeIngredient = this.pattern.ingredients().get(i + j * this.getWidth()).orElse(null);
                 ItemStack gridStack = pContainer.getItem(gridX + gridY * 3); // Use a fixed grid size of 3x3
 
                 // Check if the ingredient matches the item in the crafting grid

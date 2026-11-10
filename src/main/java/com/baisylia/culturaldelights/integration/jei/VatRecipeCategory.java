@@ -17,6 +17,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -89,7 +90,7 @@ public class VatRecipeCategory implements IRecipeCategory<RecipeHolder<VatRecipe
     }
 
     @Override
-    public RecipeType<RecipeHolder<VatRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<VatRecipe>> getRecipeType() {
         return JEICulturalDelightsPlugin.getAgingType();
     }
 
@@ -123,14 +124,14 @@ public class VatRecipeCategory implements IRecipeCategory<RecipeHolder<VatRecipe
         };
         for (int i = 0; i < recipe.getIngredients().size() && i < positions.length; i++) {
             builder.addSlot(RecipeIngredientRole.INPUT, positions[i][0], positions[i][1])
-                    .addIngredients(recipe.getIngredients().get(i));
+                    .add(recipe.getIngredients().get(i));
         }
         builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 10)
-                .addItemStack(recipe.getResultItem());
+                .add(recipe.getResultItem());
 
         if (!recipe.getContainer().isEmpty()) {
             builder.addSlot(RecipeIngredientRole.INPUT, 96, 39)
-                    .addIngredients(recipe.getContainer());
+                    .add(recipe.getContainer().orElse(null));
         }
     }
 }

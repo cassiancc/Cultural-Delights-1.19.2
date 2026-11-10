@@ -135,7 +135,7 @@ public class SaltSpikeBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         if (state.getValue(FACING) == Direction.UP) {
             entity.causeFallDamage(fallDistance + 2.0F, 2.0F, level.damageSources().stalagmite());
         } else {

@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -64,7 +65,7 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<Ov
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            guiGraphics.drawString(fontRenderer, timeString, getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.text(fontRenderer, timeString, getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 
@@ -77,7 +78,7 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<Ov
     }
 
     @Override
-    public RecipeType<RecipeHolder<OvenShapedRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<OvenShapedRecipe>> getRecipeType() {
         return JEICulturalDelightsPlugin.BAKING_SHAPED_TYPE;
     }
 
@@ -105,11 +106,11 @@ public class OvenShapedRecipeCategory implements IRecipeCategory<RecipeHolder<Ov
         for (int y = 0; y < recipe.getHeight(); y++) {
             for (int x = 0; x < recipe.getWidth(); x++) {
                 builder.addSlot(RecipeIngredientRole.INPUT, start + x * 18, start + y * 18)
-                        .addIngredients(recipe.getIngredients().get(index));
+                        .add(recipe.getIngredients().get(index).orElse(null));
                 index++;
             }
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 21).addItemStack(RecipeUtils.getResultItem(recipe));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 21).add(recipe.getResultItem());
     }
 }

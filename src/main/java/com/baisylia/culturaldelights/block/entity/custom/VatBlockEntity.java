@@ -34,6 +34,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 
@@ -101,7 +103,7 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
             protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int p_155069_, int p_155070_) {
             }
 
-            protected boolean isOwnContainer(Player player) {
+            public boolean isOwnContainer(Player player) {
                 if (player.containerMenu instanceof VatMenu) {
                     BlockEntity be = ((VatMenu) player.containerMenu).getBlockEntity();
                     return be == VatBlockEntity.this;
@@ -160,12 +162,12 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
 
         if (entity.currentRecipe != null) {
             if (entity.currentRecipe.matches(wrapper, level)) {
-                return canInsertItemIntoOutput(entity.itemHandler, entity.currentRecipe.getResultItem(level.registryAccess()));
+                return canInsertItemIntoOutput(entity.itemHandler, entity.currentRecipe.getResultItem());
             }
         }
 
-        Optional<RecipeHolder<VatRecipe>> recipeMatch = level.getRecipeManager()
-                .getRecipeFor(ModRecipes.AGING_TYPE.get(), wrapper, level);
+        Optional<RecipeHolder<VatRecipe>> recipeMatch = level.recipeAccess().getSynchronizedRecipes()
+                .getFirstMatch(ModRecipes.AGING_TYPE.get(), wrapper, level);
         if (recipeMatch.isPresent()) {
             VatRecipe recipe = recipeMatch.get().value();
 
@@ -175,7 +177,7 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
 
             entity.currentRecipe = recipe;
             entity.maxProgress = recipe.getCookTime();
-            return canInsertItemIntoOutput(entity.itemHandler, recipe.getResultItem(level.registryAccess()));
+            return canInsertItemIntoOutput(entity.itemHandler, recipe.getResultItem());
         } else {
             entity.currentRecipe = null;
         }
@@ -244,7 +246,7 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
         }
         for (Direction dir : Direction.Plane.HORIZONTAL) {
             BlockPos neighbor = pos.relative(dir);
-            if (!level.getBlockState(neighbor).isSolidRender(level, neighbor)) {
+            if (!level.getBlockState(neighbor).isSolidRender()) {
                 return dir;
             }
         }
@@ -317,21 +319,21 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("inventory", itemHandler.serializeNBT(registries));
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        itemHandler.serialize(tag);
         tag.putInt("vat.progress", progress);
         tag.putInt("vat.temperature", cachedTemperature.ordinal());
         tag.putInt("vat.max_progress", maxProgress);
-        super.saveAdditional(tag, registries);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        progress = nbt.getInt("vat.progress");
-        cachedTemperature = VatTemperature.values()[nbt.getInt("vat.temperature")];
-        maxProgress = nbt.getInt("vat.max_progress");
+    protected void loadAdditional(ValueInput nbt) {
+        super.loadAdditional(nbt);
+        itemHandler.deserialize(nbt);
+        progress = nbt.getIntOr("vat.progress", 0);
+        cachedTemperature = VatTemperature.values()[nbt.getIntOr("vat.temperature", 0)];
+        maxProgress = nbt.getIntOr("vat.max_progress", 0);
     }
 
     public void drops() {
@@ -396,7 +398,7 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
 
     public void startOpen(Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.openersCounter.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.openersCounter.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState(), player.blockInteractionRange());
         }
 
     }
@@ -420,11 +422,11 @@ public class VatBlockEntity extends BlockEntity implements ExtendedMenuProvider<
     }
 
     void playSound(BlockState state, SoundEvent sound) {
-        Vec3i normal = state.getValue(VatBlock.FACING).getNormal();
+        Vec3i normal = state.getValue(VatBlock.FACING).getUnitVec3i();
         double x = (double) this.worldPosition.getX() + (double) 0.5F + (double) normal.getX() / (double) 2.0F;
         double y = (double) this.worldPosition.getY() + (double) 0.5F + (double) normal.getY() / (double) 2.0F;
         double z = (double) this.worldPosition.getZ() + (double) 0.5F + (double) normal.getZ() / (double) 2.0F;
-        this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+        this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.getRandom().nextFloat() * 0.1F + 0.9F);
     }
 
     @Override

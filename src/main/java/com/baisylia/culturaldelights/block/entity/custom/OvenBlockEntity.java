@@ -32,6 +32,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import vectorwing.farmersdelight.refabricated.inventory.ItemStackHandler;
 import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -95,7 +97,7 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
             protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int p_155069_, int p_155070_) {
             }
 
-            protected boolean isOwnContainer(Player player) {
+            public boolean isOwnContainer(Player player) {
                 if (player.containerMenu instanceof OvenMenu) {
                     BlockEntity be = ((OvenMenu)player.containerMenu).getBlockEntity();
                     return be == OvenBlockEntity.this;
@@ -122,21 +124,21 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        itemHandler.deserializeNBT(registries, tag.getCompound("inventory"));
-        progress = tag.getInt("oven.progress");
-        litTime = tag.getInt("oven.lit_time");
-        maxProgress = tag.getInt("oven.max_progress");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        itemHandler.deserialize(tag);
+        progress = tag.getIntOr("oven.progress", 0);
+        litTime = tag.getIntOr("oven.lit_time", 0);
+        maxProgress = tag.getIntOr("oven.max_progress", 0);
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("inventory", itemHandler.serializeNBT(registries));
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        itemHandler.serialize(tag);
         tag.putInt("oven.progress", progress);
         tag.putInt("oven.lit_time", litTime);
         tag.putInt("oven.max_progress", maxProgress);
-        super.saveAdditional(tag, registries);
     }
 
     public void drops() {
@@ -186,15 +188,15 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
 
         // Check for OvenShapedRecipe
         Optional<RecipeHolder<OvenShapedRecipe>> shapedMatch =
-                level.getRecipeManager().getRecipeFor(ModRecipes.BAKING_SHAPED.get(), new RecipeWrapper(entity.itemHandler), level);
+                level.recipeAccess().getSynchronizedRecipes().getFirstMatch(ModRecipes.BAKING_SHAPED.get(), new RecipeWrapper(entity.itemHandler), level);
 
         // Check for OvenRecipe
         Optional<RecipeHolder<OvenRecipe>> recipeMatch =
-                level.getRecipeManager().getRecipeFor(ModRecipes.BAKING.get(), new RecipeWrapper(entity.itemHandler), level);
+                level.recipeAccess().getSynchronizedRecipes().getFirstMatch(ModRecipes.BAKING.get(), new RecipeWrapper(entity.itemHandler), level);
 
         if (shapedMatch.isPresent()) {
             OvenShapedRecipe recipe = shapedMatch.get().value();
-            if (!canOutput(entity, recipe.getResultItem(level.registryAccess()))) {
+            if (!canOutput(entity, recipe.getResultItem())) {
                 return false;
             }
             entity.maxProgress = recipe.getCookTime();
@@ -202,7 +204,7 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
         }
         if (recipeMatch.isPresent()) {
             OvenRecipe recipe = recipeMatch.get().value();
-            if (!canOutput(entity, recipe.getResultItem(level.registryAccess()))) {
+            if (!canOutput(entity, recipe.getResultItem())) {
                 return false;
             }
             entity.maxProgress = recipe.getCookTime();
@@ -244,19 +246,19 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
         for (int i = 0; i < entity.itemHandler.getSlots().size(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
-        Optional<RecipeHolder<OvenRecipe>> recipeMatch = level.getRecipeManager()
-                .getRecipeFor(ModRecipes.BAKING.get(), new RecipeWrapper(entity.itemHandler), level);
-        Optional<RecipeHolder<OvenShapedRecipe>> shapedMatch = level.getRecipeManager()
-                .getRecipeFor(ModRecipes.BAKING_SHAPED.get(), new RecipeWrapper(entity.itemHandler), level);
+        Optional<RecipeHolder<OvenRecipe>> recipeMatch = level.recipeAccess().getSynchronizedRecipes()
+                .getFirstMatch(ModRecipes.BAKING.get(), new RecipeWrapper(entity.itemHandler), level);
+        Optional<RecipeHolder<OvenShapedRecipe>> shapedMatch = level.recipeAccess().getSynchronizedRecipes()
+                .getFirstMatch(ModRecipes.BAKING_SHAPED.get(), new RecipeWrapper(entity.itemHandler), level);
 
         if (recipeMatch.isPresent() || shapedMatch.isPresent()) {
             ItemStack result;
             if (shapedMatch.isPresent()) {
                 OvenShapedRecipe recipe = shapedMatch.get().value();
-                result = recipe.getResultItem(level.registryAccess());
+                result = recipe.getResultItem();
             } else {
                 OvenRecipe recipe = recipeMatch.get().value();
-                result = recipe.getResultItem(level.registryAccess());
+                result = recipe.getResultItem();
             }
 
             if (!canOutput(entity, result)) {
@@ -265,12 +267,12 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
 
             for (int i = 0; i < 9; ++i) {
                 ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-                if (!slotStack.getRecipeRemainder().isEmpty()) {
+                if (slotStack.getCraftingRemainder() != null) {
                     Direction direction = entity.getBlockState().getValue(OvenBlock.FACING).getCounterClockWise();
                     double x = (double)entity.worldPosition.getX() + 0.5 + (double)direction.getStepX() * 0.25;
                     double y = (double)entity.worldPosition.getY() + 0.7;
                     double z = (double)entity.worldPosition.getZ() + 0.5 + (double)direction.getStepZ() * 0.25;
-                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getRecipeRemainder(), x, y, z, (double)((float)direction.getStepX() * 0.08F), 0.25, (double)((float)direction.getStepZ() * 0.08F));
+                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainder().create(), x, y, z, (double)((float)direction.getStepX() * 0.08F), 0.25, (double)((float)direction.getStepZ() * 0.08F));
                 }
             }
 
@@ -302,7 +304,7 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
 
     public void startOpen(Player player) {
         if (!this.remove && !player.isSpectator()) {
-            this.openersCounter.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.openersCounter.incrementOpeners(player, this.getLevel(), this.getBlockPos(), this.getBlockState(), player.blockInteractionRange());
         }
     }
 
@@ -323,11 +325,11 @@ public class OvenBlockEntity extends BlockEntity implements ExtendedMenuProvider
     }
 
     void playSound(BlockState state, SoundEvent sound) {
-        Vec3i normal = state.getValue(OvenBlock.FACING).getNormal();
+        Vec3i normal = state.getValue(OvenBlock.FACING).getUnitVec3i();
         double x = (double)this.worldPosition.getX() + (double)0.5F + (double)normal.getX() / (double)2.0F;
         double y = (double)this.worldPosition.getY() + (double)0.5F + (double)normal.getY() / (double)2.0F;
         double z = (double)this.worldPosition.getZ() + (double)0.5F + (double)normal.getZ() / (double)2.0F;
-        this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+        this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.getRandom().nextFloat() * 0.1F + 0.9F);
     }
 
     @Override

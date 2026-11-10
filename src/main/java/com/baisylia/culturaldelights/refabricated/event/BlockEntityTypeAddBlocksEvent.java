@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public class BlockEntityTypeAddBlocksEvent {
 	public void modify(BlockEntityType<? extends BlockEntity> sign, Block... blocks) {
 		for (Block block : blocks) {
-			sign.addSupportedBlock(block);
+			sign.addValidBlock(block);
 		}
 	}
 }
