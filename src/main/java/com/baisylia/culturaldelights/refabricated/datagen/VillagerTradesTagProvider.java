@@ -20,9 +20,13 @@ public class VillagerTradesTagProvider extends FabricTagsProvider<VillagerTrade>
 		super(output, Registries.VILLAGER_TRADE, registryLookupFuture);
 	}
 
-	@SuppressWarnings("all")
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		builder(VillagerTradeTags.FARMER_LEVEL_1).add(CUCUMBER, EGGPLANT, WHITE_EGGPLANT, CORN, AVOCADO);
+		builder(VillagerTradeTags.FARMER_LEVEL_1)
+				.addOptional(CUCUMBER)
+				.addOptional(EGGPLANT)
+				.addOptional(WHITE_EGGPLANT)
+				.addOptional(CORN)
+				.addOptional(AVOCADO);
 	}
 }

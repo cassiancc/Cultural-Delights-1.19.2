@@ -110,6 +110,15 @@ dependencies {
     include("cc.cassian.asphodel:asphodel-api-fabric:1.1.3+${minecraft_version}")
 }
 
+
+fabricApi {
+    configureDataGeneration({
+        client = true
+        modId = "culturaldelights"
+    })
+}
+
+
 processResources {
     var expandProps = [
             'version'                      : version,

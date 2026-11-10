@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "culturaldelights:cucumber",
+      "required": false
+    },
+    {
+      "id": "culturaldelights:eggplant",
+      "required": false
+    },
+    {
+      "id": "culturaldelights:white_eggplant",
+      "required": false
+    },
+    {
+      "id": "culturaldelights:corn",
+      "required": false
+    },
+    {
+      "id": "culturaldelights:avocado",
+      "required": false
+    }
+  ]
+}

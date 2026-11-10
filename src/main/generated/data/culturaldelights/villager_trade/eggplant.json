@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 10.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 15.0,
+    "id": "culturaldelights:eggplant"
+  },
+  "xp": 2.0
+}
