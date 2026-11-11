@@ -170,7 +170,7 @@ publishMods {
     type = STABLE
     version = "${project.version}-${minecraft_version}"
     displayName = "${mod_name} ${minecraft_version} - ${project.version}"
-    modLoaders.add('neoforge')
+    modLoaders.add('fabric')
 
     curseforge {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
@@ -179,7 +179,7 @@ publishMods {
         client = true
         server = true
 
-        requires("farmers-delight")
+        requires("farmers-delight-refabricated")
 //        optional("supplementaries")
         optional("jei")
         optional("rrv")
