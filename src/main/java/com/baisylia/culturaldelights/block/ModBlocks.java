@@ -100,7 +100,7 @@ public class ModBlocks {
             (p) -> new FenceGateBlock(ModWoodTypes.BEANSTALK, p), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_LIGHT_GREEN), false, 0);
     public static final DeferredBlock<Block> BEANSTALK_DOOR = registerBlock("beanstalk_door",
             (p) -> new DoorBlock(ModWoodTypes.BEANSTALK_SET, p), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_LIGHT_GREEN),
-            block -> new DoubleHighBlockItem(block, itemProperties(block)));
+            block -> new DoubleHighBlockItem(block, blockItemProperties(block)));
     public static final DeferredBlock<Block> BEANSTALK_TRAPDOOR = registerBlock("beanstalk_trapdoor",
             (p) -> new TrapDoorBlock(ModWoodTypes.BEANSTALK_SET, p), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR).mapColor(MapColor.COLOR_LIGHT_GREEN), false, 0);
     public static final DeferredBlock<Block> BEANSTALK_PRESSURE_PLATE = registerBlock("beanstalk_pressure_plate",
@@ -421,11 +421,11 @@ public class ModBlocks {
     }
 
     private static Item feastItem(Block block) {
-        return new BlockItem(block, itemProperties(block).stacksTo(1));
+        return new BlockItem(block, blockItemProperties(block).stacksTo(1));
     }
 
-    private static Item.Properties itemProperties(Block name) {
-        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, name.properties().blockId().identifier()));
+    private static Item.Properties blockItemProperties(Block name) {
+        return new Item.Properties().useBlockDescriptionPrefix().setId(ResourceKey.create(Registries.ITEM, name.properties().blockId().identifier()));
     }
 
     private static <T extends Block> DeferredBlock<T> registerBlockWithoutBlockItem(String name, Function<BlockBehaviour.Properties, T> block, BlockBehaviour.Properties properties) {

@@ -328,13 +328,13 @@ public class ModItems {
             (p) -> new ConsumableItem(p, true), bowlFoodItem(ModFoods.FISH_AND_CHIPS, ModConsumables.FISH_AND_CHIPS));
 
     public static final DeferredItem<Item> BEANSTALK_SIGN = ITEMS.register("beanstalk_sign",
-            (p -> new SignItem(ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get(), p)), new Item.Properties().stacksTo(16));
+            (p -> new SignItem(ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get(), p)), new Item.Properties().useBlockDescriptionPrefix().stacksTo(16));
     public static final DeferredItem<Item> BEANSTALK_HANGING_SIGN = ITEMS.register("beanstalk_hanging_sign",
-            (p -> new HangingSignItem(ModBlocks.BEANSTALK_HANGING_SIGN.get(), ModBlocks.BEANSTALK_WALL_HANGING_SIGN.get(), p)), new Item.Properties().stacksTo(16));
+            (p -> new HangingSignItem(ModBlocks.BEANSTALK_HANGING_SIGN.get(), ModBlocks.BEANSTALK_WALL_HANGING_SIGN.get(), p)), new Item.Properties().useBlockDescriptionPrefix().stacksTo(16));
     public static final DeferredItem<Item> BEANSTALK_RAFT = ITEMS.register("beanstalk_raft",
             (p -> new BoatItem(ModBoatTypes.BEANSTALK, p)), new Item.Properties().stacksTo(1));
     public static final DeferredItem<Item> BEANSTALK_CHEST_RAFT = ITEMS.register("beanstalk_chest_raft",
-            (p -> new BoatItem(ModBoatTypes.BEANSTALK_CHEST_BOAT, p)), new Item.Properties().stacksTo(1));
+            (p -> new BoatItem(ModBoatTypes.BEANSTALK_CHEST_RAFT, p)), new Item.Properties().stacksTo(1));
 
     public static void register() {
         ITEMS.register();

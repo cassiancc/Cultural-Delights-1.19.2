@@ -180,11 +180,11 @@ publishMods {
         server = true
 
         requires("farmers-delight")
-        optional("supplementaries")
+//        optional("supplementaries")
         optional("jei")
-        optional("emi")
+        optional("rrv")
         optional("appleskin")
-        incompatible("cooks-collection")
+//        incompatible("cooks-collection")
     }
 
     modrinth {
@@ -193,11 +193,11 @@ publishMods {
         minecraftVersions.add("${minecraft_version}")
 
         requires("farmers-delight")
-        optional("supplementaries")
+//        optional("supplementaries")
         optional("jei")
-        optional("emi")
+        optional("rrv")
         optional("appleskin")
-        incompatible("cooks-collection")
+//        incompatible("cooks-collection")
     }
 }
 

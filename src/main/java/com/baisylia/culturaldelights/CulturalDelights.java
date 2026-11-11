@@ -2,9 +2,7 @@ package com.baisylia.culturaldelights;
 
 import com.baisylia.culturaldelights.advancement.ModAdvancements;
 import com.baisylia.culturaldelights.block.ModBlocks;
-import com.baisylia.culturaldelights.block.ModWoodTypes;
 import com.baisylia.culturaldelights.block.entity.ModBlockEntities;
-import com.baisylia.culturaldelights.block.entity.custom.VatBlockEntity;
 import com.baisylia.culturaldelights.effect.ModEffects;
 import com.baisylia.culturaldelights.integration.moonlight.MoonlightCompat;
 import com.baisylia.culturaldelights.item.ModBoatTypes;
@@ -21,12 +19,10 @@ import com.baisylia.culturaldelights.screens.OvenScreen;
 import com.baisylia.culturaldelights.screens.VatScreen;
 import com.baisylia.culturaldelights.sound.ModSounds;
 import com.mojang.logging.LogUtils;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -37,11 +33,8 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.baisylia.culturaldelights.refabricated.loader.ModList;
 import org.slf4j.Logger;
@@ -97,7 +90,7 @@ public class CulturalDelights implements ModInitializer {
 
     public static void registerDispenserBehaviors() {
         DispenserBlock.registerBehavior(ModItems.BEANSTALK_RAFT.get(), new BoatDispenseItemBehavior(ModBoatTypes.BEANSTALK));
-        DispenserBlock.registerBehavior(ModItems.BEANSTALK_CHEST_RAFT.get(), new BoatDispenseItemBehavior(ModBoatTypes.BEANSTALK_CHEST_BOAT));
+        DispenserBlock.registerBehavior(ModItems.BEANSTALK_CHEST_RAFT.get(), new BoatDispenseItemBehavior(ModBoatTypes.BEANSTALK_CHEST_RAFT));
     }
 
     private void setup() {
