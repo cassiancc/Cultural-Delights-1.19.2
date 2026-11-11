@@ -1,6 +1,5 @@
 {
   "type": "minecraft:random_selector",
-  "config": {
     "default": "culturaldelights:avocado_checked",
     "features": [
       {
@@ -8,5 +7,4 @@
         "feature": "culturaldelights:avocado_checked"
       }
     ]
-  }
 }

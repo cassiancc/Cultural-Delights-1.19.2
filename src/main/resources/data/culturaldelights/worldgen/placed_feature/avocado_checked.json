@@ -6,8 +6,8 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "culturaldelights:avocado_sapling",
-          "Properties": {
+          "id": "culturaldelights:avocado_sapling",
+          "properties": {
             "stage": "0"
           }
         }

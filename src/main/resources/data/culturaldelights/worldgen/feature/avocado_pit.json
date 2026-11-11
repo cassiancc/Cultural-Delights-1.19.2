@@ -1,11 +1,10 @@
 {
   "type": "minecraft:tree",
-  "config": {
     "decorators": [],
     "below_trunk_provider": {
-      "type": "minecraft:simple_state_provider",
+      "type": "minecraft:simple",
       "state": {
-        "Name": "minecraft:dirt"
+        "id": "minecraft:dirt"
       }
     },
     "foliage_placer": {
@@ -14,10 +13,10 @@
       "radius": 0
     },
     "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
+      "type": "minecraft:simple",
       "state": {
-        "Name": "culturaldelights:avocado_sapling",
-        "Properties": {
+        "id": "culturaldelights:avocado_sapling",
+        "properties": {
           "stage": "0"
         }
       }
@@ -37,13 +36,12 @@
       "height_rand_b": 0
     },
     "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
+      "type": "minecraft:simple",
       "state": {
-        "Name": "culturaldelights:avocado_sapling",
-        "Properties": {
+        "id": "culturaldelights:avocado_sapling",
+        "properties": {
           "stage": "0"
         }
       }
     }
-  }
 }
