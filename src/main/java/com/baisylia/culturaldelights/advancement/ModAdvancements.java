@@ -1,8 +1,8 @@
 package com.baisylia.culturaldelights.advancement;
 
 import com.baisylia.culturaldelights.CulturalDelights;
-import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.advancements.criterion.PlayerTrigger;
+import net.minecraft.advancements.triggers.CriterionTrigger;
+import net.minecraft.advancements.triggers.PlayerTrigger;
 import net.minecraft.core.registries.Registries;
 import cc.cassian.asphodel.util.deferred_registry.DeferredHolder;
 import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;

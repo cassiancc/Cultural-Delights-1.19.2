@@ -3,7 +3,7 @@ package com.baisylia.culturaldelights.item.custom;
 import com.baisylia.culturaldelights.item.ModDataComponents;
 import com.baisylia.culturaldelights.item.ModItems;
 import com.baisylia.culturaldelights.sound.ModSounds;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;

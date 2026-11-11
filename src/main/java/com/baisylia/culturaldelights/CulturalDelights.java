@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.baisylia.culturaldelights.refabricated.loader.ModList;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import org.slf4j.Logger;
 import vectorwing.farmersdelight.common.registry.ModBlockEntityTypes;
 
@@ -100,8 +101,8 @@ public class CulturalDelights implements ModInitializer {
     }
 
     private void addBlockEntityValidBlocks(BlockEntityTypeAddBlocksEvent event) {
-        event.modify(BlockEntityType.SIGN, ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get());
-        event.modify(BlockEntityType.HANGING_SIGN, ModBlocks.BEANSTALK_HANGING_SIGN.get(), ModBlocks.BEANSTALK_WALL_HANGING_SIGN.get());
+        event.modify(BlockEntityTypes.SIGN, ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get());
+        event.modify(BlockEntityTypes.HANGING_SIGN, ModBlocks.BEANSTALK_HANGING_SIGN.get(), ModBlocks.BEANSTALK_WALL_HANGING_SIGN.get());
         event.modify(ModBlockEntityTypes.CABINET.get(), ModBlocks.BEANSTALK_CABINET.get());
     }
 

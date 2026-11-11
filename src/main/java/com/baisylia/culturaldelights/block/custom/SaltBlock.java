@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.PointedDripstoneBlock;
 import net.minecraft.world.level.block.WaterloggedTransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -61,7 +61,7 @@ public class SaltBlock extends Block {
             if (!state.is(Blocks.POINTED_DRIPSTONE) || state.getValue(PointedDripstoneBlock.TIP_DIRECTION) != Direction.DOWN) {
                 return null;
             }
-            if (state.getValue(PointedDripstoneBlock.THICKNESS) == DripstoneThickness.TIP) {
+            if (state.getValue(PointedDripstoneBlock.THICKNESS) == SpeleothemThickness.TIP) {
                 return current.immutable();
             }
             current.move(Direction.DOWN);
@@ -143,7 +143,7 @@ public class SaltBlock extends Block {
         }
 
         BlockState tipState = level.getBlockState(tipPos);
-        if (!PointedDripstoneBlock.canDrip(tipState)) {
+        if (!PointedDripstoneBlock.isFreeHangingStalactite(tipState)) {
             return;
         }
 
