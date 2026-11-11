@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CucumbersBlock extends CropBlock {
-    public static final MapCodec<CucumbersBlock> CODEC = simpleCodec(CucumbersBlock::new);
+    public static final MapCodec<CucumbersBlock> CODEC = null;
 
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
             Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
@@ -30,7 +30,6 @@ public class CucumbersBlock extends CropBlock {
         super(properties);
     }
 
-    @Override
     public MapCodec<CucumbersBlock> codec() {
         return CODEC;
     }

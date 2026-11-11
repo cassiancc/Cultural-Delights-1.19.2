@@ -5,15 +5,13 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -28,7 +26,7 @@ public class CornBlock extends CropBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
     public static final int MAX_HEIGHT = 2;
     public static final IntegerProperty HEIGHT = IntegerProperty.create("height", 0, MAX_HEIGHT);
-    public static final MapCodec<CornBlock> CODEC = simpleCodec(CornBlock::new);
+    public static final MapCodec<CornBlock> CODEC = null;
 
     private static final VoxelShape SHAPE_BOTTOM_0 = Block.box(3.0, 0.0, 3.0, 13.0, 5.0, 13.0);
     private static final VoxelShape SHAPE_BOTTOM_1 = Block.box(3.0, 0.0, 3.0, 13.0, 9.0, 13.0);
@@ -45,7 +43,6 @@ public class CornBlock extends CropBlock {
                 .setValue(HEIGHT, 0));
     }
 
-    @Override
     public MapCodec<CornBlock> codec() {
         return CODEC;
     }
@@ -238,12 +235,12 @@ public class CornBlock extends CropBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {
-        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack);
+    public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, @org.jspecify.annotations.Nullable BlockEntity blockEntity, ItemStack destroyedWith) {
+        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, destroyedWith);
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         BlockPos bottom = getBottom(level, pos);
         BlockState bottomState = level.getBlockState(bottom);
         if (!bottomState.is(this)) return false;
@@ -253,12 +250,12 @@ public class CornBlock extends CropBlock {
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         growCropBy(level, pos, state, getBonemealAgeIncrease(level));
     }
 }

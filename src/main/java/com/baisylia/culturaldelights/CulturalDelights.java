@@ -155,9 +155,9 @@ public class CulturalDelights implements ModInitializer {
                 int i = arm == HumanoidArm.RIGHT ? 1 : -1;
                 matrixStack.translate((float) i * 0.56F, -0.52F + equipProcess * -0.6F, -0.72F);
                 matrixStack.translate(i * -0.5, 0.2, -0.05);
-                matrixStack.mulPose(Axis.YP.rotationDegrees(2));
-                matrixStack.mulPose(Axis.XP.rotationDegrees(185));
-                matrixStack.mulPose(Axis.ZP.rotationDegrees(165));
+                matrixStack.rotate(Axis.YP, 2);
+                matrixStack.rotate(Axis.XP, 185);
+                matrixStack.rotate(Axis.ZP,165);
                 matrixStack.translate(-0.25, 0, 0);
                 return true;
             }

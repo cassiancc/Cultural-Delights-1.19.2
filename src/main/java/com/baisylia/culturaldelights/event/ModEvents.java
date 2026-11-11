@@ -74,7 +74,7 @@ public class ModEvents {
 
             Vec3 motion = entity.getDeltaMovement();
             entity.setDeltaMovement(motion.x, motion.y + boost, motion.z);
-            entity.hurtMarked = true;
+            entity.syncVelocity = true;
 
             if (!level.isClientSide() && tilt != Tilt.NONE) {
                 BeanstalkLeafBlock.resetTilt(state, level, pos);

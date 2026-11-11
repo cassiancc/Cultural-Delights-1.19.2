@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 public class SaltSpikeBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
-    public static final MapCodec<SaltSpikeBlock> CODEC = simpleCodec(SaltSpikeBlock::new);
+    public static final MapCodec<SaltSpikeBlock> CODEC = null;
 
     // mirrors amethyst clusters
     protected final VoxelShape upAabb = Block.box(3.0, 0.0, 3.0, 13.0, 7.0, 13.0);
@@ -43,7 +43,6 @@ public class SaltSpikeBlock extends Block implements SimpleWaterloggedBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(FACING, Direction.UP));
     }
 
-    @Override
     public MapCodec<SaltSpikeBlock> codec() {
         return CODEC;
     }

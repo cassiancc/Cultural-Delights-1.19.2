@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,7 +33,7 @@ import java.util.function.Supplier;
 public class FruitingLeaves extends LeavesBlock implements BonemealableBlock, Flammable {
     public static final int MAX_AGE = 4;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
-    public static final MapCodec<FruitingLeaves> CODEC = simpleCodec(FruitingLeaves::new);
+    public static final MapCodec<FruitingLeaves> CODEC = null;
     public final Supplier<Item> fruit;
 
     public FruitingLeaves(BlockBehaviour.Properties properties, Supplier<Item> fruitSupplier) {
@@ -49,7 +50,6 @@ public class FruitingLeaves extends LeavesBlock implements BonemealableBlock, Fl
         this(properties, ModItems.AVOCADO);
     }
 
-    @Override
     public MapCodec<FruitingLeaves> codec() {
         return CODEC;
     }
@@ -118,17 +118,17 @@ public class FruitingLeaves extends LeavesBlock implements BonemealableBlock, Fl
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return state.getValue(AGE) < MAX_AGE;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         int i = Math.min(MAX_AGE, state.getValue(AGE) + 1);
         world.setBlock(pos, state.setValue(AGE, i), 2);
     }

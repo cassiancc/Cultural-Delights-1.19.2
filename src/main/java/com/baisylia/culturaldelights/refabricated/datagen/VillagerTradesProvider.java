@@ -62,7 +62,7 @@ public class VillagerTradesProvider extends FabricDynamicRegistryProvider {
 	}
 
 	private static VillagerTrade offer(TradeCost itemCost, ItemStackTemplate stack, int maxUses, int xp, float priceMultiplier) {
-		return new VillagerTrade(itemCost, Optional.empty(), stack, maxUses, xp, priceMultiplier,Optional.empty(), List.of());
+		return VillagerTrade.builder(itemCost, stack, maxUses, xp, priceMultiplier).build();
 	}
 
 	@Override

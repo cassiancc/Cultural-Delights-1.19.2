@@ -28,7 +28,7 @@ import static vectorwing.farmersdelight.common.registry.ModBlocks.ROPE;
 import java.util.function.Supplier;
 
 public class BeansBlock extends TomatoBlock {
-    public static final MapCodec<BeansBlock> CODEC = simpleCodec(BeansBlock::new);
+    public static final MapCodec<BeansBlock> CODEC = null;
     private static final Supplier<Boolean> ENABLE_BEAN_VINE_CLIMBING_TAGGED_ROPES = () -> true;
 
     public BeansBlock(Properties properties) {
@@ -36,7 +36,6 @@ public class BeansBlock extends TomatoBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0).setValue(ROPELOGGED, false));
     }
 
-    @Override
     public MapCodec<? extends CropBlock> codec() {
         return CODEC;
     }

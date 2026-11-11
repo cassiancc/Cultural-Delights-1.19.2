@@ -36,7 +36,7 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
     public static final IntegerProperty COLUMN = IntegerProperty.create("column", 1, 5);
     public static final BooleanProperty FLOWERING = BooleanProperty.create("flowering");
     public static final BooleanProperty ROOTING = BooleanProperty.create("rooting");
-    public static final MapCodec<BeanstalkBlock> CODEC = simpleCodec(BeanstalkBlock::new);
+    public static final MapCodec<BeanstalkBlock> CODEC = null;
     private static final int MIN_COLUMN_HEIGHT = 4;
     private static final int MAX_COLUMN_HEIGHT = 5;
     private static final double HEIGHT_LIMIT_ADVANCEMENT_RANGE = 64.0;
@@ -168,7 +168,6 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
         }
     }
 
-    @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }
@@ -226,7 +225,7 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         Direction dir = state.getValue(FACING);
         Tip tip = findTip(level, pos, state);
         return (tip.height() < MAX_COLUMN_HEIGHT && canGrowInto(level, tip.up(dir).pos()))
@@ -234,12 +233,12 @@ public class BeanstalkBlock extends DirectionalBlock implements SimpleWaterlogge
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         Tip tip = findTip(level, pos, state);
         int growAmount = 3 + random.nextInt(3);
         growSpiral(level, random, state.getValue(FACING), tip, growAmount);

@@ -22,7 +22,7 @@ public class StrippedBeanstalkBlock extends DirectionalBlock implements SimpleWa
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty FLOWERING = BeanstalkBlock.FLOWERING;
     public static final BooleanProperty ROOTING = BeanstalkBlock.ROOTING;
-    public static final MapCodec<StrippedBeanstalkBlock> CODEC = simpleCodec(StrippedBeanstalkBlock::new);
+    public static final MapCodec<StrippedBeanstalkBlock> CODEC = null;
 
     public StrippedBeanstalkBlock(Properties properties) {
         super(properties);
@@ -33,7 +33,6 @@ public class StrippedBeanstalkBlock extends DirectionalBlock implements SimpleWa
                 .setValue(WATERLOGGED, false));
     }
 
-    @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }

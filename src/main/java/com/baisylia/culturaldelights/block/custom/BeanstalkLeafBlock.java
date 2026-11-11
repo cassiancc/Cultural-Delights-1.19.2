@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BeanstalkLeafBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<BeanstalkLeafBlock> CODEC = simpleCodec(BeanstalkLeafBlock::new);
+    public static final MapCodec<BeanstalkLeafBlock> CODEC = null;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<Tilt> TILT = BlockStateProperties.TILT;
 
@@ -61,7 +61,6 @@ public class BeanstalkLeafBlock extends HorizontalDirectionalBlock implements Si
                 .setValue(TILT, Tilt.NONE));
     }
 
-    @Override
     protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
         return CODEC;
     }

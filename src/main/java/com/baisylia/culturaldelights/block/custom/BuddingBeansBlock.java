@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.NonNull;
@@ -15,13 +16,12 @@ import vectorwing.farmersdelight.common.block.BuddingBushBlock;
 import vectorwing.farmersdelight.common.block.BuddingTomatoBlock;
 
 public class BuddingBeansBlock extends BuddingTomatoBlock {
-    public static final MapCodec<BuddingBeansBlock> CODEC = simpleCodec(BuddingBeansBlock::new);
+    public static final MapCodec<BuddingBeansBlock> CODEC = null;
 
     public BuddingBeansBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
-    @Override
     public MapCodec<BuddingBeansBlock> codec() {
         return CODEC;
     }
@@ -41,7 +41,7 @@ public class BuddingBeansBlock extends BuddingTomatoBlock {
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         int maxAge = this.getMaxAge();
         int ageGrowth = Math.min(this.getAge(state) + this.getBonemealAgeIncrease(level), 7);
         if (ageGrowth <= maxAge) {

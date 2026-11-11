@@ -4,12 +4,13 @@ import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.item.custom.BucketFoodItem;
 import com.baisylia.culturaldelights.item.custom.MarshmallowOnAStickItem;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.component.Consumable;
 import cc.cassian.asphodel.util.deferred_registry.DeferredItem;
 import cc.cassian.asphodel.util.deferred_registry.DeferredRegister;
@@ -328,7 +329,7 @@ public class ModItems {
             (p) -> new ConsumableItem(p, true), bowlFoodItem(ModFoods.FISH_AND_CHIPS, ModConsumables.FISH_AND_CHIPS));
 
     public static final DeferredItem<Item> BEANSTALK_SIGN = ITEMS.register("beanstalk_sign",
-            (p -> new SignItem(ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get(), p)), new Item.Properties().useBlockDescriptionPrefix().stacksTo(16));
+            (p -> new StandingAndWallBlockItem(ModBlocks.BEANSTALK_SIGN.get(), ModBlocks.BEANSTALK_WALL_SIGN.get(), Direction.DOWN, p)), new Item.Properties().useBlockDescriptionPrefix().stacksTo(16));
     public static final DeferredItem<Item> BEANSTALK_HANGING_SIGN = ITEMS.register("beanstalk_hanging_sign",
             (p -> new HangingSignItem(ModBlocks.BEANSTALK_HANGING_SIGN.get(), ModBlocks.BEANSTALK_WALL_HANGING_SIGN.get(), p)), new Item.Properties().useBlockDescriptionPrefix().stacksTo(16));
     public static final DeferredItem<Item> BEANSTALK_RAFT = ITEMS.register("beanstalk_raft",

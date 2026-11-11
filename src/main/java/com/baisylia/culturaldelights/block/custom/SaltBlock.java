@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class SaltBlock extends Block {
-    public static final MapCodec<SaltBlock> CODEC = simpleCodec(SaltBlock::new);
+    public static final MapCodec<SaltBlock> CODEC = null;
 
     private static final float GROWTH_PROBABILITY_PER_RANDOM_TICK = 0.2F;
     private static final int MAX_STALAGMITE_SEARCH_RANGE_WHEN_GROWING = 10;
@@ -116,7 +116,6 @@ public class SaltBlock extends Block {
         }
     }
 
-    @Override
     public MapCodec<SaltBlock> codec() {
         return CODEC;
     }

@@ -74,15 +74,15 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> BEANSTALK = registerBlock("beanstalk",
 			BeanstalkBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN)
-                    .strength(1.0F).sound(SoundType.STEM).pushReaction(PushReaction.DESTROY), false, 0);
+                    .strength(1.0F).sound(SoundType.STEM).pushReaction(PushReaction.POPPED), false, 0);
 
     public static final DeferredBlock<Block> BEANSTALK_LEAF = registerBlock("beanstalk_leaf",
 			BeanstalkLeafBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN)
-                    .noOcclusion().strength(0.2F).sound(SoundType.BIG_DRIPLEAF).pushReaction(PushReaction.DESTROY), false, 0);
+                    .noOcclusion().strength(0.2F).sound(SoundType.BIG_DRIPLEAF).pushReaction(PushReaction.POPPED), false, 0);
 
     public static final DeferredBlock<Block> MAGIC_BEANS = registerBlock("magic_beans",
 			MagicBeansBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
-                    .noCollision().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY), false, 0);
+                    .noCollision().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.POPPED), false, 0);
 
     public static final DeferredBlock<Block> STRIPPED_BEANSTALK = registerBlock("stripped_beanstalk",
 			StrippedBeanstalkBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
@@ -246,7 +246,7 @@ public class ModBlocks {
                     : new BeansBlock(p), BlockBehaviour.Properties.of().noCollision().randomTicks().instabreak().sound(SoundType.CROP).noOcclusion());
 
     public static final DeferredBlock<Block> BUDDING_BEANS = registerBlockWithoutBlockItem("budding_beans",
-			BuddingBeansBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY).noOcclusion());
+			BuddingBeansBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.POPPED).noOcclusion());
 
     public static final DeferredBlock<Block> AVOCADO_CRATE = registerBlock("avocado_crate",
             Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD), false, 0);
@@ -273,10 +273,10 @@ public class ModBlocks {
             Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WOOL.white()), false, 0);
 
     public static final DeferredBlock<Block> EXOTIC_ROLL_MEDLEY = registerBlock("exotic_roll_medley",
-			ExoticRollMedleyBlock::new, BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).noOcclusion(), ModBlocks::feastItem);
+			ExoticRollMedleyBlock::new, BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED).noOcclusion(), ModBlocks::feastItem);
 
     public static final DeferredBlock<Block> EGGPLANT_PARMESAN_BLOCK = registerBlock("eggplant_parmesan_block",
-            (p) -> new EggplantFeastBlock(p, ModItems.EGGPLANT_PARMESAN, true), BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY).noOcclusion(), ModBlocks::feastItem);
+            (p) -> new EggplantFeastBlock(p, ModItems.EGGPLANT_PARMESAN, true), BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).mapColor(MapColor.WOOD).sound(SoundType.WOOD).pushReaction(PushReaction.POPPED).noOcclusion(), ModBlocks::feastItem);
 
     public static final DeferredBlock<Block> CHEESE_BLOCK = registerBlock("cheese_block",
             Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_WART_BLOCK), false, 0);
@@ -403,7 +403,7 @@ public class ModBlocks {
                     .noOcclusion()
                     .sound(SoundType.POINTED_DRIPSTONE)
                     .strength(1.5F, 3.0F)
-                    .pushReaction(PushReaction.DESTROY), false, 0);
+                    .pushReaction(PushReaction.POPPED), false, 0);
 
     public static final DeferredBlock<Block> OVEN = registerBlock("oven",
             OvenBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS), false, 0);

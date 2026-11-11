@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class OvenBlock extends BaseEntityBlock {
-    public static final MapCodec<OvenBlock> CODEC = simpleCodec(OvenBlock::new);
+    public static final MapCodec<OvenBlock> CODEC = null;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static BooleanProperty LIT = BlockStateProperties.LIT;
     public static BooleanProperty OPEN = BlockStateProperties.OPEN;
@@ -43,7 +43,6 @@ public class OvenBlock extends BaseEntityBlock {
         super(properties);
     }
 
-    @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }

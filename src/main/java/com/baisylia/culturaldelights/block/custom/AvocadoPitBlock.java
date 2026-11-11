@@ -12,10 +12,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AvocadoPitBlock extends SaplingBlock {
-    public static final MapCodec<AvocadoPitBlock> CODEC = RecordCodecBuilder.mapCodec(
-            instance -> instance.group(TreeGrower.CODEC.fieldOf("tree").forGetter(b -> b.treeGrower), propertiesCodec())
-                    .apply(instance, AvocadoPitBlock::new)
-    );
+    public static final MapCodec<AvocadoPitBlock> CODEC = null;
 
     private static final VoxelShape SHAPE_PIT = Block.box(6, 0, 6, 10, 3, 10);
 
@@ -23,7 +20,6 @@ public class AvocadoPitBlock extends SaplingBlock {
         super(treeIn, properties);
     }
 
-    @Override
     public MapCodec<? extends AvocadoPitBlock> codec() {
         return CODEC;
     }

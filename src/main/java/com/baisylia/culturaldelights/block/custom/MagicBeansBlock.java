@@ -7,13 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,7 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class MagicBeansBlock extends DirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock {
-    public static final MapCodec<MagicBeansBlock> CODEC = simpleCodec(MagicBeansBlock::new);
+    public static final MapCodec<MagicBeansBlock> CODEC = null;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final int MIN_GROW_DELAY = 600;
@@ -48,7 +42,6 @@ public class MagicBeansBlock extends DirectionalBlock implements SimpleWaterlogg
                 .setValue(WATERLOGGED, false));
     }
 
-    @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }
@@ -126,17 +119,17 @@ public class MagicBeansBlock extends DirectionalBlock implements SimpleWaterlogg
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         growBeanstalk(level, pos, state.getValue(FACING));
     }
 }

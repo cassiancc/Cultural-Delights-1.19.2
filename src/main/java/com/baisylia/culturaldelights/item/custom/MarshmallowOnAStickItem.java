@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -138,7 +139,7 @@ public class MarshmallowOnAStickItem extends Item {
                     } else {
                         stack.shrink(1);
                         if (!player.getInventory().add(resultStack)) {
-                            player.drop(resultStack, false);
+                            player.drop(resultStack, false, Prediction.PREDICTED);
                         }
                     }
 

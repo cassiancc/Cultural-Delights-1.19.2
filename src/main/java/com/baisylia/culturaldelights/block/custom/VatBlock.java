@@ -28,7 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class VatBlock extends BaseEntityBlock {
-    public static final MapCodec<VatBlock> CODEC = simpleCodec(VatBlock::new);
+    public static final MapCodec<VatBlock> CODEC = null;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     public static final EnumProperty<VatTemperature> TEMPERATURE =
             EnumProperty.create("temperature", VatTemperature.class);
@@ -38,7 +38,6 @@ public class VatBlock extends BaseEntityBlock {
         super(properties);
     }
 
-    @Override
     public MapCodec<VatBlock> codec() {
         return CODEC;
     }

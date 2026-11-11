@@ -26,7 +26,7 @@ public class RopeBeansBlock extends BeansBlock implements IRopeConnection {
     public static final BooleanProperty WEST = BlockStateProperties.WEST;
     public static final BooleanProperty EAST = BlockStateProperties.EAST;
     public static final BooleanProperty KNOT = ModBlockProperties.KNOT;
-    public static final MapCodec<RopeBeansBlock> CODEC = simpleCodec(RopeBeansBlock::new);
+    public static final MapCodec<RopeBeansBlock> CODEC = null;
     private static final Map<Direction, BooleanProperty> HMAP = Map.of(
             Direction.NORTH, NORTH,
             Direction.EAST, EAST,

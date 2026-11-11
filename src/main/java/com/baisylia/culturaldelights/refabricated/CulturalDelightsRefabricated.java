@@ -18,14 +18,14 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.entity.event.v1.effect.ServerMobEffectEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -37,6 +37,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.Compostable;
+import net.minecraft.world.item.component.CookingFuel;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -44,9 +46,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.refabricated.ItemAbility;
@@ -72,16 +79,19 @@ public class CulturalDelightsRefabricated {
 				FlammableBlockRegistry.getDefaultInstance().add(block, flammable.getFlammability(null, null, null, null), flammable.getFireSpreadSpeed(null, null, null, null));
 			}
 		}
-		FuelValueEvents.BUILD.register((builder, context) -> {
-			for (Item block : BuiltInRegistries.ITEM) {
-				if (block instanceof Flammable flammable) {
-					int burnTime = flammable.getBurnTime(block.getDefaultInstance(), null);
-					if (burnTime > 0) {
-							builder.add(block, burnTime);
-					}
+		for (Item block : BuiltInRegistries.ITEM) {
+			if (block instanceof Flammable flammable) {
+				int burnTime = flammable.getBurnTime(block.getDefaultInstance(), null);
+				if (burnTime > 0) {
+					DefaultItemComponentEvents.MODIFY.register(context -> {
+						context.modify(block, c->{
+							var fuel = new CookingFuel(new ResolvableInt.Constant(burnTime), ResolvableFloat.fromKey(ContextFloatProviders.COOKING_DEFAULT_SPEED_MULTIPLIER));
+							c.set(DataComponents.COOKING_FUEL, fuel);
+						});
+					});
 				}
 			}
-		});
+		}
 		UseBlockCallback.EVENT.register((player, world, hand, blockHitResult) -> {
 			var state = world.getBlockState(blockHitResult.getBlockPos());
 			if (state.getBlock() instanceof ToolModifiableBlock toolModifiableBlock && player.getItemInHand(hand).is(ItemTags.AXES)) {
@@ -99,7 +109,7 @@ public class CulturalDelightsRefabricated {
 		});
 		LootTableEvents.MODIFY.register((resourceKey, builder, lootTableSource, provider) -> {
 			if (resourceKey.equals(ModBlocks.CORN.get().getLootTable().orElse(null))) {
-				LootItemCondition.Builder grown = LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.CORN.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CornBlock.AGE, 7));
+				LootItemCondition.Builder grown = MatchBlock.blockMatches(provider.lookupOrThrow(Registries.BLOCK), ModBlocks.CORN.get(), StatePropertiesPredicate.Builder.properties().hasProperty(CornBlock.AGE, 7));
 				LootItemCondition.Builder tool = MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ModTags.Items.STRAW_HARVESTERS));
 
 				builder.withPool(new LootPool.Builder().when(grown).when(tool).add(LootItem.lootTableItem(ModItems.STRAW.get())));
@@ -238,7 +248,18 @@ public class CulturalDelightsRefabricated {
 
 			for(Map.Entry<String, JsonElement> v : j.getAsJsonObject().asMap().entrySet()) {
 				Item i = BuiltInRegistries.ITEM.getValue(Identifier.tryParse(v.getKey()));
-				CompostableRegistry.INSTANCE.add(i, v.getValue().getAsJsonObject().get("chance").getAsFloat());
+				DefaultItemComponentEvents.MODIFY.register((modifyContext) -> modifyContext.modify(i, (builder) -> {
+					int chance = (int)(v.getValue().getAsJsonObject().get("chance").getAsFloat() * 100.0F);
+					ResourceKey<ContextIntProvider> compostable = switch (chance) {
+						case 30 -> ContextIntProviders.COMPOSTABLE_LOW;
+						case 50 -> ContextIntProviders.COMPOSTABLE_LOW_MEDIUM;
+						case 65 -> ContextIntProviders.COMPOSTABLE_MEDIUM;
+						case 85 -> ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH;
+						case 100 -> ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE;
+						default -> throw new IllegalStateException("Unexpected value: " + chance);
+					};
+					builder.set(DataComponents.COMPOSTABLE, new Compostable(compostable));
+				}));
 			}
 		}
 

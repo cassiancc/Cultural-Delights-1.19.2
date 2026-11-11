@@ -19,7 +19,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class StickBeansBlock extends BeansBlock {
     public static final BooleanProperty AXIS_X = ModBlockProperties.AXIS_X;
     public static final BooleanProperty AXIS_Z = ModBlockProperties.AXIS_Z;
-    public static final MapCodec<StickBeansBlock> CODEC = simpleCodec(StickBeansBlock::new);
+    public static final MapCodec<StickBeansBlock> CODEC = null;
 
     public StickBeansBlock(Properties properties) {
         super(properties);
@@ -34,7 +34,6 @@ public class StickBeansBlock extends BeansBlock {
         return ModBlocks.STICK_BEANS.get().withPropertiesOf(beansState).setValue(ROPELOGGED, false);
     }
 
-    @Override
     public MapCodec<? extends CropBlock> codec() {
         return CODEC;
     }
