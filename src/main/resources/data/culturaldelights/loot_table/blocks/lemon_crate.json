@@ -10,11 +10,10 @@
           "name": "culturaldelights:lemon_crate"
         }
       ],
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:survives_explosion"
         }
-      ]
-    }
+          }
   ]
 }

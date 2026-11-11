@@ -3,27 +3,27 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:survives_explosion"
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
+          "condition":
             {
-              "block": "culturaldelights:beanstalk_door",
-              "condition": "minecraft:block_state_property",
-              "properties": {
+              "blocks": "culturaldelights:beanstalk_door",
+              "type": "minecraft:match_block",
+              "state": {
                 "half": "lower"
               }
             }
-          ],
+          ,
           "name": "culturaldelights:beanstalk_door"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "culturaldelights:blocks/beanstalk_door"

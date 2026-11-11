@@ -3,23 +3,23 @@
   "pools": [
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "7"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "culturaldelights:corn_cob",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
@@ -32,16 +32,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "0"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
@@ -51,16 +51,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "1"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
@@ -70,16 +70,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "2"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
@@ -89,16 +89,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "3"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
@@ -108,16 +108,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "4"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
@@ -127,16 +127,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "5"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
@@ -146,16 +146,16 @@
     },
     {
       "rolls": 1,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:corn",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:corn",
+          "state": {
             "height": "0",
             "age": "6"
           }
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",

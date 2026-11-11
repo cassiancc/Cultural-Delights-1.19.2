@@ -3,18 +3,18 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:survives_explosion"
         }
-      ],
+      ,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "culturaldelights:beanstalk_sign"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "culturaldelights:blocks/beanstalk_sign"

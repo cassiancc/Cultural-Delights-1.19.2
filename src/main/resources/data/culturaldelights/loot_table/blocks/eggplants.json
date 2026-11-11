@@ -3,22 +3,22 @@
   "pools": [
     {
       "name": "pool1",
-      "rolls": 1.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
+              "condition":
                 {
-                  "condition": "minecraft:block_state_property",
-                  "block": "culturaldelights:eggplants",
-                  "properties": {
+                  "type": "minecraft:match_block",
+                  "blocks": "culturaldelights:eggplants",
+                  "state": {
                     "age": "7"
                   }
                 }
-              ],
+              ,
               "name": "culturaldelights:eggplant"
             },
             {
@@ -31,13 +31,13 @@
     },
     {
       "name": "pool2",
-      "rolls": 1.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:apply_bonus",
+              "type": "minecraft:apply_bonus",
               "enchantment": "minecraft:fortune",
               "formula": "minecraft:binomial_with_bonus_count",
               "parameters": {
@@ -49,20 +49,19 @@
           "name": "culturaldelights:eggplant_seeds"
         }
       ],
-      "conditions": [
+      "condition":
         {
-          "condition": "minecraft:block_state_property",
-          "block": "culturaldelights:eggplants",
-          "properties": {
+          "type": "minecraft:match_block",
+          "blocks": "culturaldelights:eggplants",
+          "state": {
             "age": "7"
           }
         }
-      ]
     }
   ],
-  "functions": [
+  "modifier": [
     {
-      "function": "minecraft:explosion_decay"
+      "type": "minecraft:explosion_decay"
     }
   ]
 }

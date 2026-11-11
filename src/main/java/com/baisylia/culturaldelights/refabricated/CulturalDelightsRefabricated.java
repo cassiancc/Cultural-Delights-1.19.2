@@ -251,8 +251,8 @@ public class CulturalDelightsRefabricated {
 				DefaultItemComponentEvents.MODIFY.register((modifyContext) -> modifyContext.modify(i, (builder) -> {
 					int chance = (int)(v.getValue().getAsJsonObject().get("chance").getAsFloat() * 100.0F);
 					ResourceKey<ContextIntProvider> compostable = switch (chance) {
-						case 30 -> ContextIntProviders.COMPOSTABLE_LOW;
-						case 50 -> ContextIntProviders.COMPOSTABLE_LOW_MEDIUM;
+						case 25,30 -> ContextIntProviders.COMPOSTABLE_LOW;
+						case 45,50 -> ContextIntProviders.COMPOSTABLE_LOW_MEDIUM;
 						case 65 -> ContextIntProviders.COMPOSTABLE_MEDIUM;
 						case 85 -> ContextIntProviders.COMPOSTABLE_MEDIUM_HIGH;
 						case 100 -> ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE;

@@ -9,9 +9,9 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
+              "condition":
                 {
-                  "condition": "minecraft:match_tool",
+                  "type": "minecraft:match_tool",
                   "predicate": {
                     "predicates": {
                       "minecraft:enchantments": [
@@ -25,7 +25,7 @@
                     }
                   }
                 }
-              ],
+              ,
               "name": "culturaldelights:salt_spike"
             },
             {
@@ -33,15 +33,15 @@
               "children": [
                 {
                   "type": "minecraft:item",
-                  "conditions": [
+                  "condition":
                     {
-                      "condition": "minecraft:match_tool",
+                      "type": "minecraft:match_tool",
                       "predicate": {
                         "items": "#minecraft:cluster_max_harvestables"
                       }
                     }
-                  ],
-                  "functions": [
+                  ,
+                  "modifier": [
                     {
                       "add": false,
                       "count": {
@@ -49,26 +49,26 @@
                         "min": 2.0,
                         "max": 4.0
                       },
-                      "function": "minecraft:set_count"
+                      "type": "minecraft:set_count"
                     },
                     {
                       "enchantment": "minecraft:fortune",
                       "formula": "minecraft:ore_drops",
-                      "function": "minecraft:apply_bonus"
+                      "type": "minecraft:apply_bonus"
                     }
                   ],
                   "name": "culturaldelights:salt"
                 },
                 {
                   "type": "minecraft:item",
-                  "functions": [
+                  "modifier": [
                     {
                       "add": false,
                       "count": 2.0,
-                      "function": "minecraft:set_count"
+                      "type": "minecraft:set_count"
                     },
                     {
-                      "function": "minecraft:explosion_decay"
+                      "type": "minecraft:explosion_decay"
                     }
                   ],
                   "name": "culturaldelights:salt"
@@ -78,7 +78,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }
