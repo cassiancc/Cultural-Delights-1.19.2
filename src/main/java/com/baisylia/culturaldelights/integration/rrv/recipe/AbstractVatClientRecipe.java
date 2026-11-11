@@ -1,4 +1,4 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.recipe;
 
 import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
 import cc.cassian.rrv.client.util.GuiWidgetAccess;
@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractVatClientRecipe implements ReliableClientRecipe {

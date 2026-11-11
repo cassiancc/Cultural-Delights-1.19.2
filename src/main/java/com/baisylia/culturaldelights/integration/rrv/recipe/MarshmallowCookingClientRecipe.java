@@ -1,4 +1,4 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.recipe;
 
 import cc.cassian.rrv.common.builtin.campfire.CampfireClientRecipe;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;

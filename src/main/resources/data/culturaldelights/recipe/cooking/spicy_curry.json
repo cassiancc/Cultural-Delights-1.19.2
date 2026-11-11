@@ -1,13 +1,16 @@
 {
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:tags_populated",
+   "registry": "minecraft:item",
+   "values": [
+    "c:crops/ginger"
+   ]
+  }
+ ],
  "type": "farmersdelight:cooking",
  "ingredients": [
-  {
-   "fabric:type": "fabric:any",
-   "ingredients": [
-    "minecraft:blaze_powder",
-    "#c:crops/ginger"
-   ]
-  },
+  "#c:crops/ginger",
   "farmersdelight:tomato_sauce",
   "#c:crops/rice",
   "culturaldelights:beans",

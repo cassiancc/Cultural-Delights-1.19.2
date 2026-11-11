@@ -1,17 +1,20 @@
 {
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:tags_populated",
+   "registry": "minecraft:item",
+   "values": [
+    "c:crops/ginger"
+   ]
+  }
+ ],
  "type": "culturaldelights:aging",
  "cooktime": 200,
  "ingredients": [
   "#c:buckets/water",
   "minecraft:ice",
   "culturaldelights:cinnamon",
-  {
-   "fabric:type": "fabric:any",
-   "ingredients": [
-    "culturaldelights:cinnamon",
-    "#c:crops/ginger"
-   ]
-  },
+  "#c:crops/ginger",
   "minecraft:sugar",
   "#c:fruits/lemon"
  ],

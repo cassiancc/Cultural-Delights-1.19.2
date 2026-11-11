@@ -1,16 +1,17 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.recipe;
 
 import cc.cassian.rrv.api.client.RecipeScreenContext;
 import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
+import com.baisylia.culturaldelights.integration.rrv.type.OvenClientRecipeType;
 import com.baisylia.culturaldelights.recipes.OvenRecipe;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 
-public class OvenClientRecipe extends AbstractOvenRecipe {
+public class OvenClientRecipe extends AbstractOvenClientRecipe {
 
     public OvenClientRecipe(OvenRecipe recipe, Identifier id) {
         super(id, getIngredients(recipe), recipe.getResultItem(), recipe.getCookTime());

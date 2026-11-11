@@ -231,5 +231,14 @@
   "advancement.culturaldelights.salt.title": "Why So Salty?!",
   "advancement.culturaldelights.salt.description": "Set up a renewable Salt Spike farm with Water, a Salt Block, and Pointed Dripstone",
   "advancement.culturaldelights.beanstalk.title": "Fee-Fi-Fo-Fum",
-  "advancement.culturaldelights.beanstalk.description": "Grow a Beanstalk all the way to the build height limit"
+  "advancement.culturaldelights.beanstalk.description": "Grow a Beanstalk all the way to the build height limit",
+
+  "tag.item.c.crops.avocado": "Avocado",
+  "tag.item.c.crops.corn": "Corn",
+  "tag.item.c.crops.cucumber": "Cucumber",
+  "tag.item.c.crops.eggplant": "Eggplant",
+  "tag.item.c.crops.ginger": "Ginger",
+  "tag.item.c.drinks.alcohol": "Alcohol",
+  "tag.item.c.dusts.salt": "Salt",
+  "tag.item.c.fruits.lemon": "Lemon"
 }

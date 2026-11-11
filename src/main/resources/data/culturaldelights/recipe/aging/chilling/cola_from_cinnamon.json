@@ -1,0 +1,18 @@
+{
+ "type": "culturaldelights:aging",
+ "cooktime": 200,
+ "ingredients": [
+  "#c:buckets/water",
+  "minecraft:ice",
+  "culturaldelights:cinnamon",
+  "culturaldelights:cinnamon",
+  "minecraft:sugar",
+  "#c:fruits/lemon"
+ ],
+ "temperature": "cold",
+ "container": "minecraft:glass_bottle",
+ "result": {
+  "id": "culturaldelights:cola",
+  "count": 1
+ }
+}

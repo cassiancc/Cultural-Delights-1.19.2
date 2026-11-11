@@ -1,16 +1,17 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.recipe;
 
 import cc.cassian.rrv.api.client.RecipeScreenContext;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import cc.cassian.rrv.common.recipe.inventory.SlotContent;
+import com.baisylia.culturaldelights.integration.rrv.type.AbstractOvenClientRecipeType;
+import com.baisylia.culturaldelights.integration.rrv.type.OvenShapedClientRecipeType;
 import com.baisylia.culturaldelights.recipes.OvenShapedRecipe;
 import com.google.common.collect.Lists;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
-public class OvenShapedClientRecipe extends AbstractOvenRecipe {
+public class OvenShapedClientRecipe extends AbstractOvenClientRecipe {
 
     private final List<SlotContent> ingredients;
     private final int height;

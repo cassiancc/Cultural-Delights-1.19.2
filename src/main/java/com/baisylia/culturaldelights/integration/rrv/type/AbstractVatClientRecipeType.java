@@ -1,4 +1,4 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.type;
 
 import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import com.baisylia.culturaldelights.block.ModBlocks;
@@ -10,12 +10,12 @@ public abstract class AbstractVatClientRecipeType implements ReliableClientRecip
 
 	@Override
 	public int getDisplayWidth() {
-		return 124;
+		return 116;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 58;
+		return 60;
 	}
 
 	@Override

@@ -1,8 +1,9 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.type;
 
 import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
 import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
 import com.baisylia.culturaldelights.block.ModBlocks;
+import com.baisylia.culturaldelights.integration.rrv.RRVCulturalDelightsPlugin;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
@@ -12,12 +13,12 @@ import java.util.List;
 public abstract class AbstractOvenClientRecipeType implements ReliableClientRecipeType {
 	@Override
 	public int getDisplayWidth() {
-		return 124;
+		return 128;
 	}
 
 	@Override
 	public int getDisplayHeight() {
-		return 58;
+		return 62;
 	}
 
 	@Override
@@ -33,20 +34,30 @@ public abstract class AbstractOvenClientRecipeType implements ReliableClientReci
 	@Override
 	public void placeSlots(RecipeViewMenu.SlotDefinition builder) {
 
-		builder.addItemSlot(0, 2, 2);
-		builder.addItemSlot(1, 20, 2);
-		builder.addItemSlot(2, 38, 2);
-		builder.addItemSlot(3, 2, 20);
-		builder.addItemSlot(4, 20, 20);
-		builder.addItemSlot(5, 38, 20);
-		builder.addItemSlot(6, 2, 38);
-		builder.addItemSlot(7, 20, 38);
-		builder.addItemSlot(8, 38, 38);
-		builder.addItemSlot(9, 96, 20);
+		int x1 = 5;
+		int x2 = x1+18;
+		int x3 = x2+18;
+
+		int y1 = 5;
+		int y2 = y1+18;
+		int y3 = y2+18;
+		int xr = 99;
+		int yr = 22;
+
+		builder.addItemSlot(0, x1, y1);
+		builder.addItemSlot(1, x2, y1);
+		builder.addItemSlot(2, x3, y1);
+		builder.addItemSlot(3, x1, y2);
+		builder.addItemSlot(4, x2, y2);
+		builder.addItemSlot(5, x3, y2);
+		builder.addItemSlot(6, x1, y3);
+		builder.addItemSlot(7, x2, y3);
+		builder.addItemSlot(8, x3, y3);
+		builder.addItemSlot(9, xr, yr);
 	}
 
 	@Override
 	public @Nullable Identifier getGuiTexture() {
-		return AbstractOvenRecipe.TEXTURE;
+		return RRVCulturalDelightsPlugin.OVEN_TEXTURE;
 	}
 }

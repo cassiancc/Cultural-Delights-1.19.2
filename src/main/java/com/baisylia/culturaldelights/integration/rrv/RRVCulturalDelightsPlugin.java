@@ -3,21 +3,24 @@ package com.baisylia.culturaldelights.integration.rrv;
 import cc.cassian.rrv.api.ReliableRecipeViewerPlugin;
 import cc.cassian.rrv.api.recipe.ItemView;
 import cc.cassian.rrv.client.recipe.ClientRecipeManager;
-import cc.cassian.rrv.common.recipe.ServerRecipeManager;
 import com.baisylia.culturaldelights.CulturalDelights;
+import com.baisylia.culturaldelights.integration.rrv.recipe.MarshmallowCookingClientRecipe;
+import com.baisylia.culturaldelights.integration.rrv.recipe.OvenClientRecipe;
+import com.baisylia.culturaldelights.integration.rrv.recipe.OvenShapedClientRecipe;
+import com.baisylia.culturaldelights.integration.rrv.recipe.VatClientRecipe;
 import com.baisylia.culturaldelights.item.ModItems;
 import com.baisylia.culturaldelights.recipes.ModRecipes;
 import com.baisylia.culturaldelights.recipes.OvenRecipe;
 import com.baisylia.culturaldelights.recipes.OvenShapedRecipe;
 import com.baisylia.culturaldelights.recipes.VatRecipe;
-import net.minecraft.client.gui.components.Renderable;
+import com.baisylia.culturaldelights.refabricated.CulturalDelightsRefabricated;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class RRVCulturalDelightsPlugin implements ReliableRecipeViewerPlugin {
 
-    static final Identifier VAT_TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/vat_gui_rrv.png");
-    static final Identifier OVEN_TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_rrv.png");
+    public static final Identifier VAT_TEXTURE = CulturalDelightsRefabricated.id("textures/gui/vat_gui_rrv.png");
+    public static final Identifier OVEN_TEXTURE = CulturalDelightsRefabricated.id("textures/gui/oven_gui_rrv.png");
 
     @Override
     public void onIntegrationInitialize() {

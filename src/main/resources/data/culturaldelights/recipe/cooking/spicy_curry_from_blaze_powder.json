@@ -1,0 +1,33 @@
+{
+ "fabric:load_conditions": [
+  {
+   "condition": "fabric:not",
+   "value": {
+    "condition": "fabric:tags_populated",
+    "registry": "minecraft:item",
+    "values": [
+     "c:crops/ginger"
+    ]
+   }
+  }
+ ],
+ "type": "farmersdelight:cooking",
+ "ingredients": [
+  "minecraft:blaze_powder",
+  "farmersdelight:tomato_sauce",
+  "#c:crops/rice",
+  "culturaldelights:beans",
+  "#c:foods/raw_chicken",
+  "#c:drinks/milk"
+ ],
+ "result": {
+  "id": "culturaldelights:spicy_curry",
+  "count": 1
+ },
+ "container": {
+  "id": "minecraft:bowl",
+  "count": 1
+ },
+ "experience": 0.35,
+ "cookingtime": 200
+}

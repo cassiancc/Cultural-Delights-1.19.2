@@ -1,4 +1,4 @@
-package com.baisylia.culturaldelights.integration.rrv;
+package com.baisylia.culturaldelights.integration.rrv.recipe;
 
 import cc.cassian.rrv.api.recipe.ReliableClientRecipe;
 import cc.cassian.rrv.client.util.GuiWidgetAccess;
@@ -9,17 +9,16 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractOvenRecipe implements ReliableClientRecipe {
+public abstract class AbstractOvenClientRecipe implements ReliableClientRecipe {
     public final static Identifier TEXTURE = Identifier.fromNamespaceAndPath(CulturalDelights.MOD_ID, "textures/gui/oven_gui_jei.png");
     final List<SlotContent> ingredients;
     final int cookTime;
     final SlotContent result;
     final Identifier id;
 
-    public AbstractOvenRecipe(Identifier id, List<SlotContent> ingredients, ItemStack resultItem, int cookTime) {
+    public AbstractOvenClientRecipe(Identifier id, List<SlotContent> ingredients, ItemStack resultItem, int cookTime) {
         this.id = id;
         this.ingredients = ingredients;
         this.result = SlotContent.of(resultItem);

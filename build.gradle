@@ -58,6 +58,7 @@ repositories {
         }
         filter {
             includeGroup "mezz.jei"
+            includeGroup "net.mezzdev.config"
         }
     }
 
@@ -95,7 +96,7 @@ dependencies {
 
     // JEI
     compileOnly "mezz.jei:jei-26.1.2-fabric-api:${jei_version}"
-    //runtimeOnly "mezz.jei:jei-26.1.2-fabric:${jei_version}"
+//    runtimeOnly "mezz.jei:jei-26.1.2-fabric:${jei_version}"
     
     // Modest Magic
     compileOnly "maven.modrinth:modest-magic:${modest_magic_version}"
