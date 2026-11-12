@@ -100,7 +100,7 @@ public class VatRecipe implements Recipe<RecipeWrapper> {
         // Container
         ItemStack containerSlot = inv.getItem(6);
         boolean containerMatches;
-        if (this.containerItem.isEmpty()) {
+        if (this.containerItem == null || this.containerItem.isEmpty()) {
             containerMatches = containerSlot.isEmpty();
         } else {
             containerMatches = this.containerItem.test(containerSlot);
