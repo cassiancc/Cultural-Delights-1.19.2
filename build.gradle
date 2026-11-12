@@ -3,6 +3,7 @@ plugins {
     id 'me.modmuss50.mod-publish-plugin' version '2.2.0'
 }
 
+var base_version = project.version
 version = project.version + "-refabricated"
 group = project.group
 
@@ -168,7 +169,7 @@ publishMods {
     file = tasks.named("jar").flatMap { it.archiveFile }
     changelog = rootProject.file("CHANGELOG-LATEST.md").text
     type = STABLE
-    version = "${project.version}-${minecraft_version}"
+    version = "${base_version}-${minecraft_version}-refabricated"
     displayName = "${mod_name} ${minecraft_version} - ${project.version}"
     modLoaders.add('fabric')
 
@@ -192,7 +193,7 @@ publishMods {
         projectId = "YttyNOFA"
         minecraftVersions.add("${minecraft_version}")
 
-        requires("farmers-delight")
+        requires("farmers-delight-refabricated")
 //        optional("supplementaries")
         optional("jei")
         optional("rrv")
