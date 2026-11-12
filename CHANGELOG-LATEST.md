@@ -1,4 +1,3 @@
 ### Fixed
 
-- Crash from missing null check.
-- Missing dependency information.
+- Crash from drinking alcohol multiple times.

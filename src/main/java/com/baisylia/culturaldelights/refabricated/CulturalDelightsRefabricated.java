@@ -4,9 +4,11 @@ import com.baisylia.culturaldelights.CulturalDelights;
 import com.baisylia.culturaldelights.block.ModBlocks;
 import com.baisylia.culturaldelights.block.custom.CornBlock;
 import com.baisylia.culturaldelights.effect.ModEffects;
+import com.baisylia.culturaldelights.event.EventBusEvents;
 import com.baisylia.culturaldelights.event.ModEvents;
 import com.baisylia.culturaldelights.recipes.ModRecipes;
 import com.baisylia.culturaldelights.refabricated.event.BlockEvent;
+import com.baisylia.culturaldelights.refabricated.event.MobEffectEvent;
 import com.baisylia.culturaldelights.refabricated.util.Flammable;
 import com.baisylia.culturaldelights.refabricated.util.ToolModifiableBlock;
 import com.google.gson.Gson;
@@ -35,6 +37,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -115,8 +118,14 @@ public class CulturalDelightsRefabricated {
 		addFeature("wild_corn_placed", ConventionalBiomeTags.IS_PLAINS);
 		addFeature("wild_cucumbers_placed", ConventionalBiomeTags.IS_SWAMP);
 		addFeature("wild_eggplants_placed", BiomeTags.IS_JUNGLE);
-		ServerMobEffectEvents.ALLOW_EARLY_REMOVE.register((effectInstance, entity, ctx) -> {
-			return ctx.isFromCommand() || !effectInstance.is(ModEffects.INTOXICATION);
+		ServerMobEffectEvents.ALLOW_ADD.register((effectInstance, entity, ctx) -> {
+			MobEffectEvent.Applicable event = new MobEffectEvent.Applicable(entity, effectInstance);
+			EventBusEvents.onEffectApplicable(event);
+			EventBusEvents.intoxicationStack(event);
+			if (event.getResult().equals(MobEffectEvent.Applicable.Result.DO_NOT_APPLY)) {
+				return false;
+			}
+			return true;
 		});
 		ModRecipes.SERIALIZERS.addCallback(()->{
 			List.of(ModRecipes.BAKING_SHAPED_SERIALIZER, ModRecipes.BAKING_SERIALIZER, ModRecipes.AGING_SERIALIZER).forEach(recipe->{
