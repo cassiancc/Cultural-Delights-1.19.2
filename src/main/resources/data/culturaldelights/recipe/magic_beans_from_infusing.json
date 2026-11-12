@@ -1,21 +1,11 @@
 {
   "type": "modestmagic:infusing",
-  "base": {
-    "item": "culturaldelights:beans"
-  },
+  "base": "culturaldelights:beans",
   "ingredients": [
-    {
-      "item": "modestmagic:stardust"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    },
-    {
-      "item": "minecraft:glowstone_dust"
-    },
-    {
-      "item": "minecraft:lapis_lazuli"
-    }
+    "modestmagic:stardust",
+    "minecraft:amethyst_shard",
+    "minecraft:glowstone_dust",
+    "minecraft:lapis_lazuli"
   ],
   "results": [
     {
