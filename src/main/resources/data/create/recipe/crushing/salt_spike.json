@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:crushing",
-  "ingredients": [
-    {
-      "item": "culturaldelights:salt_spike"
-    }
-  ],
+  "ingredient":"culturaldelights:salt_spike",
   "processing_time": 150,
   "results": [
     {

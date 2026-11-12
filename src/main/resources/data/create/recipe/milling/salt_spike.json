@@ -8,11 +8,7 @@
     }
   ],
   "type": "create:milling",
-  "ingredients": [
-    {
-      "item": "culturaldelights:salt_spike"
-    }
-  ],
+  "ingredient": "culturaldelights:salt_spike",
   "processing_time": 250,
   "results": [
     {
